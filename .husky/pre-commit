@@ -1,0 +1,13 @@
+#!/bin/sh
+
+# Validate branch name length (max 34 characters)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+MAX_LENGTH=34
+
+if [ ${#BRANCH} -gt $MAX_LENGTH ]; then
+  echo "Error: Branch name '${BRANCH}' is too long (${#BRANCH} chars). Max is ${MAX_LENGTH}."
+  exit 1
+fi
+
+# Check for high or critical vulnerabilities
+npm audit --audit-level=high
