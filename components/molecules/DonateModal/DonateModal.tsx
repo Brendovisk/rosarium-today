@@ -71,7 +71,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 Pix · Brasil
               </div>
 
-              <div className="font-display italic text-[13px] text-muted">
+              <div className="font-display italic text-sm text-muted">
                 {t("pixType")}
               </div>
             </div>
@@ -126,7 +126,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
           </a>
         </div>
 
-        <div className="mt-6 pt-5 border-t border-line font-display italic text-[13px] text-muted-2 text-center">
+        <div className="mt-6 pt-5 border-t border-line font-display italic text-sm text-muted-2 text-center">
           {t("footerNote")}
         </div>
       </div>

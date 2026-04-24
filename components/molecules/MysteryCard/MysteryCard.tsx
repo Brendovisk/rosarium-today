@@ -62,21 +62,21 @@ export function MysteryCard({
       )}
 
       <div className="relative z-10">
-        <div className="w-11 h-11 rounded-[10px] bg-gold-soft border border-gold-dim/60 grid place-items-center p-2.5 text-gold">
+        <div className="w-11 h-11 rounded-[10px] bg-gold-soft border border-gold-dim/60 grid place-items-center p-2.5 mb-4 text-gold">
           {MYSTERY_ICONS[mysteryKey]}
         </div>
       </div>
 
       <div className="relative z-10">
-        <div className="font-ui text-[10px] font-bold tracking-[0.22em] uppercase text-gold mb-2">
+        <div className="font-ui text-xs tracking-[0.22em] uppercase mb-2">
           {kicker}
         </div>
 
-        <div className="font-display font-normal text-[26px] text-bone leading-[1.1] mb-1">
+        <div className="font-display font-normal text-[26px] text-gold text-bone leading-[1.1] mb-2">
           {name}
         </div>
 
-        <div className="font-ui text-[11px] tracking-[0.16em] uppercase text-muted mb-5">
+        <div className="font-ui text-[11px] font-semibold tracking-[0.16em] uppercase text-muted mb-2">
           {days}
         </div>
 
@@ -84,7 +84,7 @@ export function MysteryCard({
           {meditations.map((meditation, i) => (
             <li
               key={i}
-              className="font-body text-[12px] text-muted leading-snug flex items-baseline gap-2"
+              className="font-body text-sm text-muted leading-snug flex items-baseline gap-2"
             >
               <span className="font-ui text-[9px] text-gold-dim shrink-0 w-3 text-right">
                 {i + 1}
