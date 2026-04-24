@@ -34,7 +34,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
       onClick={onClose}
     >
       <div
-        className="w-[560px] max-w-full max-h-[90vh] overflow-y-auto bg-ink-2 border border-line rounded-[20px] p-[38px_44px] shadow-[0_40px_80px_-20px_rgba(0,0,0,0.6)] relative"
+        className="w-[35rem] max-w-full max-h-[90vh] overflow-y-auto bg-ink-2 border border-line rounded-[1.25rem] p-[2.375rem_2.75rem] shadow-[0_2.5rem_5rem_-1.25rem_rgba(0,0,0,0.6)] relative"
         onClick={(e) => e.stopPropagation()}
       >
         <Button
@@ -51,23 +51,23 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             <Heart size={28} />
           </div>
 
-          <div className="font-ui text-[10px] font-bold tracking-[0.26em] uppercase text-gold mb-1.5">
+          <div className="font-ui text-[0.625rem] font-bold tracking-[0.26em] uppercase text-gold mb-1.5">
             {t("eyebrow")}
           </div>
 
-          <h2 className="font-display font-normal text-[32px] m-0 mb-3 leading-[1.2]">
+          <h2 className="font-display font-normal text-[2rem] m-0 mb-3 leading-[1.2]">
             {t("title")} <em className="italic">{t("titleEmphasis")}</em>
           </h2>
 
-          <p className="font-body text-[15px] text-muted leading-[1.6] m-0">
+          <p className="font-body text-[0.9375rem] text-muted leading-[1.6] m-0">
             {t("body")}
           </p>
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="p-[18px_20px] rounded-[14px] border border-gold-dim bg-gold-soft">
+          <div className="p-[1.125rem_1.25rem] rounded-[0.875rem] border border-gold-dim bg-gold-soft">
             <div className="flex justify-between items-center mb-2">
-              <div className="font-ui text-[10px] font-bold tracking-[0.2em] uppercase text-gold">
+              <div className="font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-gold">
                 Pix · Brasil
               </div>
 
@@ -77,7 +77,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             </div>
 
             <div className="flex items-center gap-3 justify-between">
-              <code className="font-ui text-[15px] text-bone tracking-[0.02em]">
+              <code className="font-ui text-[0.9375rem] text-bone tracking-[0.02em]">
                 {PIX_KEY}
               </code>
 
@@ -92,15 +92,19 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             target="_blank"
             rel="noreferrer"
             className={cn(
-              "p-[16px_20px] rounded-[14px] border border-line bg-ink-3 flex items-center justify-between no-underline hover:border-gold-dim transition-colors"
+              "p-[1rem_1.25rem] rounded-[0.875rem] border border-line bg-ink-3 flex items-center justify-between no-underline hover:border-gold-dim transition-colors"
             )}
           >
             <div>
-              <div className="font-display text-[19px] text-bone">Ko-fi</div>
-              <div className="font-ui text-[12px] text-muted">{KOFI_URL}</div>
+              <div className="font-display text-[1.1875rem] text-bone">
+                Ko-fi
+              </div>
+              <div className="font-ui text-[0.75rem] text-muted">
+                {KOFI_URL}
+              </div>
             </div>
 
-            <span className="text-gold font-ui text-[11px] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
+            <span className="text-gold font-ui text-[0.6875rem] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
               {t("openLink")} <ExternalLink size={12} />
             </span>
           </a>
@@ -110,17 +114,19 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             target="_blank"
             rel="noreferrer"
             className={cn(
-              "p-[16px_20px] rounded-[14px] border border-line bg-ink-3 flex items-center justify-between no-underline hover:border-gold-dim transition-colors"
+              "p-[1rem_1.25rem] rounded-[0.875rem] border border-line bg-ink-3 flex items-center justify-between no-underline hover:border-gold-dim transition-colors"
             )}
           >
             <div>
-              <div className="font-display text-[19px] text-bone">
+              <div className="font-display text-[1.1875rem] text-bone">
                 Buy Me a Coffee
               </div>
-              <div className="font-ui text-[12px] text-muted">{BMC_URL}</div>
+              <div className="font-ui text-[0.75rem] text-muted">
+                {BMC_URL}
+              </div>
             </div>
 
-            <span className="text-gold font-ui text-[11px] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
+            <span className="text-gold font-ui text-[0.6875rem] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
               {t("openLink")} <ExternalLink size={12} />
             </span>
           </a>

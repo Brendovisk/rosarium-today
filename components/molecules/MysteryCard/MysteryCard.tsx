@@ -38,13 +38,13 @@ export function MysteryCard({
     <Link
       href={href}
       className={cn(
-        "relative rounded-[22px] p-[24px_22px_22px] min-h-[260px] border border-line bg-ink-2",
+        "relative rounded-[1.375rem] p-[1.5rem_1.375rem_1.375rem] min-h-[16.25rem] border border-line bg-ink-2",
         "overflow-hidden flex flex-col justify-between",
         "transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
         "no-underline",
-        "hover:-translate-y-1 hover:border-gold-dim hover:shadow-[0_24px_60px_-30px_rgba(198,161,91,0.5)]",
+        "hover:-translate-y-1 hover:border-gold-dim hover:shadow-[0_1.5rem_3.75rem_-1.875rem_rgba(198,161,91,0.5)]",
         isToday &&
-          "border-gold shadow-[0_0_0_1px_var(--gold-dim)_inset,0_30px_70px_-40px_rgba(198,161,91,0.8)]"
+          "border-gold shadow-[0_0_0_0.0625rem_var(--gold-dim)_inset,0_1.875rem_4.375rem_-2.5rem_rgba(198,161,91,0.8)]"
       )}
       style={
         { "--card-grad": MYSTERY_GRADIENTS[mysteryKey] } as React.CSSProperties
@@ -56,13 +56,13 @@ export function MysteryCard({
       />
 
       {isToday && (
-        <div className="absolute top-[18px] right-[18px] px-[10px] py-[5px] rounded-full bg-gold text-ink font-ui text-[10px] font-bold tracking-[0.16em] uppercase z-10">
+        <div className="absolute top-[1.125rem] right-[1.125rem] px-[0.625rem] py-[0.3125rem] rounded-full bg-gold text-ink font-ui text-[0.625rem] font-bold tracking-[0.16em] uppercase z-10">
           {todayBadge}
         </div>
       )}
 
       <div className="relative z-10">
-        <div className="w-11 h-11 rounded-[10px] bg-gold-soft border border-gold-dim/60 grid place-items-center p-2.5 mb-4 text-gold">
+        <div className="w-11 h-11 rounded-[0.625rem] bg-gold-soft border border-gold-dim/60 grid place-items-center p-2.5 mb-4 text-gold">
           {MYSTERY_ICONS[mysteryKey]}
         </div>
       </div>
@@ -72,21 +72,21 @@ export function MysteryCard({
           {kicker}
         </div>
 
-        <div className="font-display font-normal text-[26px] text-gold text-bone leading-[1.1] mb-2">
+        <div className="font-display font-normal text-[1.625rem] text-gold text-bone leading-[1.1] mb-2">
           {name}
         </div>
 
-        <div className="font-ui text-[11px] font-semibold tracking-[0.16em] uppercase text-muted mb-2">
+        <div className="font-ui text-[0.6875rem] font-semibold tracking-[0.16em] uppercase text-muted mb-2">
           {days}
         </div>
 
-        <ol className="list-none m-0 p-0 flex flex-col gap-[5px]">
+        <ol className="list-none m-0 p-0 flex flex-col gap-[0.3125rem]">
           {meditations.map((meditation, i) => (
             <li
               key={i}
               className="font-body text-sm text-muted leading-snug flex items-baseline gap-2"
             >
-              <span className="font-ui text-[9px] text-gold-dim shrink-0 w-3 text-right">
+              <span className="font-ui text-[0.5625rem] text-gold-dim shrink-0 w-3 text-right">
                 {i + 1}
               </span>
               {meditation}

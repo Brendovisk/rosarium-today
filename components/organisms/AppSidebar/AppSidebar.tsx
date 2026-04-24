@@ -51,14 +51,14 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
           "sticky top-0 h-screen border-r border-line flex flex-col gap-8",
           "bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
           "transition-[padding,width] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
-          collapsed ? "px-[10px] py-8 w-16" : "px-7 py-8 w-60"
+          collapsed ? "px-[0.625rem] py-8 w-16" : "px-7 py-8 w-60"
         )}
       >
         <button
           className={cn(
             "absolute top-8 w-8 h-8 rounded-full border border-line bg-ink-2 text-muted",
             "grid place-items-center z-50 transition-colors hover:text-gold hover:border-gold-dim",
-            collapsed ? "right-0 translate-x-1/2" : "right-[-14px]"
+            collapsed ? "right-0 translate-x-1/2" : "right-[-0.875rem]"
           )}
           onClick={onToggle}
           aria-label={collapsed ? "Expand menu" : "Collapse menu"}
@@ -69,17 +69,17 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
         {!collapsed ? (
           <>
             <div className="text-nowrap">
-              <div className="font-display font-medium text-gold text-[34px] leading-none tracking-[0.01em]">
+              <div className="font-display font-medium text-gold text-[2.125rem] leading-none tracking-[0.01em]">
                 {t("title")}
               </div>
 
-              <div className="font-ui text-[10px] tracking-[0.32em] uppercase text-muted-2 mt-1.5">
+              <div className="font-ui text-[0.625rem] tracking-[0.32em] uppercase text-muted-2 mt-1.5">
                 Today · MMXXVI
               </div>
             </div>
 
             <nav className="flex flex-col gap-0.5">
-              <div className="font-ui text-[10px] font-bold tracking-[0.22em] uppercase text-muted-2 px-2.5 pt-3 pb-2">
+              <div className="font-ui text-[0.625rem] font-bold tracking-[0.22em] uppercase text-muted-2 px-2.5 pt-3 pb-2">
                 {t("prayerSection")}
               </div>
 
@@ -93,7 +93,7 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
                     item.active && "bg-gold-soft text-bone"
                   )}
                 >
-                  <span className="w-[18px] h-[18px] grid place-items-center text-gold shrink-0">
+                  <span className="w-[1.125rem] h-[1.125rem] grid place-items-center text-gold shrink-0">
                     {item.icon}
                   </span>
                   {item.label}

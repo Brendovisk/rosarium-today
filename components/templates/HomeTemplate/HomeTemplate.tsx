@@ -83,8 +83,8 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
       className={cn(
         "min-h-screen grid transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] relative z-[2]",
         settings.leftMenuCollapsed
-          ? "grid-cols-[64px_1fr]"
-          : "grid-cols-[240px_1fr]"
+          ? "grid-cols-[4rem_1fr]"
+          : "grid-cols-[15rem_1fr]"
       )}
     >
       <AppSidebar
@@ -93,9 +93,9 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
       />
 
       <div className="min-w-0 flex flex-col min-h-screen">
-        <div className="flex items-center justify-between px-11 py-[22px] border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[14px] z-10 shrink-0">
-          <div className="flex items-center gap-[18px] text-muted font-ui text-sm">
-            <span className="font-display font-medium text-[18px] text-bone capitalize">
+        <div className="flex items-center justify-between px-11 py-[1.375rem] border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[0.875rem] z-10 shrink-0">
+          <div className="flex items-center gap-[1.125rem] text-muted font-ui text-sm">
+            <span className="font-display font-medium text-[1.125rem] text-bone capitalize">
               {dateStr}
             </span>
 
@@ -138,67 +138,67 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
           </div>
         </div>
 
-        <div className="px-14 pb-20 max-w-[1280px] mx-auto w-full pt-0">
-          <section className="grid grid-cols-[1.1fr_1fr] gap-[72px] items-center py-14">
+        <div className="px-14 pb-20 max-w-[80rem] mx-auto w-full pt-0">
+          <section className="grid grid-cols-[1.1fr_1fr] gap-[4.5rem] items-center py-14">
             <div>
-              <div className="font-ui text-[11px] font-bold tracking-[0.32em] uppercase text-gold mb-[22px] inline-flex items-center gap-3 before:content-[''] before:w-7 before:h-px before:bg-gold-dim after:content-[''] after:w-7 after:h-px after:bg-gold-dim">
+              <div className="font-ui text-[0.6875rem] font-bold tracking-[0.32em] uppercase text-gold mb-[1.375rem] inline-flex items-center gap-3 before:content-[''] before:w-7 before:h-px before:bg-gold-dim after:content-[''] after:w-7 after:h-px after:bg-gold-dim">
                 {t("kicker")}
               </div>
 
-              <h1 className="font-display font-normal text-[92px] leading-[0.95] tracking-[-0.01em] text-bone m-0 mb-10">
+              <h1 className="font-display font-normal text-[5.75rem] leading-[0.95] tracking-[-0.01em] text-bone m-0 mb-10">
                 {t("welcome")}
                 <br />
 
                 <em className="italic text-gold">{t("welcome2")}</em>
               </h1>
 
-              <p className="font-body text-[19px] leading-[1.55] text-muted max-w-[36ch] m-0 mb-8">
+              <p className="font-body text-[1.1875rem] leading-[1.55] text-muted max-w-[36ch] m-0 mb-8">
                 {t("heroSub")}
               </p>
 
               <div className="flex gap-7 mb-9 text-muted font-ui text-sm">
                 <div className="flex flex-col gap-1">
-                  <span className="font-ui font-medium text-[11px] tracking-[0.18em] uppercase text-muted">
+                  <span className="font-ui font-medium text-[0.6875rem] tracking-[0.18em] uppercase text-muted">
                     {t("lastPrayer")}
                   </span>
 
-                  <strong className="font-display font-medium text-[22px] text-bone">
+                  <strong className="font-display font-medium text-[1.375rem] text-bone">
                     {t("lastPrayerValue", { days: 2 })}
                   </strong>
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <span className="font-ui font-medium text-[11px] tracking-[0.18em] uppercase text-muted">
+                  <span className="font-ui font-medium text-[0.6875rem] tracking-[0.18em] uppercase text-muted">
                     {t("streak")}
                   </span>
 
-                  <strong className="font-display font-medium text-[22px] text-bone">
+                  <strong className="font-display font-medium text-[1.375rem] text-bone">
                     14
                   </strong>
                 </div>
 
                 <div className="flex flex-col gap-1">
-                  <span className="font-ui font-medium text-[11px] tracking-[0.18em] uppercase text-muted">
+                  <span className="font-ui font-medium text-[0.6875rem] tracking-[0.18em] uppercase text-muted">
                     {t("avgDuration")}
                   </span>
 
-                  <strong className="font-display font-medium text-[22px] text-bone">
+                  <strong className="font-display font-medium text-[1.375rem] text-bone">
                     {t("avgDurationValue", { count: 22 })}
                   </strong>
                 </div>
               </div>
 
-              <div className="flex items-center gap-[18px]">
+              <div className="flex items-center gap-[1.125rem]">
                 <Link
                   href={`/prayer/${todaysMystery}`}
-                  className="px-7 py-4 rounded-full font-ui text-[14px] font-semibold tracking-[0.03em] inline-flex items-center gap-3 border border-gold bg-gold text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_14px_40px_-14px_rgba(198,161,91,0.6)]"
+                  className="px-7 py-4 rounded-full font-ui text-[0.875rem] font-semibold tracking-[0.03em] inline-flex items-center gap-3 border border-gold bg-gold text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
                 >
                   <Play size={18} fill="currentColor" /> {t("start")}
                 </Link>
 
                 <Link
                   href={`/prayer/${todaysMystery}?silent=1`}
-                  className="px-7 py-4 rounded-full font-ui text-[14px] font-semibold tracking-[0.03em] inline-flex items-center gap-3 border border-line-2 bg-transparent text-bone transition-colors hover:border-gold hover:text-gold"
+                  className="px-7 py-4 rounded-full font-ui text-[0.875rem] font-semibold tracking-[0.03em] inline-flex items-center gap-3 border border-line-2 bg-transparent text-bone transition-colors hover:border-gold hover:text-gold"
                 >
                   <BookOpen size={18} /> {t("readSilent")}
                 </Link>
@@ -214,7 +214,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
 
           <section>
             <div className="flex items-end justify-between mb-7">
-              <h2 className="font-display font-normal text-[42px] m-0 tracking-[-0.01em]">
+              <h2 className="font-display font-normal text-[2.625rem] m-0 tracking-[-0.01em]">
                 {t("mysteriesTitle")}{" "}
                 <em className="italic text-gold">{t("mysteriesTitle2")}</em>
               </h2>
@@ -234,7 +234,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
             />
           </section>
 
-          <div className="mt-20 pt-7 border-t border-line flex items-center justify-between text-muted font-display italic text-[14px]">
+          <div className="mt-20 pt-7 border-t border-line flex items-center justify-between text-muted font-display italic text-[0.875rem]">
             <span>Rosarium Today · MMXXVI</span>
             <span>Ad Maiorem Dei Gloriam</span>
           </div>

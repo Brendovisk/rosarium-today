@@ -20,7 +20,7 @@ interface SettingsDrawerProps {
 }
 
 const SECTION_LABEL =
-  "font-ui text-[10px] font-bold tracking-[0.2em] uppercase text-muted mb-3.5";
+  "font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-muted mb-3.5";
 
 export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
   const t = useTranslations("settings");
@@ -56,20 +56,20 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
       />
       <aside
         className={cn(
-          "fixed top-0 right-0 bottom-0 w-[400px] bg-ink-2 border-l border-line z-91",
-          "shadow-[-30px_0_80px_-20px_rgba(0,0,0,0.6)]",
+          "fixed top-0 right-0 bottom-0 w-[25rem] bg-ink-2 border-l border-line z-91",
+          "shadow-[-1.875rem_0_5rem_-1.25rem_rgba(0,0,0,0.6)]",
           "transition-transform duration-320 ease-[cubic-bezier(.2,.7,.2,1)]",
-          "p-[32px_36px] overflow-y-auto flex flex-col gap-8",
+          "p-[2rem_2.25rem] overflow-y-auto flex flex-col gap-8",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
         <header className="flex justify-between items-center">
           <div>
-            <div className="font-ui text-[10px] font-bold tracking-[0.26em] uppercase text-gold">
+            <div className="font-ui text-[0.625rem] font-bold tracking-[0.26em] uppercase text-gold">
               {t("title")}
             </div>
 
-            <div className="font-display font-normal text-[30px] mt-1">
+            <div className="font-display font-normal text-[1.875rem] mt-1">
               {t("heading")}
             </div>
           </div>
@@ -91,7 +91,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   key={value}
                   onClick={() => handleThemeChange(value)}
                   className={cn(
-                    "flex-1 p-[18px_14px] rounded-[14px] border flex flex-col gap-2.5 items-center transition-all text-bone",
+                    "flex-1 p-[1.125rem_0.875rem] rounded-[0.875rem] border flex flex-col gap-2.5 items-center transition-all text-bone",
                     "border-line bg-transparent hover:border-line-2",
                     active && "border-gold bg-gold-soft hover:border-gold"
                   )}
@@ -107,11 +107,11 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                     <Icon size={14} />
                   </span>
 
-                  <span className="font-display text-[15px] leading-none">
+                  <span className="font-display text-[0.9375rem] leading-none">
                     {label}
                   </span>
 
-                  <span className="font-ui text-[10px] tracking-[0.14em] uppercase text-muted-2">
+                  <span className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2">
                     {sub}
                   </span>
                 </button>
@@ -131,18 +131,18 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   key={value}
                   onClick={() => handleAccentChange(value)}
                   className={cn(
-                    "flex-1 p-[18px_14px] rounded-[14px] border flex flex-col gap-2.5 items-center transition-all",
+                    "flex-1 p-[1.125rem_0.875rem] rounded-[0.875rem] border flex flex-col gap-2.5 items-center transition-all",
                     active
                       ? "border-gold bg-gold-soft"
                       : "border-line bg-transparent hover:border-line-2"
                   )}
                 >
                   <span
-                    className="w-7 h-7 rounded-full shadow-[inset_0_0_0_1px_rgba(255,255,255,0.1)]"
+                    className="w-7 h-7 rounded-full shadow-[inset_0_0_0_0.0625rem_rgba(255,255,255,0.1)]"
                     style={{ background: swatch }}
                   />
 
-                  <span className="font-ui text-[12px] text-bone">
+                  <span className="font-ui text-[0.75rem] text-bone">
                     {t(value as "gold" | "wine" | "moss")}
                   </span>
                 </button>
@@ -163,8 +163,8 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   key={value}
                   onClick={() => handleUiLanguageChange(value)}
                   className={cn(
-                    "p-[14px_16px] rounded-[10px] border flex justify-between items-center",
-                    "font-display text-[17px] text-bone transition-all",
+                    "p-[0.875rem_1rem] rounded-[0.625rem] border flex justify-between items-center",
+                    "font-display text-[1.0625rem] text-bone transition-all",
                     active
                       ? "border-gold bg-gold-soft"
                       : "border-line bg-transparent hover:border-line-2"
@@ -173,7 +173,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   <span>{label}</span>
 
                   {active && (
-                    <span className="text-gold text-[18px]">
+                    <span className="text-gold text-[1.125rem]">
                       <Check />
                     </span>
                   )}
@@ -195,8 +195,8 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   key={value}
                   onClick={() => handlePrayerLanguageChange(value)}
                   className={cn(
-                    "p-[14px_16px] rounded-[10px] border flex justify-between items-center",
-                    "font-display text-[17px] text-bone transition-all",
+                    "p-[0.875rem_1rem] rounded-[0.625rem] border flex justify-between items-center",
+                    "font-display text-[1.0625rem] text-bone transition-all",
                     active
                       ? "border-gold bg-gold-soft"
                       : "border-line bg-transparent hover:border-line-2"
@@ -205,7 +205,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   <span>{label}</span>
 
                   {active && (
-                    <span className="text-gold text-[18px]">
+                    <span className="text-gold text-[1.125rem]">
                       <Check />
                     </span>
                   )}
