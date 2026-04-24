@@ -16,7 +16,11 @@
   --color-gold-soft: var(--gold-soft);
   --color-line: var(--line);
   --color-line-2: var(--line-2);
-  --font-sans: var(--font-sans);
+  --font-display: var(--font-cormorant), "Cormorant Garamond", Georgia, serif;
+  --font-body: var(--font-source-serif), "Source Serif 4", Georgia, serif;
+  --font-caps: var(--font-cinzel), "Cinzel", serif;
+  --font-ui: var(--font-inter), "Inter", system-ui, sans-serif;
+  --font-sans: var(--font-inter), "Inter", system-ui, sans-serif;
   --font-mono: var(--font-geist-mono);
   --color-sidebar-ring: var(--sidebar-ring);
   --color-sidebar-border: var(--sidebar-border);
