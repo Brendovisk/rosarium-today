@@ -80,7 +80,6 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
       />
 
       <div className="min-w-0 flex flex-col min-h-screen">
-        {/* Topbar */}
         <div className="flex items-center justify-between px-11 py-[22px] border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[14px] z-10 shrink-0">
           <div className="flex items-center gap-[18px] text-muted font-ui text-[13px]">
             <span className="font-display font-medium text-[18px] text-bone capitalize">
@@ -123,9 +122,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
           </div>
         </div>
 
-        {/* Content */}
         <div className="px-14 pb-20 max-w-[1280px] mx-auto w-full pt-0">
-          {/* Hero */}
           <section className="grid grid-cols-[1.1fr_1fr] gap-[72px] items-center py-9 pb-14">
             <div>
               <div className="font-ui text-[11px] font-bold tracking-[0.32em] uppercase text-gold mb-[22px] inline-flex items-center gap-3 before:content-[''] before:w-7 before:h-px before:bg-gold-dim after:content-[''] after:w-7 after:h-px after:bg-gold-dim">
@@ -199,7 +196,6 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
             />
           </section>
 
-          {/* Mystery carousel */}
           <section>
             <div className="flex items-end justify-between mb-7">
               <h2 className="font-display font-normal text-[42px] m-0 tracking-[-0.01em]">

@@ -80,7 +80,6 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
           </Button>
         </header>
 
-        {/* Theme */}
         <section>
           <div className={SECTION_LABEL}>{t("theme")}</div>
 
@@ -122,7 +121,6 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
           </div>
         </section>
 
-        {/* Accent */}
         <section>
           <div className={SECTION_LABEL}>{t("accentColor")}</div>
           <div className="flex gap-2.5">
@@ -154,7 +152,6 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
           </div>
         </section>
 
-        {/* UI Language */}
         <section>
           <div className={SECTION_LABEL}>{t("uiLanguage")}</div>
 
@@ -187,7 +184,6 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
           </div>
         </section>
 
-        {/* Prayer Language */}
         <section>
           <div className={SECTION_LABEL}>{t("prayerLanguage")}</div>
 
