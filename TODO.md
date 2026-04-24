@@ -1,0 +1,6 @@
+- [] Replace icons with Lucide icons
+- [] Replace all custom css with Tailwind CSS (using classes)
+- [] Add each file into its own folder (e.g. `@/components/atoms/BeadDot/BeadDot.tsx,index.ts [that exports the component]`)
+- [] Replace slider with Shadcn carousel (or using Embla Carousel)
+- [] Export all constants to specific files (e.g. `@/lib/constants/locales.ts`)
+- [] Export all util functions to specific files (e.g. `@/lib/utils/cn.ts`)

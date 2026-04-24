@@ -1,0 +1,1 @@
+export { PrayerTemplate } from './PrayerTemplate'

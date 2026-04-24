@@ -1,5 +1,6 @@
-import { PrayerPlayer } from '@/components/prayer-player'
+import { redirect } from 'next/navigation'
+import { defaultLocale } from '@/i18n.config'
 
-export default function Home() {
-  return <PrayerPlayer />
+export default function RootPage() {
+  redirect(`/${defaultLocale}`)
 }

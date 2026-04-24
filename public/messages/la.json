@@ -1,0 +1,163 @@
+{
+  "nav": {
+    "title": "Rosarium",
+    "home": "Initium",
+    "pray": "Orare",
+    "prayerSection": "Oratio",
+    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt."
+  },
+  "home": {
+    "kicker": "Orare hodie",
+    "welcome": "Momentum quietis ad",
+    "welcome2": "orandum in pace.",
+    "heroSub": "Collige momentum diei. Audi sine festinatione; sinere granis rhythmum cordis servare.",
+    "start": "Incipere Rosarium",
+    "readSilent": "Legere in silentio",
+    "lastPrayer": "Oratio ultima",
+    "lastPrayerValue": "ante 2 dies · completa",
+    "streak": "Dies continui",
+    "avgDuration": "Duratio media",
+    "avgDurationValue": "22 min",
+    "todaySuggestion": "Hodie proposita",
+    "todaySub": "Secundum calendarium liturgicum romanum",
+    "mysteriesTitle": "Mysteria",
+    "mysteriesTitle2": "Rosarii",
+    "mysteriesSub": "Quattuor mysteriorum sedes, viginti meditationes de vita Christi.",
+    "todayBadge": "Hodie",
+    "mysteryKicker": "Mysteria",
+    "footerAmdg": "☩ Ad Maiorem Dei Gloriam ☩",
+    "donate": "Dona",
+    "today": "Hodie",
+    "chooseMystery": "Elige Mysterium",
+    "begin": "Incipe",
+    "mysteries": {
+      "joyful": "Gaudiosa",
+      "sorrowful": "Dolorosa",
+      "glorious": "Gloriosa",
+      "luminous": "Luminosa"
+    },
+    "days": {
+      "joyful": "Lun · Sab",
+      "sorrowful": "Mar · Ven",
+      "glorious": "Mer · Dom",
+      "luminous": "Iovis"
+    }
+  },
+  "prayer": {
+    "back": "Redire",
+    "fiveMysteriesLabel": "Quinque mysteria",
+    "contemplateText": "Contemplare in silentio antequam Pater Noster dicatur.",
+    "voice": "Vox",
+    "estimatedDuration": "Duratio aestimata",
+    "donate": "Dona",
+    "aveCount": "Granum",
+    "completing": "Completum",
+    "toPray": "Orandum",
+    "mysteries": {
+      "joyful": {
+        "name": "Mysteria Gaudiosa",
+        "decades": [
+          "Annuntiatio",
+          "Visitatio",
+          "Nativitas",
+          "Praesentatio in Templo",
+          "Inventio in Templo"
+        ]
+      },
+      "sorrowful": {
+        "name": "Mysteria Dolorosa",
+        "decades": [
+          "Agonia in Horto",
+          "Flagellatio",
+          "Coronatio Spinis",
+          "Baiulatio Crucis",
+          "Crucifixio"
+        ]
+      },
+      "glorious": {
+        "name": "Mysteria Gloriosa",
+        "decades": [
+          "Resurrectio",
+          "Ascensio",
+          "Descensus Spiritus Sancti",
+          "Assumptio Mariae",
+          "Coronatio Mariae"
+        ]
+      },
+      "luminous": {
+        "name": "Mysteria Luminosa",
+        "decades": [
+          "Baptismus in Iordane",
+          "Nuptiae Canae",
+          "Praedicatio Regni",
+          "Transfiguratio",
+          "Institutio Eucharistiae"
+        ]
+      }
+    },
+    "steps": {
+      "signumCrucis": "Signum Crucis",
+      "symbolumApostolorum": "Symbolum Apostolorum",
+      "paterNoster": "Pater Noster",
+      "aveMaria": "Ave Maria",
+      "gloriaPatri": "Gloria Patri",
+      "oratio": "Oratio Fatimae",
+      "salveRegina": "Salve Regina",
+      "intercessio": "Intercessio Mariae",
+      "mysteryAnnouncement": "Mysterium",
+      "avePro": {
+        "fide": "Pro Fide",
+        "spe": "Pro Spe",
+        "caritate": "Pro Caritate"
+      }
+    },
+    "remaining": "Tempus superest",
+    "decade": "Decas",
+    "of": "ex",
+    "contemplare": "Contemplare mysterium",
+    "nextStep": "Proximum"
+  },
+  "controls": {
+    "play": "Incipe",
+    "pause": "Pausa",
+    "speed": "Velocitas"
+  },
+  "settings": {
+    "title": "Dispositiones",
+    "heading": "Dispositiones",
+    "voice": "Vox",
+    "voiceMale": "Masculina",
+    "voiceFemale": "Feminina",
+    "language": "Lingua",
+    "theme": "Aspectus",
+    "dark": "Tenebrae",
+    "darkSub": "Contemplativus",
+    "light": "Lux",
+    "lightSub": "Pergamentum",
+    "accentColor": "Color accentus",
+    "gold": "Aurum",
+    "wine": "Vinum",
+    "moss": "Muscus",
+    "uiLanguage": "Lingua interfaciei",
+    "prayerLanguage": "Lingua orationum",
+    "footerQuote": "☩ Ad Maiorem Dei Gloriam ☩"
+  },
+  "donate": {
+    "buttonLabel": "Dona",
+    "eyebrow": "Adiuva opus",
+    "title": "Rosarium Today est",
+    "titleEmphasis": "100% gratis",
+    "body": "Sine nuntio, sine subscriptione, sine pretio. Platforma existit et crescit gratia generositatis eorum qui nobiscum orant. Si adiuvat te, considera contribuere quocumque pretio.",
+    "pixLabel": "Pix · Brasil",
+    "pixType": "Clavis electronica",
+    "pixKey": "doacao@rosariumtoday.app",
+    "copy": "Copia",
+    "copied": "Copiatum ✓",
+    "kofi": "Ko-fi",
+    "kofiUrl": "ko-fi.com/rosariumtoday",
+    "buyMeCoffee": "Buy Me a Coffee",
+    "buyMeCoffeeUrl": "buymeacoffee.com/rosariumtoday",
+    "openLink": "Aperi →",
+    "footerNote": "Deus bonitatem tuam remuneretur. ☩"
+  }
+}

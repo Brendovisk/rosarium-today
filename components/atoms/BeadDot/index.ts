@@ -1,0 +1,1 @@
+export { BeadDot } from './BeadDot'

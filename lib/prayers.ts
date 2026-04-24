@@ -1,162 +1,62 @@
+import type { Locale } from '@/i18n.config'
+
+export type PrayerKey =
+  | 'signum-crucis'
+  | 'symbolum-apostolorum'
+  | 'pater-noster'
+  | 'ave-maria'
+  | 'gloria-patri'
+  | 'oratio-fatima'
+  | 'salve-regina'
+  | 'intercessio-mariae'
+
+export type VoiceGender = 'male' | 'female'
+
 export interface WordTimestamp {
-  word: string
-  start: number
-  end: number
+  readonly word: string
+  readonly start: number
+  readonly end: number
 }
 
-export type VoiceKey = 'latin/male' | 'latin/female' | 'pt-br/male' | 'pt-br/female'
-
-export interface Prayer {
-  id: string
-  name: string
-  audioFilenames: Record<VoiceKey, string>
-  timestampFilenames: Record<VoiceKey, string>
+const LOCALE_TO_AUDIO_DIR: Record<Locale, string> = {
+  la: 'latin',
+  'pt-BR': 'pt-br',
 }
 
-export const VOICES: Array<{ key: VoiceKey; label: string }> = [
-  { key: 'latin/male', label: 'Latin · Male' },
-  { key: 'latin/female', label: 'Latin · Female' },
-  { key: 'pt-br/male', label: 'PT-BR · Male' },
-  { key: 'pt-br/female', label: 'PT-BR · Female' },
-]
-
-export const PRAYERS: Prayer[] = [
-  {
-    id: 'ave-maria',
-    name: 'Ave Maria',
-    audioFilenames: {
-      'latin/male': 'ave-maria.mp3',
-      'latin/female': 'ave maria.mp3',
-      'pt-br/male': 'ave maria.mp3',
-      'pt-br/female': 'ave maria.mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'ave-maria.json',
-      'latin/female': 'ave-maria.json',
-      'pt-br/male': 'ave-maria.json',
-      'pt-br/female': 'ave-maria.json',
-    },
-  },
-  {
-    id: 'pater-noster',
-    name: 'Pater Noster',
-    audioFilenames: {
-      'latin/male': 'pater noster .mp3',
-      'latin/female': 'pater noster .mp3',
-      'pt-br/male': 'pater noster.mp3',
-      'pt-br/female': 'pater noster .mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'pater-noster-.json',
-      'latin/female': 'pater-noster-.json',
-      'pt-br/male': 'pater-noster.json',
-      'pt-br/female': 'pater-noster-.json',
-    },
-  },
-  {
-    id: 'salve-regina',
-    name: 'Salve Regina',
-    audioFilenames: {
-      'latin/male': ' salve regina.mp3',
-      'latin/female': ' salve regina.mp3',
-      'pt-br/male': ' salve regina.mp3',
-      'pt-br/female': ' salve regina.mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'salve-regina.json',
-      'latin/female': 'salve-regina.json',
-      'pt-br/male': 'salve-regina.json',
-      'pt-br/female': 'salve-regina.json',
-    },
-  },
-  {
-    id: 'gloria-patri',
-    name: 'Gloria Patri',
-    audioFilenames: {
-      'latin/male': 'doxologia minor.mp3',
-      'latin/female': 'doxologia minor.mp3',
-      'pt-br/male': 'doxologia minor.mp3',
-      'pt-br/female': 'doxologia minor.mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'doxologia-minor.json',
-      'latin/female': 'doxologia-minor.json',
-      'pt-br/male': 'doxologia-minor.json',
-      'pt-br/female': 'doxologia-minor.json',
-    },
-  },
-  {
-    id: 'signum-crucis',
-    name: 'Signum Crucis',
-    audioFilenames: {
-      'latin/male': 'signum-crucis.mp3',
-      'latin/female': 'signum-crucis.mp3',
-      'pt-br/male': 'signum-crucis.mp3',
-      'pt-br/female': 'signum-crucis.mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'signum-crucis.json',
-      'latin/female': 'signum-crucis.json',
-      'pt-br/male': 'signum-crucis.json',
-      'pt-br/female': 'signum-crucis.json',
-    },
-  },
-  {
-    id: 'oratio-fatima',
-    name: 'Oratio Fátima',
-    audioFilenames: {
-      'latin/male': 'oratio fatima.mp3',
-      'latin/female': 'oratio fatima.mp3',
-      'pt-br/male': 'oratio fatima.mp3',
-      'pt-br/female': 'oratio fatima.mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'oratio-fatima.json',
-      'latin/female': 'oratio-fatima.json',
-      'pt-br/male': 'oratio-fatima.json',
-      'pt-br/female': 'oratio-fatima.json',
-    },
-  },
-  {
-    id: 'intercessio-mariae',
-    name: 'Intercessio Mariae',
-    audioFilenames: {
-      'latin/male': 'intercessio mariae.mp3',
-      'latin/female': 'intercessio mariae.mp3',
-      'pt-br/male': 'intercessio mariae.mp3',
-      'pt-br/female': 'intercessio mariae.mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'intercessio-mariae.json',
-      'latin/female': 'intercessio-mariae.json',
-      'pt-br/male': 'intercessio-mariae.json',
-      'pt-br/female': 'intercessio-mariae.json',
-    },
-  },
-  {
-    id: 'symbolum-apostolorum',
-    name: 'Symbolum Apostolorum',
-    audioFilenames: {
-      'latin/male': ' symbolum apostolorum.mp3',
-      'latin/female': ' symbolum apostolorum.mp3',
-      'pt-br/male': 'symbolum apostolorum.mp3',
-      'pt-br/female': ' symbolum apostolorum.mp3',
-    },
-    timestampFilenames: {
-      'latin/male': 'symbolum-apostolorum.json',
-      'latin/female': 'symbolum-apostolorum.json',
-      'pt-br/male': 'symbolum-apostolorum.json',
-      'pt-br/female': 'symbolum-apostolorum.json',
-    },
-  },
-]
-
-export function getAudioUrl(prayer: Prayer, voice: VoiceKey): string {
-  const [lang, voiceType] = voice.split('/')
-  return `/audios/${lang}/${voiceType}/${encodeURIComponent(prayer.audioFilenames[voice])}`
+const PRAYER_FILE_STEM: Record<PrayerKey, string> = {
+  'signum-crucis': 'signum-crucis',
+  'symbolum-apostolorum': 'symbolum-apostolorum',
+  'pater-noster': 'pater-noster',
+  'ave-maria': 'ave-maria',
+  'gloria-patri': 'doxologia-minor',
+  'oratio-fatima': 'oratio-fatima',
+  'salve-regina': 'salve-regina',
+  'intercessio-mariae': 'intercessio-mariae',
 }
 
-export function getTimestampUrl(prayer: Prayer, voice: VoiceKey): string {
-  const [lang, voiceType] = voice.split('/')
-  return `/timestamps/${lang}/${voiceType}/${encodeURIComponent(prayer.timestampFilenames[voice])}`
+export function getAudioUrl(prayerKey: PrayerKey, locale: Locale, gender: VoiceGender): string {
+  const langDir = LOCALE_TO_AUDIO_DIR[locale]
+  const stem = PRAYER_FILE_STEM[prayerKey]
+  return `/audios/${langDir}/${gender}/${stem}.mp3`
+}
+
+export function getTimestampUrl(
+  prayerKey: PrayerKey,
+  locale: Locale,
+  gender: VoiceGender,
+): string {
+  const langDir = LOCALE_TO_AUDIO_DIR[locale]
+  const stem = PRAYER_FILE_STEM[prayerKey]
+  return `/timestamps/${langDir}/${gender}/${stem}.json`
+}
+
+export async function fetchTimestamps(
+  prayerKey: PrayerKey,
+  locale: Locale,
+  gender: VoiceGender,
+): Promise<WordTimestamp[]> {
+  const url = getTimestampUrl(prayerKey, locale, gender)
+  const response = await fetch(url)
+  if (!response.ok) return []
+  return response.json() as Promise<WordTimestamp[]>
 }
