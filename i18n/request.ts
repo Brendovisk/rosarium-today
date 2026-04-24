@@ -6,6 +6,7 @@ const DEFAULT_LOCALE = "en";
 const messagesLoaders = {
   en: () => import("./ui/en.json"),
   "pt-br": () => import("./ui/pt-br.json"),
+  la: () => import("./ui/la.json"),
 } as const;
 
 type SupportedLocale = keyof typeof messagesLoaders;

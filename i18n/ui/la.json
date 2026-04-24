@@ -3,7 +3,8 @@
     "title": "Rosarium",
     "home": "Initium",
     "pray": "Orare",
-    "prayerSection": "Oratio"
+    "prayerSection": "Oratio",
+    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt."
   },
   "home": {
     "kicker": "Orare hodie",
@@ -55,7 +56,25 @@
     "decade": "Decas",
     "of": "ex",
     "contemplare": "Contemplare mysterium",
-    "nextStep": "Proximum"
+    "nextStep": "Proximum",
+    "mysteries": {
+      "joyful": {
+        "name": "Mysteria Gaudiosa",
+        "decades": ["Annuntiatio", "Visitatio", "Nativitas", "Praesentatio in Templo", "Inventio in Templo"]
+      },
+      "sorrowful": {
+        "name": "Mysteria Dolorosa",
+        "decades": ["Agonia in Horto", "Flagellatio", "Coronatio Spinis", "Baiulatio Crucis", "Crucifixio"]
+      },
+      "glorious": {
+        "name": "Mysteria Gloriosa",
+        "decades": ["Resurrectio", "Ascensio", "Descensus Spiritus Sancti", "Assumptio Mariae", "Coronatio Mariae"]
+      },
+      "luminous": {
+        "name": "Mysteria Luminosa",
+        "decades": ["Baptismus in Iordane", "Nuptiae Canae", "Praedicatio Regni", "Transfiguratio", "Institutio Eucharistiae"]
+      }
+    }
   },
   "controls": {
     "play": "Incipe",

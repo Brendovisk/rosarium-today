@@ -3,7 +3,8 @@
     "title": "Rosário",
     "home": "Início",
     "pray": "Rezar",
-    "prayerSection": "Oração"
+    "prayerSection": "Oração",
+    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt."
   },
   "home": {
     "kicker": "Orar hoje",
@@ -55,7 +56,25 @@
     "decade": "Dezena",
     "of": "de",
     "contemplare": "Contemple o mistério",
-    "nextStep": "Próximo"
+    "nextStep": "Próximo",
+    "mysteries": {
+      "joyful": {
+        "name": "Mistérios Gozosos",
+        "decades": ["Anunciação", "Visitação", "Nascimento de Jesus", "Apresentação no Templo", "Encontro no Templo"]
+      },
+      "sorrowful": {
+        "name": "Mistérios Dolorosos",
+        "decades": ["Agonia no Horto", "Flagelação", "Coroação de Espinhos", "Carregamento da Cruz", "Crucificação"]
+      },
+      "glorious": {
+        "name": "Mistérios Gloriosos",
+        "decades": ["Ressurreição", "Ascensão", "Descida do Espírito Santo", "Assunção de Maria", "Coroação de Maria"]
+      },
+      "luminous": {
+        "name": "Mistérios Luminosos",
+        "decades": ["Batismo no Jordão", "Casamento de Caná", "Pregação do Reino", "Transfiguração", "Instituição da Eucaristia"]
+      }
+    }
   },
   "controls": {
     "play": "Iniciar",
