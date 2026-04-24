@@ -262,7 +262,7 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
   return (
     <div
       ref={containerRef}
-      className="relative aspect-square w-full max-w-130 ml-auto cursor-grab select-none"
+      className="relative mx-auto aspect-square w-full max-w-100 cursor-grab select-none sm:max-w-130 xl:ml-auto xl:mr-0"
       onMouseMove={handleMove}
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
@@ -437,7 +437,7 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
             {kicker}
           </div>
 
-          <div className="font-display italic font-normal text-[2.5rem] text-gold mt-1 leading-none">
+          <div className="mt-1 font-display text-[clamp(2rem,8vw,2.5rem)] font-normal italic leading-none text-gold">
             {mysteryName}
           </div>
 

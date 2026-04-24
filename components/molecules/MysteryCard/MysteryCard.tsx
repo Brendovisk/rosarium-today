@@ -40,11 +40,11 @@ export function MysteryCard({
       className={cn(
         "relative rounded-[1.375rem] p-[1.5rem_1.375rem_1.375rem] min-h-65 border border-line bg-ink-2",
         "overflow-hidden flex flex-col justify-between",
-        "transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
+        "transition-[transform,translate,border-color,box-shadow] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
         "no-underline",
-        "hover:-translate-y-1 hover:border-gold-dim hover:shadow-[0_1.5rem_3.75rem_-1.875rem_rgba(198,161,91,0.5)]",
+        "hover:shadow-none sm:hover:-translate-y-1 hover:border-gold-dim sm:hover:shadow-[0_1.5rem_3.75rem_-1.875rem_rgba(198,161,91,0.5)]",
         isToday &&
-          "border-gold shadow-[0_0_0_0.0625rem_var(--gold-dim)_inset,0_1.875rem_4.375rem_-2.5rem_rgba(198,161,91,0.8)]"
+          "hover:shadow-none border-gold sm:shadow-[0_0_0_0.0625rem_var(--gold-dim)_inset,0_1.875rem_4.375rem_-2.5rem_rgba(198,161,91,0.8)]"
       )}
       style={
         { "--card-grad": MYSTERY_GRADIENTS[mysteryKey] } as React.CSSProperties

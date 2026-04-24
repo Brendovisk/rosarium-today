@@ -56,10 +56,10 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
       />
       <aside
         className={cn(
-          "fixed top-0 right-0 bottom-0 w-100 bg-ink-2 border-l border-line z-91",
+          "fixed top-0 right-0 bottom-0 w-full max-w-100 bg-ink-2 border-l border-line z-91",
           "shadow-[-1.875rem_0_5rem_-1.25rem_rgba(0,0,0,0.6)]",
           "transition-transform duration-320 ease-[cubic-bezier(.2,.7,.2,1)]",
-          "p-[2rem_2.25rem] overflow-y-auto flex flex-col gap-8",
+          "flex flex-col gap-7 overflow-y-auto p-5 sm:gap-8 sm:p-[2rem_2.25rem]",
           open ? "translate-x-0" : "translate-x-full"
         )}
       >
@@ -82,7 +82,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
         <section>
           <div className={SECTION_LABEL}>{t("theme")}</div>
 
-          <div className="flex gap-2.5">
+          <div className="grid grid-cols-2 gap-2.5">
             {getThemeOptions(t).map(({ value, label, sub, Icon }) => {
               const active = settings.theme === value;
 
@@ -91,7 +91,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   key={value}
                   onClick={() => handleThemeChange(value)}
                   className={cn(
-                    "flex-1 p-[1.125rem_0.875rem] rounded-[0.875rem] border flex flex-col gap-2.5 items-center transition-all text-bone",
+                    "flex flex-col items-center gap-2.5 rounded-[0.875rem] border p-[1.125rem_0.875rem] text-bone transition-all",
                     "border-line bg-transparent hover:border-line-2",
                     active && "border-gold bg-gold-soft hover:border-gold"
                   )}
@@ -122,7 +122,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
 
         <section>
           <div className={SECTION_LABEL}>{t("accentColor")}</div>
-          <div className="flex gap-2.5">
+          <div className="grid grid-cols-3 gap-2.5">
             {ACCENT_OPTIONS.map(({ value, swatch }) => {
               const active = settings.accent === value;
 
@@ -131,7 +131,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   key={value}
                   onClick={() => handleAccentChange(value)}
                   className={cn(
-                    "flex-1 p-[1.125rem_0.875rem] rounded-[0.875rem] border flex flex-col gap-2.5 items-center transition-all",
+                    "flex flex-col items-center gap-2.5 rounded-[0.875rem] border p-[1.125rem_0.875rem] transition-all",
                     active
                       ? "border-gold bg-gold-soft"
                       : "border-line bg-transparent hover:border-line-2"
@@ -159,12 +159,13 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
               const active = settings.uiLanguage === value;
 
               return (
-                <button
+                <Button
                   key={value}
+                  variant="outline"
                   onClick={() => handleUiLanguageChange(value)}
                   className={cn(
-                    "p-[0.875rem_1rem] rounded-[0.625rem] border flex justify-between items-center",
-                    "font-display text-[1.0625rem] text-bone transition-all",
+                    "rounded-[0.625rem] flex justify-between",
+                    "font-display",
                     active
                       ? "border-gold bg-gold-soft"
                       : "border-line bg-transparent hover:border-line-2"
@@ -177,7 +178,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                       <Check />
                     </span>
                   )}
-                </button>
+                </Button>
               );
             })}
           </div>
@@ -193,10 +194,11 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
               return (
                 <Button
                   key={value}
+                  variant="outline"
                   onClick={() => handlePrayerLanguageChange(value)}
                   className={cn(
-                    "p-[0.875rem_1rem] rounded-[0.625rem] border flex justify-between items-center",
-                    "font-display text-[1.0625rem] text-bone transition-all",
+                    "rounded-[0.625rem] flex justify-between",
+                    "font-display",
                     active
                       ? "border-gold bg-gold-soft"
                       : "border-line bg-transparent hover:border-line-2"

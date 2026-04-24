@@ -30,11 +30,11 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 grid place-items-center z-100 p-5 backdrop-blur-sm"
+      className="fixed inset-0 z-100 grid place-items-center bg-black/60 p-3 backdrop-blur-sm sm:p-5"
       onClick={onClose}
     >
       <div
-        className="w-140 max-w-full max-h-[90vh] overflow-y-auto bg-ink-2 border border-line rounded-[1.25rem] p-[2.375rem_2.75rem] shadow-[0_2.5rem_5rem_-1.25rem_rgba(0,0,0,0.6)] relative"
+        className="relative max-h-[90vh] w-full max-w-140 overflow-y-auto rounded-[1.25rem] border border-line bg-ink-2 p-6 shadow-[0_2.5rem_5rem_-1.25rem_rgba(0,0,0,0.6)] sm:p-[2.375rem_2.75rem]"
         onClick={(e) => e.stopPropagation()}
       >
         <Button
@@ -66,18 +66,18 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
 
         <div className="flex flex-col gap-3">
           <div className="p-[1.125rem_1.25rem] rounded-[0.875rem] border border-gold-dim bg-gold-soft">
-            <div className="flex justify-between items-center mb-2">
+            <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
               <div className="font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-gold">
                 Pix · Brasil
               </div>
 
-              <div className="font-display italic text-sm text-muted">
+              <div className="font-display italic  text-muted">
                 {t("pixType")}
               </div>
             </div>
 
-            <div className="flex items-center gap-3 justify-between">
-              <code className="font-ui text-[0.9375rem] text-bone tracking-[0.02em]">
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+              <code className="break-all font-ui text-[0.9375rem] tracking-[0.02em] text-bone">
                 {PIX_KEY}
               </code>
 
@@ -92,14 +92,14 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             target="_blank"
             rel="noreferrer"
             className={cn(
-              "p-[1rem_1.25rem] rounded-[0.875rem] border border-line bg-ink-3 flex items-center justify-between no-underline hover:border-gold-dim transition-colors"
+              "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
             )}
           >
             <div>
               <div className="font-display text-[1.1875rem] text-bone">
                 Ko-fi
               </div>
-              <div className="font-ui text-[0.75rem] text-muted">
+              <div className="break-all font-ui text-[0.75rem] text-muted">
                 {KOFI_URL}
               </div>
             </div>
@@ -114,14 +114,14 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             target="_blank"
             rel="noreferrer"
             className={cn(
-              "p-[1rem_1.25rem] rounded-[0.875rem] border border-line bg-ink-3 flex items-center justify-between no-underline hover:border-gold-dim transition-colors"
+              "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
             )}
           >
             <div>
               <div className="font-display text-[1.1875rem] text-bone">
                 Buy Me a Coffee
               </div>
-              <div className="font-ui text-[0.75rem] text-muted">
+              <div className="break-all font-ui text-[0.75rem] text-muted">
                 {BMC_URL}
               </div>
             </div>
@@ -132,7 +132,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
           </a>
         </div>
 
-        <div className="mt-6 pt-5 border-t border-line font-display italic text-sm text-muted-2 text-center">
+        <div className="mt-6 pt-5 border-t border-line font-display italic text-lg text-muted-2 text-center">
           {t("footerNote")}
         </div>
       </div>

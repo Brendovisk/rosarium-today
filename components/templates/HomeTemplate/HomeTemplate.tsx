@@ -81,42 +81,46 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   return (
     <div
       className={cn(
-        "min-h-screen grid transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] relative z-2",
+        "min-h-screen grid grid-cols-1 transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] relative z-2",
         settings.leftMenuCollapsed
-          ? "grid-cols-[4rem_1fr]"
-          : "grid-cols-[15rem_1fr]"
+          ? "lg:grid-cols-[4rem_1fr]"
+          : "lg:grid-cols-[15rem_1fr]"
       )}
     >
-      <AppSidebar
-        collapsed={settings.leftMenuCollapsed}
-        onToggle={toggleLeftMenu}
-      />
+      <div className="hidden lg:flex">
+        <AppSidebar
+          collapsed={settings.leftMenuCollapsed}
+          onToggle={toggleLeftMenu}
+        />
+      </div>
 
       <div className="min-w-0 flex flex-col min-h-screen">
-        <div className="flex items-center justify-between px-11 py-5.5 border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[0.875rem] z-10 shrink-0">
-          <div className="flex items-center gap-4.5 text-muted font-ui text-sm">
-            <span className="font-display font-medium text-[1.125rem] text-bone capitalize">
+        <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[0.875rem] z-10 shrink-0 sm:px-8 lg:px-11 lg:py-5.5">
+          <div className="min-w-0 flex items-center gap-3 text-muted font-ui text-xs sm:gap-4.5 sm:text-sm">
+            <span className="truncate font-display font-medium text-base text-bone capitalize sm:text-[1.125rem]">
               {dateStr}
             </span>
 
-            <span className="text-muted-2">·</span>
+            <span className="hidden text-muted-2 md:inline">·</span>
 
-            <span>{t("todaySub")}</span>
+            <span className="hidden md:inline">{t("todaySub")}</span>
           </div>
 
-          <div className="flex items-center gap-4">
+          <div className="flex shrink-0 items-center gap-2 sm:gap-3 lg:gap-4">
             <Button
               variant="outline"
-              className="tracking-[0.04em] font-ui text-muted"
+              size="icon"
+              className="font-ui tracking-[0.04em] text-muted sm:w-auto sm:px-5"
               onClick={() => setDonateOpen(true)}
+              aria-label={t("donate")}
             >
               <Heart />
-              {t("donate")}
+              <span className="hidden sm:inline ml-2">{t("donate")}</span>
             </Button>
 
             <Button
               variant="outline"
-              size="lg"
+              size="icon"
               onClick={toggleTheme}
               aria-label="Toggle theme"
               className="text-muted"
@@ -128,7 +132,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
 
             <Button
               variant="outline"
-              size="lg"
+              size="icon"
               onClick={openRightMenu}
               aria-label="Settings"
               className="text-muted"
@@ -138,25 +142,25 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
           </div>
         </div>
 
-        <div className="px-14 pb-20 max-w-7xl mx-auto w-full pt-0">
-          <section className="grid grid-cols-[1.1fr_1fr] gap-18 items-center py-14">
-            <div>
-              <div className="font-ui text-[0.6875rem] font-bold tracking-[0.32em] uppercase text-gold mb-5.5 inline-flex items-center gap-3 before:content-[''] before:w-7 before:h-px before:bg-gold-dim after:content-[''] after:w-7 after:h-px after:bg-gold-dim">
+        <div className="mx-auto w-full max-w-7xl px-5 pb-14 pt-0 sm:px-8 sm:pb-16 lg:px-14 lg:pb-20 overflow-hidden">
+          <section className="grid grid-cols-1 items-center gap-8 py-10 sm:gap-10 sm:py-12 xl:grid-cols-[1.1fr_1fr] xl:gap-18 xl:py-14">
+            <div className="text-center xl:text-left">
+              <div className="mb-5.5 inline-flex items-center justify-center gap-3 font-ui text-[0.6875rem] font-bold uppercase tracking-[0.32em] text-gold before:h-px before:w-7 before:bg-gold-dim before:content-[''] after:h-px after:w-7 after:bg-gold-dim after:content-[''] xl:justify-start">
                 {t("kicker")}
               </div>
 
-              <h1 className="font-display font-normal text-[5.75rem] leading-[0.95] tracking-[-0.01em] text-bone m-0 mb-10">
+              <h1 className="m-0 mb-6 font-display text-[clamp(3.75rem,13vw,5.75rem)] font-normal leading-[0.95] tracking-[-0.01em] text-bone sm:mb-8 xl:mb-10">
                 {t("welcome")}
                 <br />
 
                 <em className="italic text-gold">{t("welcome2")}</em>
               </h1>
 
-              <p className="font-body text-[1.1875rem] leading-[1.55] text-muted max-w-[36ch] m-0 mb-8">
+              <p className="mx-auto mb-8 max-w-[36ch] font-body text-base leading-[1.55] text-muted sm:text-[1.1875rem] xl:mx-0">
                 {t("heroSub")}
               </p>
 
-              <div className="flex gap-7 mb-9 text-muted font-ui text-sm">
+              <div className="mb-9 flex flex-col justify-center gap-5 text-muted font-ui text-sm sm:gap-7 xl:flex-row xl:justify-start">
                 <div className="flex flex-col gap-1">
                   <span className="font-ui font-medium text-[0.6875rem] tracking-[0.18em] uppercase text-muted">
                     {t("lastPrayer")}
@@ -188,17 +192,17 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-4.5">
+              <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4.5 xl:justify-start">
                 <Link
                   href={`/prayer/${todaysMystery}`}
-                  className="px-7 py-4 rounded-full font-ui text-[0.875rem] font-semibold tracking-[0.03em] inline-flex items-center gap-3 border border-gold bg-gold text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
                 >
                   <Play size={18} fill="currentColor" /> {t("start")}
                 </Link>
 
                 <Link
                   href={`/prayer/${todaysMystery}?silent=1`}
-                  className="px-7 py-4 rounded-full font-ui text-[0.875rem] font-semibold tracking-[0.03em] inline-flex items-center gap-3 border border-line-2 bg-transparent text-bone transition-colors hover:border-gold hover:text-gold"
+                  className="inline-flex items-center justify-center gap-3 rounded-full border border-line-2 bg-transparent px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-bone transition-colors hover:border-gold hover:text-gold"
                 >
                   <BookOpen size={18} /> {t("readSilent")}
                 </Link>
@@ -213,13 +217,13 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
           </section>
 
           <section>
-            <div className="flex items-end justify-between mb-7">
-              <h2 className="font-display font-normal text-[2.625rem] m-0 tracking-[-0.01em]">
+            <div className="mb-7 flex flex-col gap-3 text-center md:flex-row md:items-end md:justify-between md:text-left">
+              <h2 className="m-0 font-display text-[clamp(2.25rem,8vw,2.625rem)] font-normal tracking-[-0.01em]">
                 {t("mysteriesTitle")}{" "}
                 <em className="italic text-gold">{t("mysteriesTitle2")}</em>
               </h2>
 
-              <p className="font-ui text-sm text-muted max-w-[42ch] text-right">
+              <p className="mx-auto max-w-[42ch] font-ui text-sm text-muted md:mx-0 md:text-right">
                 {t("mysteriesSub")}
               </p>
             </div>
@@ -234,7 +238,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
             />
           </section>
 
-          <div className="mt-20 pt-7 border-t border-line flex items-center justify-between text-muted font-display italic text-[0.875rem]">
+          <div className="mt-14 flex flex-col items-center justify-between gap-2 border-t border-line pt-7 text-center font-display text-[0.875rem] italic text-muted sm:mt-20 sm:flex-row sm:text-left">
             <span>Rosarium Today · MMXXVI</span>
             <span>Ad Maiorem Dei Gloriam</span>
           </div>
