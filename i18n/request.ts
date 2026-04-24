@@ -4,8 +4,8 @@ import { getRequestConfig } from "next-intl/server";
 const DEFAULT_LOCALE = "en";
 
 const messagesLoaders = {
-  en: () => import("../messages/en.json"),
-  "pt-br": () => import("../messages/pt-br.json"),
+  en: () => import("./ui/en.json"),
+  "pt-br": () => import("./ui/pt-br.json"),
 } as const;
 
 type SupportedLocale = keyof typeof messagesLoaders;

@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "title": "Rosary",
+    "home": "Home",
+    "pray": "Pray",
+    "prayerSection": "Prayer"
+  },
+  "home": {
+    "kicker": "Pray today",
+    "welcome": "A moment to",
+    "welcome2": "pray in peace.",
+    "heroSub": "Gather a moment from your day. Listen slowly; let the beads set the rhythm of your heart.",
+    "start": "Begin the Rosary",
+    "readSilent": "Read without audio",
+    "lastPrayer": "Last prayer",
+    "lastPrayerValue": "{days} days ago · complete",
+    "streak": "Days in a row",
+    "avgDuration": "Average duration",
+    "avgDurationValue": "{count} min",
+    "todaySuggestion": "Today's suggestion",
+    "todaySub": "According to the Roman liturgical calendar",
+    "mysteriesTitle": "Mysteries",
+    "mysteriesTitle2": "of the Rosary",
+    "mysteriesSub": "Four sets of mysteries, twenty meditations on the life of Christ.",
+    "todayBadge": "Today",
+    "mysteryKicker": "Mysteries",
+    "donate": "Donate",
+    "today": "Today",
+    "chooseMystery": "Choose the Mystery",
+    "begin": "Begin",
+    "mysteries": {
+      "joyful": "Joyful",
+      "sorrowful": "Sorrowful",
+      "glorious": "Glorious",
+      "luminous": "Luminous"
+    },
+    "days": {
+      "joyful": "Mon · Sat",
+      "sorrowful": "Tue · Fri",
+      "glorious": "Wed · Sun",
+      "luminous": "Thursday"
+    }
+  },
+  "prayer": {
+    "back": "Back",
+    "fiveMysteriesLabel": "Five mysteries",
+    "contemplateText": "Meditate in silence for a moment before continuing with the Our Father.",
+    "voice": "Voice",
+    "estimatedDuration": "Estimated duration",
+    "donate": "Donate",
+    "aveCount": "Bead",
+    "completing": "Completed",
+    "toPray": "To pray",
+    "remaining": "Time remaining",
+    "decade": "Decade",
+    "of": "of",
+    "contemplare": "Contemplate the mystery",
+    "nextStep": "Next"
+  },
+  "controls": {
+    "play": "Play",
+    "pause": "Pause",
+    "speed": "Speed"
+  },
+  "settings": {
+    "title": "Settings",
+    "heading": "Settings",
+    "voice": "Voice",
+    "voiceMale": "Male",
+    "voiceFemale": "Female",
+    "language": "Language",
+    "theme": "Theme",
+    "dark": "Dark",
+    "darkSub": "Contemplative",
+    "light": "Light",
+    "lightSub": "Parchment",
+    "accentColor": "Accent color",
+    "gold": "Gold",
+    "wine": "Wine",
+    "moss": "Moss",
+    "uiLanguage": "Interface language",
+    "prayerLanguage": "Prayer language"
+  },
+  "donate": {
+    "buttonLabel": "Donate",
+    "eyebrow": "Support the project",
+    "title": "Rosarium Today is",
+    "titleEmphasis": "100% free",
+    "body": "No ads, no subscriptions, no charges. The platform exists and grows thanks to the generosity of those who pray with us. If it helps you, consider contributing any amount.",
+    "pixType": "Email key",
+    "copy": "Copy",
+    "copied": "Copied",
+    "openLink": "Open",
+    "footerNote": "May God reward your generosity."
+  }
+}

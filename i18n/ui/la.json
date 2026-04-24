@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "title": "Rosarium",
+    "home": "Initium",
+    "pray": "Orare",
+    "prayerSection": "Oratio"
+  },
+  "home": {
+    "kicker": "Orare hodie",
+    "welcome": "Momentum quietis ad",
+    "welcome2": "orandum in pace.",
+    "heroSub": "Collige momentum diei. Audi sine festinatione; sinere granis rhythmum cordis servare.",
+    "start": "Incipere Rosarium",
+    "readSilent": "Legere in silentio",
+    "lastPrayer": "Oratio ultima",
+    "lastPrayerValue": "ante {days} dies · completa",
+    "streak": "Dies continui",
+    "avgDuration": "Duratio media",
+    "avgDurationValue": "{count} min",
+    "todaySuggestion": "Hodie proposita",
+    "todaySub": "Secundum calendarium liturgicum romanum",
+    "mysteriesTitle": "Mysteria",
+    "mysteriesTitle2": "Rosarii",
+    "mysteriesSub": "Quattuor mysteriorum sedes, viginti meditationes de vita Christi.",
+    "todayBadge": "Hodie",
+    "mysteryKicker": "Mysteria",
+    "donate": "Dona",
+    "today": "Hodie",
+    "chooseMystery": "Elige Mysterium",
+    "begin": "Incipe",
+    "mysteries": {
+      "joyful": "Gaudiosa",
+      "sorrowful": "Dolorosa",
+      "glorious": "Gloriosa",
+      "luminous": "Luminosa"
+    },
+    "days": {
+      "joyful": "Lun · Sab",
+      "sorrowful": "Mar · Ven",
+      "glorious": "Mer · Dom",
+      "luminous": "Iovis"
+    }
+  },
+  "prayer": {
+    "back": "Redire",
+    "fiveMysteriesLabel": "Quinque mysteria",
+    "contemplateText": "Contemplare in silentio antequam Pater Noster dicatur.",
+    "voice": "Vox",
+    "estimatedDuration": "Duratio aestimata",
+    "donate": "Dona",
+    "aveCount": "Granum",
+    "completing": "Completum",
+    "toPray": "Orandum",
+    "remaining": "Tempus superest",
+    "decade": "Decas",
+    "of": "ex",
+    "contemplare": "Contemplare mysterium",
+    "nextStep": "Proximum"
+  },
+  "controls": {
+    "play": "Incipe",
+    "pause": "Pausa",
+    "speed": "Velocitas"
+  },
+  "settings": {
+    "title": "Dispositiones",
+    "heading": "Dispositiones",
+    "voice": "Vox",
+    "voiceMale": "Masculina",
+    "voiceFemale": "Feminina",
+    "language": "Lingua",
+    "theme": "Aspectus",
+    "dark": "Tenebrae",
+    "darkSub": "Contemplativus",
+    "light": "Lux",
+    "lightSub": "Pergamentum",
+    "accentColor": "Color accentus",
+    "gold": "Aurum",
+    "wine": "Vinum",
+    "moss": "Muscus",
+    "uiLanguage": "Lingua interfaciei",
+    "prayerLanguage": "Lingua orationum"
+  },
+  "donate": {
+    "buttonLabel": "Dona",
+    "eyebrow": "Adiuva opus",
+    "title": "Rosarium Today est",
+    "titleEmphasis": "100% gratis",
+    "body": "Sine nuntio, sine subscriptione, sine pretio. Platforma existit et crescit gratia generositatis eorum qui nobiscum orant. Si adiuvat te, considera contribuere quocumque pretio.",
+    "pixType": "Clavis electronica",
+    "copy": "Copia",
+    "copied": "Copiatum",
+    "openLink": "Aperi",
+    "footerNote": "Deus bonitatem tuam remuneretur."
+  }
+}

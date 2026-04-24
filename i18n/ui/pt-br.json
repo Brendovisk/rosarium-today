@@ -1,0 +1,96 @@
+{
+  "nav": {
+    "title": "Rosário",
+    "home": "Início",
+    "pray": "Rezar",
+    "prayerSection": "Oração"
+  },
+  "home": {
+    "kicker": "Orar hoje",
+    "welcome": "Uma pausa para",
+    "welcome2": "rezar em paz.",
+    "heroSub": "Recolha um momento do dia. Ouça com calma; deixe as contas marcarem o ritmo do coração.",
+    "start": "Começar o Rosário",
+    "readSilent": "Ler sem áudio",
+    "lastPrayer": "Última oração",
+    "lastPrayerValue": "há {days} dias · completa",
+    "streak": "Dias seguidos",
+    "avgDuration": "Duração média",
+    "avgDurationValue": "{count} min",
+    "todaySuggestion": "Sugestão de hoje",
+    "todaySub": "Segundo o calendário litúrgico romano",
+    "mysteriesTitle": "Mistérios",
+    "mysteriesTitle2": "do Rosário",
+    "mysteriesSub": "Quatro conjuntos de mistérios, vinte meditações sobre a vida de Cristo.",
+    "todayBadge": "Hoje",
+    "mysteryKicker": "Mistérios",
+    "donate": "Doar",
+    "today": "Hoje",
+    "chooseMystery": "Escolha o Mistério",
+    "begin": "Iniciar",
+    "mysteries": {
+      "joyful": "Gozosos",
+      "sorrowful": "Dolorosos",
+      "glorious": "Gloriosos",
+      "luminous": "Luminosos"
+    },
+    "days": {
+      "joyful": "Seg · Sáb",
+      "sorrowful": "Ter · Sex",
+      "glorious": "Qua · Dom",
+      "luminous": "Quinta-feira"
+    }
+  },
+  "prayer": {
+    "back": "Voltar",
+    "fiveMysteriesLabel": "Cinco mistérios",
+    "contemplateText": "Medite em silêncio por alguns instantes antes de prosseguir com o Pai Nosso.",
+    "voice": "Voz",
+    "estimatedDuration": "Duração estimada",
+    "donate": "Doar",
+    "aveCount": "Conta",
+    "completing": "Concluído",
+    "toPray": "Por rezar",
+    "remaining": "Tempo restante",
+    "decade": "Dezena",
+    "of": "de",
+    "contemplare": "Contemple o mistério",
+    "nextStep": "Próximo"
+  },
+  "controls": {
+    "play": "Iniciar",
+    "pause": "Pausar",
+    "speed": "Velocidade"
+  },
+  "settings": {
+    "title": "Configurações",
+    "heading": "Ajustes",
+    "voice": "Voz",
+    "voiceMale": "Masculina",
+    "voiceFemale": "Feminina",
+    "language": "Idioma",
+    "theme": "Tema",
+    "dark": "Escuro",
+    "darkSub": "Contemplativo",
+    "light": "Claro",
+    "lightSub": "Pergaminho",
+    "accentColor": "Cor de destaque",
+    "gold": "Ouro",
+    "wine": "Vinho",
+    "moss": "Musgo",
+    "uiLanguage": "Idioma da interface",
+    "prayerLanguage": "Idioma das orações"
+  },
+  "donate": {
+    "buttonLabel": "Doar",
+    "eyebrow": "Apoie o projeto",
+    "title": "Rosarium Today é",
+    "titleEmphasis": "100% grátis",
+    "body": "Sem anúncios, sem assinaturas, sem cobranças. A plataforma existe e cresce graças à generosidade de quem reza conosco. Se ela te ajuda, considere contribuir com qualquer valor.",
+    "pixType": "Chave e-mail",
+    "copy": "Copiar",
+    "copied": "Copiado",
+    "openLink": "Abrir",
+    "footerNote": "Que Deus recompense sua generosidade."
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "steps": {
+    "signumCrucis": "Sinal da Cruz",
+    "symbolumApostolorum": "Credo dos Apóstolos",
+    "paterNoster": "Pai Nosso",
+    "aveMaria": "Ave Maria",
+    "gloriaPatri": "Glória ao Pai",
+    "oratio": "Oração de Fátima",
+    "salveRegina": "Salve Rainha",
+    "intercessio": "Intercessão de Maria",
+    "mysteryAnnouncement": "Mistério",
+    "avePro": {
+      "fide": "pela Fé",
+      "spe": "pela Esperança",
+      "caritate": "pela Caridade"
+    }
+  },
+  "mysteries": {
+    "joyful": {
+      "name": "Mistérios Gozosos",
+      "decades": [
+        "Anunciação",
+        "Visitação",
+        "Nascimento de Jesus",
+        "Apresentação no Templo",
+        "Encontro no Templo"
+      ]
+    },
+    "sorrowful": {
+      "name": "Mistérios Dolorosos",
+      "decades": [
+        "Agonia no Horto",
+        "Flagelação",
+        "Coroação de Espinhos",
+        "Carregamento da Cruz",
+        "Crucificação"
+      ]
+    },
+    "glorious": {
+      "name": "Mistérios Gloriosos",
+      "decades": [
+        "Ressurreição",
+        "Ascensão",
+        "Descida do Espírito Santo",
+        "Assunção de Maria",
+        "Coroação de Maria"
+      ]
+    },
+    "luminous": {
+      "name": "Mistérios Luminosos",
+      "decades": [
+        "Batismo no Jordão",
+        "Casamento de Caná",
+        "Pregação do Reino",
+        "Transfiguração",
+        "Instituição da Eucaristia"
+      ]
+    }
+  }
+}
