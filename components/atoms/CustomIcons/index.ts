@@ -1,0 +1,1 @@
+export { CatholicCross } from "./CatholicCross";

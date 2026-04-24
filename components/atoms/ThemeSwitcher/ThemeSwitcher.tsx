@@ -6,10 +6,10 @@ import { useTheme } from "next-themes";
 import { Button } from "../Button";
 
 export function ThemeSwitcher() {
-  const { resolvedTheme, setTheme } = useTheme();
+  const { theme, setTheme } = useTheme();
 
   function toggleTheme() {
-    setTheme(resolvedTheme === "dark" ? "light" : "dark");
+    setTheme(theme === "dark" ? "light" : "dark");
   }
 
   return (
