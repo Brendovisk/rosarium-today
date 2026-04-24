@@ -56,7 +56,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
       />
       <aside
         className={cn(
-          "fixed top-0 right-0 bottom-0 w-[25rem] bg-ink-2 border-l border-line z-91",
+          "fixed top-0 right-0 bottom-0 w-100 bg-ink-2 border-l border-line z-91",
           "shadow-[-1.875rem_0_5rem_-1.25rem_rgba(0,0,0,0.6)]",
           "transition-transform duration-320 ease-[cubic-bezier(.2,.7,.2,1)]",
           "p-[2rem_2.25rem] overflow-y-auto flex flex-col gap-8",

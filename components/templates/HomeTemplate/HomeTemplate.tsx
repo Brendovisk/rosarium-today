@@ -81,7 +81,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   return (
     <div
       className={cn(
-        "min-h-screen grid transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] relative z-[2]",
+        "min-h-screen grid transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] relative z-2",
         settings.leftMenuCollapsed
           ? "grid-cols-[4rem_1fr]"
           : "grid-cols-[15rem_1fr]"
@@ -93,8 +93,8 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
       />
 
       <div className="min-w-0 flex flex-col min-h-screen">
-        <div className="flex items-center justify-between px-11 py-[1.375rem] border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[0.875rem] z-10 shrink-0">
-          <div className="flex items-center gap-[1.125rem] text-muted font-ui text-sm">
+        <div className="flex items-center justify-between px-11 py-5.5 border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[0.875rem] z-10 shrink-0">
+          <div className="flex items-center gap-4.5 text-muted font-ui text-sm">
             <span className="font-display font-medium text-[1.125rem] text-bone capitalize">
               {dateStr}
             </span>
@@ -138,10 +138,10 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
           </div>
         </div>
 
-        <div className="px-14 pb-20 max-w-[80rem] mx-auto w-full pt-0">
-          <section className="grid grid-cols-[1.1fr_1fr] gap-[4.5rem] items-center py-14">
+        <div className="px-14 pb-20 max-w-7xl mx-auto w-full pt-0">
+          <section className="grid grid-cols-[1.1fr_1fr] gap-18 items-center py-14">
             <div>
-              <div className="font-ui text-[0.6875rem] font-bold tracking-[0.32em] uppercase text-gold mb-[1.375rem] inline-flex items-center gap-3 before:content-[''] before:w-7 before:h-px before:bg-gold-dim after:content-[''] after:w-7 after:h-px after:bg-gold-dim">
+              <div className="font-ui text-[0.6875rem] font-bold tracking-[0.32em] uppercase text-gold mb-5.5 inline-flex items-center gap-3 before:content-[''] before:w-7 before:h-px before:bg-gold-dim after:content-[''] after:w-7 after:h-px after:bg-gold-dim">
                 {t("kicker")}
               </div>
 
@@ -188,7 +188,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 </div>
               </div>
 
-              <div className="flex items-center gap-[1.125rem]">
+              <div className="flex items-center gap-4.5">
                 <Link
                   href={`/prayer/${todaysMystery}`}
                   className="px-7 py-4 rounded-full font-ui text-[0.875rem] font-semibold tracking-[0.03em] inline-flex items-center gap-3 border border-gold bg-gold text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"

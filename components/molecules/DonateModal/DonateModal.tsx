@@ -30,11 +30,11 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
 
   return (
     <div
-      className="fixed inset-0 bg-black/60 grid place-items-center z-[100] p-5 backdrop-blur-sm"
+      className="fixed inset-0 bg-black/60 grid place-items-center z-100 p-5 backdrop-blur-sm"
       onClick={onClose}
     >
       <div
-        className="w-[35rem] max-w-full max-h-[90vh] overflow-y-auto bg-ink-2 border border-line rounded-[1.25rem] p-[2.375rem_2.75rem] shadow-[0_2.5rem_5rem_-1.25rem_rgba(0,0,0,0.6)] relative"
+        className="w-140 max-w-full max-h-[90vh] overflow-y-auto bg-ink-2 border border-line rounded-[1.25rem] p-[2.375rem_2.75rem] shadow-[0_2.5rem_5rem_-1.25rem_rgba(0,0,0,0.6)] relative"
         onClick={(e) => e.stopPropagation()}
       >
         <Button

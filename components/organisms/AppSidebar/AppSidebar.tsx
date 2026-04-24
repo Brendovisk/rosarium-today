@@ -51,14 +51,14 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
           "sticky top-0 h-screen border-r border-line flex flex-col gap-8",
           "bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
           "transition-[padding,width] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
-          collapsed ? "px-[0.625rem] py-8 w-16" : "px-7 py-8 w-60"
+          collapsed ? "px-2.5 py-8 w-16" : "px-7 py-8 w-60"
         )}
       >
         <button
           className={cn(
             "absolute top-8 w-8 h-8 rounded-full border border-line bg-ink-2 text-muted",
             "grid place-items-center z-50 transition-colors hover:text-gold hover:border-gold-dim",
-            collapsed ? "right-0 translate-x-1/2" : "right-[-0.875rem]"
+            collapsed ? "right-0 translate-x-1/2" : "-right-3.5"
           )}
           onClick={onToggle}
           aria-label={collapsed ? "Expand menu" : "Collapse menu"}
@@ -89,18 +89,18 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
                   href={item.href}
                   className={cn(
                     "flex items-center gap-3 px-3 rounded-[0.875rem] py-2.5 font-ui text-sm text-muted transition-colors",
-                    "hover:bg-white/[0.03] hover:text-bone",
+                    "hover:bg-white/3 hover:text-bone",
                     item.active && "bg-gold-soft text-bone"
                   )}
                 >
-                  <span className="w-[1.125rem] h-[1.125rem] grid place-items-center text-gold shrink-0">
+                  <span className="w-4.5 h-4.5 grid place-items-center text-gold shrink-0">
                     {item.icon}
                   </span>
                   {item.label}
                 </Link>
               ))}
             </nav>
-            <div className="mt-auto font-display italic text-base text-muted-2 leading-[1.5] pt-5 border-t border-line min-w-[11.4375rem]">
+            <div className="mt-auto font-display italic text-base text-muted-2 leading-normal pt-5 border-t border-line min-w-45.75">
               &ldquo;{t("footerQuote")}&rdquo;
             </div>
           </>
@@ -118,7 +118,7 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
                   title={item.label}
                   className={cn(
                     "w-10 flex justify-center items-center py-2.5 rounded-[0.875rem] text-muted transition-colors",
-                    "hover:bg-white/[0.03] hover:text-bone",
+                    "hover:bg-white/3 hover:text-bone",
                     item.active && "bg-gold-soft text-bone"
                   )}
                 >

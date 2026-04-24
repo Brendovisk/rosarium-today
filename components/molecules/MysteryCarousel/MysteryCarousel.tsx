@@ -50,13 +50,13 @@ export function MysteryCarousel({
   ));
 
   if (width != null && width >= 1280) {
-    return <div className="grid grid-cols-4 gap-[1.125rem]">{cards}</div>;
+    return <div className="grid grid-cols-4 gap-4.5">{cards}</div>;
   }
 
   return (
     <div className="relative">
       <div className="overflow-hidden" ref={emblaRef}>
-        <div className="flex gap-[1.125rem]">
+        <div className="flex gap-4.5">
           {MYSTERIES.map((key) => (
             <div key={key} className="flex-[0_0_17.5rem] min-w-0">
               <MysteryCard

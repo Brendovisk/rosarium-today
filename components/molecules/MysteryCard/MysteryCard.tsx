@@ -38,7 +38,7 @@ export function MysteryCard({
     <Link
       href={href}
       className={cn(
-        "relative rounded-[1.375rem] p-[1.5rem_1.375rem_1.375rem] min-h-[16.25rem] border border-line bg-ink-2",
+        "relative rounded-[1.375rem] p-[1.5rem_1.375rem_1.375rem] min-h-65 border border-line bg-ink-2",
         "overflow-hidden flex flex-col justify-between",
         "transition-[transform,border-color,box-shadow] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
         "no-underline",
@@ -56,7 +56,7 @@ export function MysteryCard({
       />
 
       {isToday && (
-        <div className="absolute top-[1.125rem] right-[1.125rem] px-[0.625rem] py-[0.3125rem] rounded-full bg-gold text-ink font-ui text-[0.625rem] font-bold tracking-[0.16em] uppercase z-10">
+        <div className="absolute top-4.5 right-4.5 px-2.5 py-1.25 rounded-full bg-gold text-ink font-ui text-[0.625rem] font-bold tracking-[0.16em] uppercase z-10">
           {todayBadge}
         </div>
       )}
@@ -72,7 +72,7 @@ export function MysteryCard({
           {kicker}
         </div>
 
-        <div className="font-display font-normal text-[1.625rem] text-gold text-bone leading-[1.1] mb-2">
+        <div className="font-display font-normal text-[1.625rem] text-gold leading-[1.1] mb-2">
           {name}
         </div>
 
@@ -80,7 +80,7 @@ export function MysteryCard({
           {days}
         </div>
 
-        <ol className="list-none m-0 p-0 flex flex-col gap-[0.3125rem]">
+        <ol className="list-none m-0 p-0 flex flex-col gap-1.25">
           {meditations.map((meditation, i) => (
             <li
               key={i}
