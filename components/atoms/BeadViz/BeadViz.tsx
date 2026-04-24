@@ -281,24 +281,51 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
         >
           <defs>
             <radialGradient id="bvGlow" cx="50%" cy="45%" r="45%">
-              <stop offset="0%" stopColor="rgba(198,161,91,0.28)" />
-              <stop offset="70%" stopColor="rgba(198,161,91,0)" />
+              <stop offset="0%" stopColor="var(--gold-soft)" />
+              <stop offset="70%" stopColor="color-mix(in oklab, var(--gold) 0%, transparent)" />
             </radialGradient>
             <radialGradient id="bvBead" cx="32%" cy="28%" r="75%">
-              <stop offset="0%" stopColor="#fff1c6" />
-              <stop offset="28%" stopColor="#e8c98a" />
-              <stop offset="65%" stopColor="#c6a15b" />
-              <stop offset="100%" stopColor="#3b2a13" />
+              <stop
+                offset="0%"
+                stopColor="color-mix(in oklab, var(--gold) 40%, white)"
+              />
+              <stop
+                offset="28%"
+                stopColor="color-mix(in oklab, var(--gold) 72%, white)"
+              />
+              <stop offset="65%" stopColor="var(--gold)" />
+              <stop
+                offset="100%"
+                stopColor="color-mix(in oklab, var(--gold) 34%, black)"
+              />
             </radialGradient>
             <radialGradient id="bvBeadDark" cx="32%" cy="28%" r="75%">
-              <stop offset="0%" stopColor="#7d6b59" />
-              <stop offset="45%" stopColor="#4a3e33" />
-              <stop offset="100%" stopColor="#14100b" />
+              <stop
+                offset="0%"
+                stopColor="color-mix(in oklab, var(--gold) 36%, var(--muted))"
+              />
+              <stop
+                offset="45%"
+                stopColor="color-mix(in oklab, var(--gold) 18%, var(--ink-3))"
+              />
+              <stop
+                offset="100%"
+                stopColor="color-mix(in oklab, var(--gold) 8%, var(--ink))"
+              />
             </radialGradient>
             <radialGradient id="bvBeadHover" cx="32%" cy="28%" r="75%">
-              <stop offset="0%" stopColor="#b89876" />
-              <stop offset="55%" stopColor="#6f5b43" />
-              <stop offset="100%" stopColor="#1d1812" />
+              <stop
+                offset="0%"
+                stopColor="color-mix(in oklab, var(--gold) 52%, var(--bone))"
+              />
+              <stop
+                offset="55%"
+                stopColor="color-mix(in oklab, var(--gold) 38%, var(--ink-3))"
+              />
+              <stop
+                offset="100%"
+                stopColor="color-mix(in oklab, var(--gold) 12%, var(--ink))"
+              />
             </radialGradient>
             <filter id="bvGlowF" x="-50%" y="-50%" width="200%" height="200%">
               <feGaussianBlur stdDeviation="0.8" result="b" />
@@ -313,14 +340,14 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
           <path
             d={pathD}
             fill="none"
-            stroke="rgba(198,161,91,0.45)"
+            stroke="var(--gold-dim)"
             strokeWidth="0.35"
             strokeLinejoin="round"
           />
           <path
             d={pendantPath}
             fill="none"
-            stroke="rgba(198,161,91,0.45)"
+            stroke="var(--gold-dim)"
             strokeWidth="0.35"
             strokeLinecap="round"
           />
@@ -341,7 +368,11 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
                   cy={p.y}
                   r={radius}
                   fill={fill}
-                  stroke={isActive ? "#f2d796" : "none"}
+                  stroke={
+                    isActive
+                      ? "color-mix(in oklab, var(--gold) 70%, white)"
+                      : "none"
+                  }
                   strokeWidth="0.3"
                   filter={isActive ? "url(#bvGlowF)" : undefined}
                 />
@@ -380,7 +411,7 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
 
           <g
             transform={`translate(${crossBead.x} ${crossBead.y}) rotate(${crossAngle})`}
-            fill="#c6a15b"
+            fill="var(--gold)"
             filter="url(#bvGlowF)"
           >
             <rect x="-0.4" y="-0.2" width="0.8" height="4.4" />
@@ -393,7 +424,7 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
               cy={mouseRef.current.y}
               r={(1 - clickedIntensity) * 30}
               fill="none"
-              stroke="rgba(198,161,91,0.6)"
+              stroke="var(--gold-dim)"
               strokeWidth={clickedIntensity * 0.6}
             />
           )}
