@@ -7,9 +7,13 @@ import {
   Inter,
   Source_Serif_4,
 } from "next/font/google";
+import { cookies } from "next/headers";
 import { NextIntlClientProvider } from "next-intl";
+import type { CSSProperties, ReactNode } from "react";
 
-import { ThemeProvider } from "@/providers/ThemeProvider";
+import { getAccentVars } from "@/config/accents";
+import { parseSettingsCookie, SETTINGS_COOKIE_NAME } from "@/config/settings";
+import { SettingsProvider } from "@/providers/SettingsProvider";
 
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
@@ -48,23 +52,41 @@ export const metadata: Metadata = {
 export default function RootLayout({
   children,
 }: Readonly<{
-  children: React.ReactNode;
+  children: ReactNode;
 }>) {
+  return <LayoutContent>{children}</LayoutContent>;
+}
+
+async function LayoutContent({ children }: { children: ReactNode }) {
+  const cookieStore = await cookies();
+
+  const settings = parseSettingsCookie(
+    cookieStore.get(SETTINGS_COOKIE_NAME)?.value
+  );
+
+  const accentVars = getAccentVars(settings.accent, settings.theme);
+
+  const themeClassName =
+    settings.theme === "dark" ? "dark theme-dark" : "light theme-light";
+
   return (
     <html
-      lang="en"
+      lang={settings.uiLanguage}
       suppressHydrationWarning
-      className={`${cormorant.variable} ${sourceSerif.variable} ${cinzel.variable} ${inter.variable}`}
+      className={`${cormorant.variable} ${sourceSerif.variable} ${cinzel.variable} ${inter.variable} ${themeClassName}`}
+      style={
+        {
+          "--gold": accentVars.gold,
+          "--gold-dim": accentVars.dim,
+          "--gold-soft": accentVars.soft,
+          colorScheme: settings.theme,
+        } as CSSProperties
+      }
     >
       <body className="antialiased">
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
-          disableTransitionOnChange
-        >
+        <SettingsProvider initialSettings={settings}>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
-        </ThemeProvider>
+        </SettingsProvider>
       </body>
     </html>
   );

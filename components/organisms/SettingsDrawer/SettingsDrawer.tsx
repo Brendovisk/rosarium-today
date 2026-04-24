@@ -2,17 +2,17 @@
 
 import { Check, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useTheme } from "next-themes";
 
 import { Button } from "@/components/atoms/Button";
-import { useSettings } from "@/components/organisms/SettingsDrawer/hooks/use-settings";
 import type { AccentColor } from "@/config/accents";
 import { ACCENT_OPTIONS } from "@/config/accents";
 import type { SupportedLocale } from "@/config/locales";
 import { LOCALE_OPTIONS } from "@/config/locales";
+import type { ThemePreference } from "@/config/settings";
 import { cn } from "@/lib/classNames";
+import { useSettings } from "@/providers/SettingsProvider";
 
-import { getThemeOptions, type ThemeOptionValue } from "./settings-options";
+import { getThemeOptions } from "./settings-options";
 
 interface SettingsDrawerProps {
   open: boolean;
@@ -25,11 +25,10 @@ const SECTION_LABEL =
 export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
   const t = useTranslations("settings");
 
-  const [settings, patchSettings] = useSettings();
-  const { setTheme } = useTheme();
+  const { settings, patchSettings } = useSettings();
 
-  function handleThemeChange(value: ThemeOptionValue) {
-    setTheme(value);
+  function handleThemeChange(theme: ThemePreference) {
+    patchSettings({ theme });
   }
 
   function handleAccentChange(accent: AccentColor) {
@@ -84,40 +83,40 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
           <div className={SECTION_LABEL}>{t("theme")}</div>
 
           <div className="flex gap-2.5">
-            {getThemeOptions(t).map(
-              ({ value, label, sub, Icon, activeClassName }) => {
-                return (
-                  <button
-                    key={value}
-                    onClick={() => handleThemeChange(value)}
+            {getThemeOptions(t).map(({ value, label, sub, Icon }) => {
+              const active = settings.theme === value;
+
+              return (
+                <button
+                  key={value}
+                  onClick={() => handleThemeChange(value)}
+                  className={cn(
+                    "flex-1 p-[18px_14px] rounded-[14px] border flex flex-col gap-2.5 items-center transition-all text-bone",
+                    "border-line bg-transparent hover:border-line-2",
+                    active && "border-gold bg-gold-soft hover:border-gold"
+                  )}
+                >
+                  <span
                     className={cn(
-                      "flex-1 p-[18px_14px] rounded-[14px] border flex flex-col gap-2.5 items-center transition-all text-bone",
-                      "border-line bg-transparent hover:border-line-2",
-                      activeClassName
+                      "w-7 h-7 rounded-full grid place-items-center border border-line",
+                      value === "light"
+                        ? "bg-[#f0e6d2] text-[#8c6b2a]"
+                        : "bg-[#1a1410] text-gold"
                     )}
                   >
-                    <span
-                      className={cn(
-                        "w-7 h-7 rounded-full grid place-items-center border border-line",
-                        value === "light"
-                          ? "bg-[#f0e6d2] text-[#8c6b2a]"
-                          : "bg-[#1a1410] text-gold"
-                      )}
-                    >
-                      <Icon size={14} />
-                    </span>
+                    <Icon size={14} />
+                  </span>
 
-                    <span className="font-display text-[15px] leading-none">
-                      {label}
-                    </span>
+                  <span className="font-display text-[15px] leading-none">
+                    {label}
+                  </span>
 
-                    <span className="font-ui text-[10px] tracking-[0.14em] uppercase text-muted-2">
-                      {sub}
-                    </span>
-                  </button>
-                );
-              }
-            )}
+                  <span className="font-ui text-[10px] tracking-[0.14em] uppercase text-muted-2">
+                    {sub}
+                  </span>
+                </button>
+              );
+            })}
           </div>
         </section>
 
@@ -216,7 +215,7 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
           </div>
         </section>
 
-        <div className="mt-auto pt-6 border-t border-line font-display italic text-[13px] text-muted-2 text-center">
+        <div className="mt-auto pt-6 border-t border-line font-display italic text-sm text-muted-2 text-center">
           Ad Maiorem Dei Gloriam
         </div>
       </aside>

@@ -1,13 +1,12 @@
 import { type LucideIcon, Moon, Sun } from "lucide-react";
 
-export type ThemeOptionValue = "dark" | "light";
+import type { ThemePreference } from "@/config/settings";
 
 export type ThemeOption = {
-  value: ThemeOptionValue;
+  value: ThemePreference;
   label: string;
   sub: string;
   Icon: LucideIcon;
-  activeClassName: string;
 };
 
 type SettingsTranslator = (
@@ -21,16 +20,12 @@ export function getThemeOptions(t: SettingsTranslator): ThemeOption[] {
       label: t("dark"),
       sub: t("darkSub"),
       Icon: Moon,
-      activeClassName:
-        "dark:border-gold dark:bg-gold-soft dark:hover:border-gold",
     },
     {
       value: "light",
       label: t("light"),
       sub: t("lightSub"),
       Icon: Sun,
-      activeClassName:
-        "border-gold bg-gold-soft hover:border-gold dark:border-line dark:bg-transparent dark:hover:border-line-2",
     },
   ];
 }

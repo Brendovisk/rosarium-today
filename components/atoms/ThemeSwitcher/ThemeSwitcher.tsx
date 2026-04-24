@@ -1,15 +1,16 @@
 "use client";
 
 import { Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
+
+import { useSettings } from "@/providers/SettingsProvider";
 
 import { Button } from "../Button";
 
 export function ThemeSwitcher() {
-  const { theme, setTheme } = useTheme();
+  const { settings, patchSettings } = useSettings();
 
   function toggleTheme() {
-    setTheme(theme === "dark" ? "light" : "dark");
+    patchSettings({ theme: settings.theme === "dark" ? "light" : "dark" });
   }
 
   return (
