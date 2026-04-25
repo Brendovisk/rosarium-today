@@ -22,10 +22,12 @@ import { DonateModal } from "@/components/molecules/DonateModal";
 import { PrayerRail } from "@/components/molecules/PrayerRail";
 import { PrayerWord } from "@/components/molecules/PrayerWord";
 import { ReflectionButton } from "@/components/molecules/ReflectionButton";
+import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { SpeedControl } from "@/components/molecules/SpeedControl";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
+import { PLAYBACK_RATES } from "@/config/settings";
 import { useRosaryPlayer } from "@/hooks/use-rosary-player";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import type { PrayerKey } from "@/player/assets";
@@ -35,6 +37,7 @@ import {
 } from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
+import { isMacOS } from "@/utils/platform";
 
 type PrayerTemplateProps = {
   mysteryKey: MysteryKey;
@@ -63,11 +66,13 @@ export function PrayerTemplate({
 
   const { settings, patchSettings } = useSettings();
   const [donateOpen, setDonateOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [reflectionProgress, setReflectionProgress] = useState(0);
 
   const wordRefsMap = useRef<Map<number, HTMLButtonElement>>(new Map());
   const prevActiveWordRef = useRef(-1);
   const shouldAutoPlayRef = useRef(false);
+  const hasAutoStartedRef = useRef(false);
   const resumeAfterStepNavRef = useRef(false);
 
   const {
@@ -80,6 +85,7 @@ export function PrayerTemplate({
     goNext,
     goPrev,
     jumpTo,
+    resetProgress,
     progressPercent,
   } = useRosaryProgress(mysteryKey);
 
@@ -90,9 +96,10 @@ export function PrayerTemplate({
       shouldAutoPlayRef.current = true;
       goNext();
     } else {
+      resetProgress();
       router.push("/");
     }
-  }, [router, settings.autoPlay, canGoNext, goNext]);
+  }, [router, settings.autoPlay, canGoNext, goNext, resetProgress]);
 
   const {
     audioRef,
@@ -173,6 +180,24 @@ export function PrayerTemplate({
     });
   }, [activeWordIndex]);
 
+  useEffect(() => {
+    if (isSilent || !isProgressHydrated) return;
+    if (hasAutoStartedRef.current) return;
+    if (!currentStep.prayerKey) return;
+
+    const audio = audioRef.current;
+    if (!audio) return;
+
+    hasAutoStartedRef.current = true;
+    const play = () => void audio.play().catch(() => undefined);
+
+    if (audio.readyState >= 3) {
+      play();
+    } else {
+      audio.addEventListener("canplay", play, { once: true });
+    }
+  }, [audioRef, currentStep.prayerKey, isProgressHydrated, isSilent]);
+
   const mysteryName = t(
     `mysteries.${mysteryKey}.name` as "mysteries.joyful.name"
   );
@@ -230,9 +255,9 @@ export function PrayerTemplate({
     patchSettings({ theme: settings.theme === "dark" ? "light" : "dark" });
   }
 
-  function toggleLeftMenu() {
+  const toggleLeftMenu = useCallback(() => {
     patchSettings({ leftMenuCollapsed: !settings.leftMenuCollapsed });
-  }
+  }, [patchSettings, settings.leftMenuCollapsed]);
 
   function openRightMenu() {
     patchSettings({ rightMenuCollapsed: false });
@@ -242,22 +267,134 @@ export function PrayerTemplate({
     patchSettings({ rightMenuCollapsed: true });
   }
 
-  function togglePrayerRail() {
+  const togglePrayerRail = useCallback(() => {
     patchSettings({ prayerRailCollapsed: !settings.prayerRailCollapsed });
-  }
+  }, [patchSettings, settings.prayerRailCollapsed]);
 
   function toggleAutoPlay() {
     patchSettings({ autoPlay: !settings.autoPlay });
   }
 
-  function handleNext() {
+  const increasePlaybackRate = useCallback(() => {
+    const currentIndex = PLAYBACK_RATES.indexOf(settings.playbackRate);
+    if (currentIndex < 0) return;
+
+    const nextRate =
+      PLAYBACK_RATES[Math.min(currentIndex + 1, PLAYBACK_RATES.length - 1)];
+    patchSettings({ playbackRate: nextRate });
+  }, [patchSettings, settings.playbackRate]);
+
+  const decreasePlaybackRate = useCallback(() => {
+    const currentIndex = PLAYBACK_RATES.indexOf(settings.playbackRate);
+    if (currentIndex < 0) return;
+
+    const nextRate = PLAYBACK_RATES[Math.max(currentIndex - 1, 0)];
+    patchSettings({ playbackRate: nextRate });
+  }, [patchSettings, settings.playbackRate]);
+
+  const handleNext = useCallback(() => {
     if (canGoNext) {
       markResumeIfAudioPlaying();
       goNext();
     } else {
+      resetProgress();
       router.push("/");
     }
-  }
+  }, [canGoNext, goNext, markResumeIfAudioPlaying, resetProgress, router]);
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      )
+        return;
+
+      const mod = isMacOS() ? e.metaKey : e.ctrlKey;
+
+      if (mod && e.key === ".") {
+        e.preventDefault();
+        setShortcutsOpen(true);
+        return;
+      }
+
+      if (mod && e.key === ",") {
+        e.preventDefault();
+        patchSettings({ rightMenuCollapsed: false });
+        return;
+      }
+
+      if (mod && (e.key === "'" || e.code === "Quote")) {
+        e.preventDefault();
+        togglePrayerRail();
+        return;
+      }
+
+      if (mod && e.key === "/") {
+        e.preventDefault();
+        toggleLeftMenu();
+        return;
+      }
+
+      if (e.key === "Escape") {
+        setShortcutsOpen(false);
+        return;
+      }
+
+      if (mod) return;
+
+      if (e.key === " " && !isSilent) {
+        e.preventDefault();
+        if (!isMysteryAnnouncement) togglePlayPause();
+        return;
+      }
+
+      if (e.key === "ArrowRight") {
+        e.preventDefault();
+        handleNext();
+        return;
+      }
+
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        goPrevWithResume();
+        return;
+      }
+
+      if (e.key === "a" || e.key === "A") {
+        patchSettings({ autoPlay: !settings.autoPlay });
+        return;
+      }
+
+      if (e.key === ">") {
+        e.preventDefault();
+        increasePlaybackRate();
+        return;
+      }
+
+      if (e.key === "<") {
+        e.preventDefault();
+        decreasePlaybackRate();
+        return;
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [
+    isSilent,
+    isMysteryAnnouncement,
+    togglePlayPause,
+    handleNext,
+    goPrevWithResume,
+    patchSettings,
+    settings.autoPlay,
+    togglePrayerRail,
+    toggleLeftMenu,
+    increasePlaybackRate,
+    decreasePlaybackRate,
+  ]);
 
   useEffect(() => {
     if (!shouldRunReflectionTimer) {
@@ -284,6 +421,7 @@ export function PrayerTemplate({
 
         return;
       } else {
+        resetProgress();
         router.push("/");
       }
     };
@@ -291,7 +429,14 @@ export function PrayerTemplate({
     frameId = requestAnimationFrame(tick);
 
     return () => cancelAnimationFrame(frameId);
-  }, [currentStepIndex, router, shouldRunReflectionTimer, canGoNext, goNext]);
+  }, [
+    currentStepIndex,
+    router,
+    shouldRunReflectionTimer,
+    canGoNext,
+    goNext,
+    resetProgress,
+  ]);
 
   return (
     <div
@@ -575,9 +720,16 @@ export function PrayerTemplate({
       <SettingsDrawer
         open={!settings.rightMenuCollapsed}
         onClose={closeRightMenu}
+        onShortcuts={() => setShortcutsOpen(true)}
       />
 
       <DonateModal open={donateOpen} onClose={() => setDonateOpen(false)} />
+
+      <ShortcutsModal
+        open={shortcutsOpen}
+        onClose={() => setShortcutsOpen(false)}
+        showPrayerShortcuts
+      />
     </div>
   );
 }
