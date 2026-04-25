@@ -4,7 +4,7 @@ import Link from "next/link";
 import { CatholicCross } from "@/components/atoms/CustomIcons";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERY_GRADIENTS } from "@/config/rosary";
-import { cn } from "@/lib/classNames";
+import { cn } from "@/utils/classNames";
 
 type MysteryCardProps = {
   mysteryKey: MysteryKey;

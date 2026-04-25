@@ -1,5 +1,5 @@
 import type { MysteryKey } from "@/config/rosary";
-import type { PrayerKey } from "@/lib/player/assets";
+import type { PrayerKey } from "@/player/assets";
 
 export type RosaryStepType = "opening" | "mystery-announcement" | "decade" | "closing";
 

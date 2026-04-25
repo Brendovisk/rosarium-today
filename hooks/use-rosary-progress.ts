@@ -7,7 +7,7 @@ import {
   getProgressStorageKey,
   ROSARY_STEPS,
   type RosaryStep,
-} from "@/lib/player/rosary-steps";
+} from "@/player/rosary-steps";
 
 function readStoredStep(mysteryKey: MysteryKey) {
   const storedValue = window.localStorage.getItem(

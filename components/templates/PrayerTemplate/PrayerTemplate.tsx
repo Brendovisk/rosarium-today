@@ -26,14 +26,14 @@ import { SpeedControl } from "@/components/molecules/SpeedControl";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
-import { cn } from "@/lib/classNames";
-import { useRosaryPlayer } from "@/lib/hooks/use-rosary-player";
-import { useRosaryProgress } from "@/lib/hooks/use-rosary-progress";
-import type { PrayerKey } from "@/lib/player/assets";
+import { cn } from "@/utils/classNames";
+import { useRosaryPlayer } from "@/hooks/use-rosary-player";
+import { useRosaryProgress } from "@/hooks/use-rosary-progress";
+import type { PrayerKey } from "@/player/assets";
 import {
   AVE_MARIAS_PER_DECADE,
   REFLECTION_DURATION_MS,
-} from "@/lib/player/rosary-steps";
+} from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 
 type PrayerTemplateProps = {

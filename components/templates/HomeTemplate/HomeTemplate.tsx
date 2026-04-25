@@ -13,8 +13,8 @@ import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
-import { cn } from "@/lib/classNames";
-import { useRosaryProgress } from "@/lib/hooks/use-rosary-progress";
+import { cn } from "@/utils/classNames";
+import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import { useSettings } from "@/providers/SettingsProvider";
 import { getCurrentDate } from "@/utils/getCurrentDate";
 

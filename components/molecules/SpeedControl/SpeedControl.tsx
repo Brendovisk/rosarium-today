@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/atoms/Button";
 import { PLAYBACK_RATES, type PlaybackRate } from "@/config/settings";
-import { cn } from "@/lib/classNames";
+import { cn } from "@/utils/classNames";
 
 type SpeedControlProps = {
   rate: PlaybackRate;

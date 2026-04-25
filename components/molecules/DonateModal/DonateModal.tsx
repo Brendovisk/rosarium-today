@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl";
 import { useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
-import { cn } from "@/lib/classNames";
+import { cn } from "@/utils/classNames";
 
 const PIX_KEY = "";
 const KOFI_URL = "";

@@ -16,7 +16,7 @@ import {
   getAudioUrl,
   type PrayerKey,
   type WordTimestamp,
-} from "@/lib/player/assets";
+} from "@/player/assets";
 
 type UseRosaryPlayerParams = {
   prayerKey: PrayerKey | null;

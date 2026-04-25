@@ -10,7 +10,7 @@ import type { SupportedLocale } from "@/config/locales";
 import { LOCALE_OPTIONS } from "@/config/locales";
 import type { ThemePreference, VoiceGender } from "@/config/settings";
 import { VOICE_GENDERS } from "@/config/settings";
-import { cn } from "@/lib/classNames";
+import { cn } from "@/utils/classNames";
 import { useSettings } from "@/providers/SettingsProvider";
 
 import { getThemeOptions } from "./settings-options";

@@ -12,7 +12,7 @@ import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 import type { MysteryKey } from "@/config/rosary";
-import { cn } from "@/lib/classNames";
+import { cn } from "@/utils/classNames";
 
 interface AppSidebarProps {
   collapsed: boolean;
