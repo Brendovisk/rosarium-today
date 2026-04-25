@@ -3,12 +3,13 @@
 import { BookOpen, Heart, Moon, Play, Settings, Sun } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { BeadViz } from "@/components/atoms/BeadViz";
 import { Button } from "@/components/atoms/Button";
 import { DonateModal } from "@/components/molecules/DonateModal";
 import { MysteryCarousel } from "@/components/molecules/MysteryCarousel";
+import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
@@ -19,6 +20,7 @@ import { LAST_MYSTERY_KEY } from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 import { getCurrentDate } from "@/utils/getCurrentDate";
+import { isMacOS } from "@/utils/platform";
 
 interface HomeTemplateProps {
   todaysMystery: MysteryKey;
@@ -43,8 +45,56 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   const { settings, patchSettings } = useSettings();
 
   const [donateOpen, setDonateOpen] = useState(false);
+  const [shortcutsOpen, setShortcutsOpen] = useState(false);
 
   const dateStr = getCurrentDate();
+
+  const toggleLeftMenu = useCallback(() => {
+    patchSettings({ leftMenuCollapsed: !settings.leftMenuCollapsed });
+  }, [patchSettings, settings.leftMenuCollapsed]);
+
+  useEffect(() => {
+    function onKeyDown(e: KeyboardEvent) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      )
+        return;
+
+      const mod = isMacOS() ? e.metaKey : e.ctrlKey;
+
+      // open shortcuts modal
+      if (mod && e.key === ".") {
+        e.preventDefault();
+        setShortcutsOpen(true);
+        return;
+      }
+
+      // open settings drawer
+      if (mod && e.key === ",") {
+        e.preventDefault();
+        patchSettings({ rightMenuCollapsed: false });
+        return;
+      }
+
+      // close shortcuts modal
+      if (e.key === "Escape") {
+        setShortcutsOpen(false);
+        return;
+      }
+
+      // toggle left menu
+      if (mod && e.key === "/") {
+        e.preventDefault();
+        toggleLeftMenu();
+        return;
+      }
+    }
+
+    window.addEventListener("keydown", onKeyDown);
+
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [patchSettings, toggleLeftMenu]);
 
   const mysteryDecades = useMemo(
     () =>
@@ -79,10 +129,6 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
 
   function toggleTheme() {
     patchSettings({ theme: settings.theme === "dark" ? "light" : "dark" });
-  }
-
-  function toggleLeftMenu() {
-    patchSettings({ leftMenuCollapsed: !settings.leftMenuCollapsed });
   }
 
   function openRightMenu() {
@@ -265,9 +311,15 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
       <SettingsDrawer
         open={!settings.rightMenuCollapsed}
         onClose={closeRightMenu}
+        onShortcuts={() => setShortcutsOpen(true)}
       />
 
       <DonateModal open={donateOpen} onClose={() => setDonateOpen(false)} />
+
+      <ShortcutsModal
+        open={shortcutsOpen}
+        onClose={() => setShortcutsOpen(false)}
+      />
     </div>
   );
 }
