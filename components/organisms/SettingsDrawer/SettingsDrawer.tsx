@@ -1,15 +1,17 @@
 "use client";
 
-import { Check, X } from "lucide-react";
+import { Check, Keyboard, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/atoms/Button";
+import { Kbd } from "@/components/atoms/Kbd";
 import type { AccentColor } from "@/config/accents";
 import { ACCENT_OPTIONS } from "@/config/accents";
 import type { SupportedLocale } from "@/config/locales";
 import { LOCALE_OPTIONS } from "@/config/locales";
 import type { ThemePreference, VoiceGender } from "@/config/settings";
 import { VOICE_GENDERS } from "@/config/settings";
+import { useIsMac } from "@/hooks/use-is-mac";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
@@ -18,13 +20,17 @@ import { getThemeOptions } from "./settings-options";
 interface SettingsDrawerProps {
   open: boolean;
   onClose: () => void;
+  onShortcuts: () => void;
 }
 
 const SECTION_LABEL =
   "font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-muted mb-3.5";
 
-export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
+export function SettingsDrawer({ open, onClose, onShortcuts }: SettingsDrawerProps) {
   const t = useTranslations("settings");
+  const tShortcuts = useTranslations("shortcuts");
+  const isMac = useIsMac();
+  const mod = isMac ? "⌘" : "Ctrl";
 
   const { settings, patchSettings } = useSettings();
 
@@ -252,8 +258,22 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
           </div>
         </section>
 
-        <div className="mt-auto pt-6 border-t border-line font-display italic text-sm text-muted-2 text-center">
-          Ad Maiorem Dei Gloriam
+        <div className="mt-auto pt-6 border-t border-line flex flex-col items-center gap-4">
+          <button
+            onClick={onShortcuts}
+            className="flex items-center gap-2 font-ui text-xs text-muted-2 transition-colors hover:text-muted"
+          >
+            <Keyboard size={13} />
+            {tShortcuts("link")}
+            <span className="flex items-center gap-0.5">
+              <Kbd>{mod}</Kbd>
+              <Kbd>.</Kbd>
+            </span>
+          </button>
+
+          <div className="font-display italic text-sm text-muted-2">
+            Ad Maiorem Dei Gloriam
+          </div>
         </div>
       </aside>
     </>
