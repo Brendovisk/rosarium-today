@@ -23,7 +23,11 @@ type ShortcutsModalProps = {
   showPrayerShortcuts?: boolean;
 };
 
-export function ShortcutsModal({ open, onClose, showPrayerShortcuts = false }: ShortcutsModalProps) {
+export function ShortcutsModal({
+  open,
+  onClose,
+  showPrayerShortcuts = false,
+}: ShortcutsModalProps) {
   const t = useTranslations("shortcuts");
   const isMac = useIsMac();
   const mod = isMac ? "⌘" : "Ctrl";
@@ -40,22 +44,18 @@ export function ShortcutsModal({ open, onClose, showPrayerShortcuts = false }: S
         { keys: ["Esc"], label: t("closePanel") },
       ],
     },
-    ...(showPrayerShortcuts
-      ? [
-          {
-            title: t("groupPrayer"),
-            shortcuts: [
-              { keys: ["Space"], label: t("playPause") },
-              { keys: ["←"], label: t("prevStep") },
-              { keys: ["→"], label: t("nextStep") },
-              { keys: ["A"], label: t("toggleAutoplay") },
-              { keys: [mod, "'"], label: t("togglePrayerStats") },
-              { keys: ["Shift", ">"], label: t("increaseSpeed") },
-              { keys: ["Shift", "<"], label: t("decreaseSpeed") },
-            ],
-          },
-        ]
-      : []),
+    {
+      title: t("groupPrayer"),
+      shortcuts: [
+        { keys: ["Space"], label: t("playPause") },
+        { keys: ["←"], label: t("prevStep") },
+        { keys: ["→"], label: t("nextStep") },
+        { keys: ["A"], label: t("toggleAutoplay") },
+        { keys: [mod, "'"], label: t("togglePrayerStats") },
+        { keys: ["Shift", ">"], label: t("increaseSpeed") },
+        { keys: ["Shift", "<"], label: t("decreaseSpeed") },
+      ],
+    },
   ];
 
   return (

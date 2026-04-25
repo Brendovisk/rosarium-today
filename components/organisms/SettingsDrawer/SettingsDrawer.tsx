@@ -26,7 +26,11 @@ interface SettingsDrawerProps {
 const SECTION_LABEL =
   "font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-muted mb-3.5";
 
-export function SettingsDrawer({ open, onClose, onShortcuts }: SettingsDrawerProps) {
+export function SettingsDrawer({
+  open,
+  onClose,
+  onShortcuts,
+}: SettingsDrawerProps) {
   const t = useTranslations("settings");
   const tShortcuts = useTranslations("shortcuts");
   const isMac = useIsMac();
@@ -258,7 +262,7 @@ export function SettingsDrawer({ open, onClose, onShortcuts }: SettingsDrawerPro
           </div>
         </section>
 
-        <div className="mt-auto pt-6 border-t border-line flex flex-col items-center gap-4">
+        <div className="mt-auto pt-6 border-t border-line flex flex-col gap-4">
           <button
             onClick={onShortcuts}
             className="flex items-center gap-2 font-ui text-xs text-muted-2 transition-colors hover:text-muted"
@@ -271,7 +275,7 @@ export function SettingsDrawer({ open, onClose, onShortcuts }: SettingsDrawerPro
             </span>
           </button>
 
-          <div className="font-display italic text-sm text-muted-2">
+          <div className="font-display italic text-sm text-muted mt-20 border-t border-line pt-4 w-full text-center">
             Ad Maiorem Dei Gloriam
           </div>
         </div>
