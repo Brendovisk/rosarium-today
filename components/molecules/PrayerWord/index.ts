@@ -1,0 +1,1 @@
+export { PrayerWord } from "./PrayerWord";
