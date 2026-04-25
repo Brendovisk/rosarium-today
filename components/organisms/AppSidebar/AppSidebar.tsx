@@ -52,7 +52,7 @@ export function AppSidebar({
     <div className="z-50 min-w-0  h-screen sticky bottom-0 top-0">
       <aside
         className={cn(
-          "h-screen w-full min-w-0 border-r border-line flex flex-col gap-8 overflow-hidden",
+          "h-screen w-full min-w-0 border-r border-line flex flex-col overflow-hidden",
           "bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
           "transition-[padding] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
           collapsed ? "px-2.5 py-8" : "px-7 pt-8 pb-11"
@@ -70,75 +70,79 @@ export function AppSidebar({
           {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
         </button>
 
-        {!collapsed ? (
-          <>
-            <div className="min-w-0 overflow-hidden whitespace-nowrap">
-              <div className="overflow-hidden text-ellipsis font-display font-medium text-gold text-[2.125rem] leading-none tracking-[0.01em]">
-                {t("title")}
+        <div
+          key={collapsed ? "collapsed" : "expanded"}
+          className="flex flex-col flex-1 gap-8 min-w-0 overflow-hidden animate-in fade-in duration-200"
+        >
+          {!collapsed ? (
+            <>
+              <div className="min-w-0 overflow-hidden whitespace-nowrap">
+                <div className="overflow-hidden text-ellipsis font-display font-medium text-gold text-[2.125rem] leading-none tracking-[0.01em]">
+                  {t("title")}
+                </div>
+
+                <div className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap font-ui text-[0.625rem] uppercase tracking-[0.32em] text-muted-2">
+                  Today · MMXXVI
+                </div>
               </div>
 
-              <div className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap font-ui text-[0.625rem] uppercase tracking-[0.32em] text-muted-2">
-                Today · MMXXVI
+              <nav className="flex flex-col gap-2.5">
+                <div className="overflow-hidden text-ellipsis whitespace-nowrap px-2.5 pb-2 pt-3 font-ui text-[0.625rem] font-bold uppercase tracking-[0.22em] text-muted-2">
+                  {t("prayerSection")}
+                </div>
+
+                {navItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    className={cn(
+                      "flex items-center gap-3 overflow-hidden rounded-[0.875rem] px-3 py-2.5 font-ui text-sm text-muted transition-colors",
+                      "hover:bg-white/3 hover:text-bone",
+                      item.active && "bg-gold-soft text-bone"
+                    )}
+                  >
+                    <span className="w-4.5 h-4.5 grid place-items-center text-gold shrink-0">
+                      {item.icon}
+                    </span>
+
+                    <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                      {item.label}
+                    </span>
+                  </Link>
+                ))}
+              </nav>
+
+              <div className="mt-auto max-w-full overflow-hidden border-t border-line pt-5 font-display text-base italic leading-normal text-muted-2">
+                &ldquo;{t("footerQuote")}&rdquo;
               </div>
-            </div>
-
-            <nav className="flex flex-col gap-2.5">
-              <div className="overflow-hidden text-ellipsis whitespace-nowrap px-2.5 pb-2 pt-3 font-ui text-[0.625rem] font-bold uppercase tracking-[0.22em] text-muted-2">
-                {t("prayerSection")}
+            </>
+          ) : (
+            <>
+              <div className="font-display font-medium text-[2.375rem] text-gold text-center leading-none">
+                R
               </div>
 
-              {navItems.map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  className={cn(
-                    "flex items-center gap-3 overflow-hidden rounded-[0.875rem] px-3 py-2.5 font-ui text-sm text-muted transition-colors",
-                    "hover:bg-white/3 hover:text-bone",
-                    item.active && "bg-gold-soft text-bone"
-                  )}
-                >
-                  <span className="w-4.5 h-4.5 grid place-items-center text-gold shrink-0">
-                    {item.icon}
-                  </span>
+              <nav className="flex flex-col items-center gap-2.5 mt-6">
+                {navItems.map((item) => (
+                  <Link
+                    key={item.id}
+                    href={item.href}
+                    title={item.label}
+                    className={cn(
+                      "w-10 flex justify-center items-center py-2.5 rounded-[0.875rem] text-muted transition-colors",
+                      "hover:bg-white/3 hover:text-bone",
+                      item.active && "bg-gold-soft text-bone"
+                    )}
+                  >
+                    <span className="text-gold">{item.icon}</span>
+                  </Link>
+                ))}
+              </nav>
 
-                  <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                    {item.label}
-                  </span>
-                </Link>
-              ))}
-            </nav>
-
-            <div className="mt-auto max-w-full overflow-hidden border-t border-line pt-5 font-display text-base italic leading-normal text-muted-2">
-              &ldquo;{t("footerQuote")}&rdquo;
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="font-display font-medium text-[2.375rem] text-gold text-center leading-none">
-              R
-            </div>
-
-            <nav className="flex flex-col items-center gap-2.5 mt-6">
-              {navItems.map((item) => (
-                <Link
-                  key={item.id}
-                  href={item.href}
-                  title={item.label}
-                  className={cn(
-                    "w-10 flex justify-center items-center py-2.5 rounded-[0.875rem] text-muted transition-colors",
-                    "hover:bg-white/3 hover:text-bone",
-                    item.active && "bg-gold-soft text-bone"
-                  )}
-                >
-                  <span className="text-gold">{item.icon}</span>
-                </Link>
-              ))}
-            </nav>
-
-            {/* cross */}
-            <CrossIcon className="text-muted/50 mt-auto mx-auto" size={24} />
-          </>
-        )}
+              <CrossIcon className="text-muted/50 mt-auto mx-auto" size={24} />
+            </>
+          )}
+        </div>
       </aside>
     </div>
   );
