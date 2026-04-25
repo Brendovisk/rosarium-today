@@ -12,6 +12,7 @@
     "welcome2": "orandum in pace.",
     "heroSub": "Collige momentum diei. Audi sine festinatione; sinere granis rhythmum cordis servare.",
     "start": "Incipere Rosarium",
+    "continue": "Continuare Rosarium",
     "readSilent": "Legere in silentio",
     "lastPrayer": "Oratio ultima",
     "lastPrayerValue": "ante {days} dies · completa",
@@ -57,29 +58,56 @@
     "of": "ex",
     "contemplare": "Contemplare mysterium",
     "nextStep": "Proximum",
+    "stepCounter": "Gradus {current} / {total}",
+    "decadeSubtitle": "Mysterium {n}: {name}",
     "mysteries": {
       "joyful": {
         "name": "Mysteria Gaudiosa",
-        "decades": ["Annuntiatio", "Visitatio", "Nativitas", "Praesentatio in Templo", "Inventio in Templo"]
+        "decades": [
+          "Annuntiatio",
+          "Visitatio",
+          "Nativitas",
+          "Praesentatio in Templo",
+          "Inventio in Templo"
+        ]
       },
       "sorrowful": {
         "name": "Mysteria Dolorosa",
-        "decades": ["Agonia in Horto", "Flagellatio", "Coronatio Spinis", "Baiulatio Crucis", "Crucifixio"]
+        "decades": [
+          "Agonia in Horto",
+          "Flagellatio",
+          "Coronatio Spinis",
+          "Baiulatio Crucis",
+          "Crucifixio"
+        ]
       },
       "glorious": {
         "name": "Mysteria Gloriosa",
-        "decades": ["Resurrectio", "Ascensio", "Descensus Spiritus Sancti", "Assumptio Mariae", "Coronatio Mariae"]
+        "decades": [
+          "Resurrectio",
+          "Ascensio",
+          "Descensus Spiritus Sancti",
+          "Assumptio Mariae",
+          "Coronatio Mariae"
+        ]
       },
       "luminous": {
         "name": "Mysteria Luminosa",
-        "decades": ["Baptismus in Iordane", "Nuptiae Canae", "Praedicatio Regni", "Transfiguratio", "Institutio Eucharistiae"]
+        "decades": [
+          "Baptismus in Iordane",
+          "Nuptiae Canae",
+          "Praedicatio Regni",
+          "Transfiguratio",
+          "Institutio Eucharistiae"
+        ]
       }
     }
   },
   "controls": {
     "play": "Incipe",
     "pause": "Pausa",
-    "speed": "Velocitas"
+    "speed": "Velocitas",
+    "playbackSpeedCycle": "{rate}x — tange ut velocitatem mutes"
   },
   "settings": {
     "title": "Dispositiones",

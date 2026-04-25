@@ -12,6 +12,7 @@
     "welcome2": "pray in peace.",
     "heroSub": "Gather a moment from your day. Listen slowly; let the beads set the rhythm of your heart.",
     "start": "Begin the Rosary",
+    "continue": "Continue the Rosary",
     "readSilent": "Read without audio",
     "lastPrayer": "Last prayer",
     "lastPrayerValue": "{days} days ago · complete",
@@ -57,6 +58,8 @@
     "of": "of",
     "contemplare": "Contemplate the mystery",
     "nextStep": "Next",
+    "stepCounter": "Step {current} / {total}",
+    "decadeSubtitle": "Mystery {n}: {name}",
     "mysteries": {
       "joyful": {
         "name": "Joyful Mysteries",
@@ -103,7 +106,8 @@
   "controls": {
     "play": "Play",
     "pause": "Pause",
-    "speed": "Speed"
+    "speed": "Speed",
+    "playbackSpeedCycle": "{rate}x — tap to change speed"
   },
   "settings": {
     "title": "Settings",

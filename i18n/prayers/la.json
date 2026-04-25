@@ -18,6 +18,7 @@
   "mysteries": {
     "joyful": {
       "name": "Mysteria Gaudiosa",
+      "shortName": "Gaudiosa",
       "decades": [
         "Annuntiatio",
         "Visitatio",
@@ -28,6 +29,7 @@
     },
     "sorrowful": {
       "name": "Mysteria Dolorosa",
+      "shortName": "Dolorosa",
       "decades": [
         "Agonia in Horto",
         "Flagellatio",
@@ -38,6 +40,7 @@
     },
     "glorious": {
       "name": "Mysteria Gloriosa",
+      "shortName": "Gloriosa",
       "decades": [
         "Resurrectio",
         "Ascensio",
@@ -48,6 +51,7 @@
     },
     "luminous": {
       "name": "Mysteria Luminosa",
+      "shortName": "Luminosa",
       "decades": [
         "Baptismus in Iordane",
         "Nuptiae Canae",

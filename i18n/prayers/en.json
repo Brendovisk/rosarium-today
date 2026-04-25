@@ -18,6 +18,7 @@
   "mysteries": {
     "joyful": {
       "name": "Joyful Mysteries",
+      "shortName": "Joyful",
       "decades": [
         "The Annunciation",
         "The Visitation",
@@ -28,6 +29,7 @@
     },
     "sorrowful": {
       "name": "Sorrowful Mysteries",
+      "shortName": "Sorrowful",
       "decades": [
         "The Agony in the Garden",
         "The Scourging at the Pillar",
@@ -38,6 +40,7 @@
     },
     "glorious": {
       "name": "Glorious Mysteries",
+      "shortName": "Glorious",
       "decades": [
         "The Resurrection",
         "The Ascension",
@@ -48,6 +51,7 @@
     },
     "luminous": {
       "name": "Luminous Mysteries",
+      "shortName": "Luminous",
       "decades": [
         "The Baptism in the Jordan",
         "The Wedding at Cana",

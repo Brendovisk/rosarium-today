@@ -18,6 +18,7 @@
   "mysteries": {
     "joyful": {
       "name": "Mistérios Gozosos",
+      "shortName": "Gozosos",
       "decades": [
         "Anunciação",
         "Visitação",
@@ -28,6 +29,7 @@
     },
     "sorrowful": {
       "name": "Mistérios Dolorosos",
+      "shortName": "Dolorosos",
       "decades": [
         "Agonia no Horto",
         "Flagelação",
@@ -38,6 +40,7 @@
     },
     "glorious": {
       "name": "Mistérios Gloriosos",
+      "shortName": "Gloriosos",
       "decades": [
         "Ressurreição",
         "Ascensão",
@@ -48,6 +51,7 @@
     },
     "luminous": {
       "name": "Mistérios Luminosos",
+      "shortName": "Luminosos",
       "decades": [
         "Batismo no Jordão",
         "Casamento de Caná",
