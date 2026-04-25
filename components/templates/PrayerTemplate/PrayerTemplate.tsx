@@ -26,7 +26,6 @@ import { SpeedControl } from "@/components/molecules/SpeedControl";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
-import { cn } from "@/utils/classNames";
 import { useRosaryPlayer } from "@/hooks/use-rosary-player";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import type { PrayerKey } from "@/player/assets";
@@ -35,6 +34,7 @@ import {
   REFLECTION_DURATION_MS,
 } from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
+import { cn } from "@/utils/classNames";
 
 type PrayerTemplateProps = {
   mysteryKey: MysteryKey;

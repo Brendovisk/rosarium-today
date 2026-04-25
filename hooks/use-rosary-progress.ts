@@ -5,6 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import type { MysteryKey } from "@/config/rosary";
 import {
   getProgressStorageKey,
+  LAST_MYSTERY_KEY,
   ROSARY_STEPS,
   type RosaryStep,
 } from "@/player/rosary-steps";
@@ -26,12 +27,12 @@ export function useRosaryProgress(mysteryKey: MysteryKey) {
   // progress with 0 before the read effect has had a chance to restore it.
   const [hasHydratedFromStorage, setHasHydratedFromStorage] = useState(false);
 
-  // Restore saved progress on mount. queueMicrotask satisfies the
-  // react-hooks/set-state-in-effect lint rule while still running before paint.
+  // Restore saved progress on mount and record this as the last prayed mystery.
   useEffect(() => {
     queueMicrotask(() => {
       setCurrentStepIndex(readStoredStep(mysteryKey));
       setHasHydratedFromStorage(true);
+      window.localStorage.setItem(LAST_MYSTERY_KEY, mysteryKey);
     });
   }, [mysteryKey]);
 

@@ -15,6 +15,7 @@ type MysteryCardProps = {
   href: string;
   todayBadge: string;
   kicker: string;
+  onClick?: () => void;
 };
 
 const MYSTERY_ICONS: Record<MysteryKey, React.ReactNode> = {
@@ -33,10 +34,12 @@ export function MysteryCard({
   href,
   todayBadge,
   kicker,
+  onClick,
 }: MysteryCardProps) {
   return (
     <Link
       href={href}
+      onClick={onClick}
       className={cn(
         "relative rounded-[1.375rem] p-[1.5rem_1.375rem_1.375rem] min-h-65 border border-line bg-ink-2",
         "overflow-hidden flex flex-col justify-between",

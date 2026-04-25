@@ -110,3 +110,5 @@ export const ROSARY_STEPS: readonly RosaryStep[] = buildRosarySteps();
 export function getProgressStorageKey(mysteryKey: MysteryKey) {
   return `rosarium:progress:${mysteryKey}`;
 }
+
+export const LAST_MYSTERY_KEY = "rosarium:last-mystery";

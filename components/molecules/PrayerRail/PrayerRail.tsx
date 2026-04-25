@@ -5,11 +5,11 @@ import { useTranslations } from "next-intl";
 
 import type { MysteryKey } from "@/config/rosary";
 import type { VoiceGender } from "@/config/settings";
-import { cn } from "@/utils/classNames";
 import {
   AVE_MARIAS_PER_DECADE,
   ESTIMATED_ROSARY_DURATION_MINS,
 } from "@/player/rosary-steps";
+import { cn } from "@/utils/classNames";
 
 type PrayerRailProps = {
   mysteryKey: MysteryKey;

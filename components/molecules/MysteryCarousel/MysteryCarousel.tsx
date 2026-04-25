@@ -7,6 +7,7 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/atoms/Button";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
+import { getProgressStorageKey } from "@/player/rosary-steps";
 
 import { MysteryCard } from "../MysteryCard";
 
@@ -37,6 +38,10 @@ export function MysteryCarousel({
     dragFree: !shouldSnapFullCards,
   });
 
+  function clearProgress(key: MysteryKey) {
+    localStorage.removeItem(getProgressStorageKey(key));
+  }
+
   const cards = MYSTERIES.map((key) => (
     <MysteryCard
       key={key}
@@ -48,6 +53,7 @@ export function MysteryCarousel({
       href={`/prayer/${key}`}
       todayBadge={todayBadge}
       kicker={kicker}
+      onClick={() => clearProgress(key)}
     />
   ));
 
@@ -73,6 +79,7 @@ export function MysteryCarousel({
                 href={`/prayer/${key}`}
                 todayBadge={todayBadge}
                 kicker={kicker}
+                onClick={() => clearProgress(key)}
               />
             </div>
           ))}
