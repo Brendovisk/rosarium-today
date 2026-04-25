@@ -473,7 +473,7 @@ export function PrayerTemplate({
             <div className="truncate font-display text-[1.125rem] font-medium text-bone">
               {mysteryShortName}
             </div>
-            <div className="mt-1 truncate font-display text-[0.8125rem] italic text-muted">
+            <div className="mt-1 truncate font-display text-sm italic text-muted">
               {decadeIndex >= 0
                 ? t("decadeSubtitle", {
                     n: decadeIndex + 1,
@@ -543,7 +543,7 @@ export function PrayerTemplate({
               <div className="flex-1 overflow-y-auto px-5 py-10 sm:px-8 lg:px-12">
                 <div className="mx-auto flex min-h-full max-w-3xl flex-col justify-center text-center">
                   <div className="mb-8">
-                    <h1 className="m-0 font-ui text-[0.8125rem] font-bold uppercase tracking-[0.32em] text-gold">
+                    <h1 className="m-0 font-ui text-sm font-bold uppercase tracking-[0.32em] text-gold">
                       {prayerName}
                     </h1>
                   </div>
