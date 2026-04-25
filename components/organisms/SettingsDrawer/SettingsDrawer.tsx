@@ -8,7 +8,8 @@ import type { AccentColor } from "@/config/accents";
 import { ACCENT_OPTIONS } from "@/config/accents";
 import type { SupportedLocale } from "@/config/locales";
 import { LOCALE_OPTIONS } from "@/config/locales";
-import type { ThemePreference } from "@/config/settings";
+import type { ThemePreference, VoiceGender } from "@/config/settings";
+import { VOICE_GENDERS } from "@/config/settings";
 import { cn } from "@/lib/classNames";
 import { useSettings } from "@/providers/SettingsProvider";
 
@@ -41,6 +42,10 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
 
   function handlePrayerLanguageChange(prayerLanguage: SupportedLocale) {
     patchSettings({ prayerLanguage });
+  }
+
+  function handleVoiceGenderChange(voiceGender: VoiceGender) {
+    patchSettings({ voiceGender });
   }
 
   return (
@@ -145,6 +150,36 @@ export function SettingsDrawer({ open, onClose }: SettingsDrawerProps) {
                   <span className="font-ui text-[0.75rem] text-bone">
                     {t(value as "gold" | "wine" | "moss")}
                   </span>
+                </button>
+              );
+            })}
+          </div>
+        </section>
+
+        <section>
+          <div className={SECTION_LABEL}>{t("voice")}</div>
+
+          <div className="grid grid-cols-2 gap-2.5">
+            {VOICE_GENDERS.map((value) => {
+              const active = settings.voiceGender === value;
+
+              const label =
+                value === "male"
+                  ? t("voiceMale" as "voice")
+                  : t("voiceFemale" as "voice");
+
+              return (
+                <button
+                  key={value}
+                  onClick={() => handleVoiceGenderChange(value)}
+                  className={cn(
+                    "rounded-[0.875rem] border p-[1.125rem_0.875rem] font-display text-[1.0625rem] text-bone transition-all",
+                    active
+                      ? "border-gold bg-gold-soft"
+                      : "border-line bg-transparent hover:border-line-2"
+                  )}
+                >
+                  {label}
                 </button>
               );
             })}
