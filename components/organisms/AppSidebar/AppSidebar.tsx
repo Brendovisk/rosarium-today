@@ -11,18 +11,22 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
-import { getTodaysMystery } from "@/config/rosary";
+import type { MysteryKey } from "@/config/rosary";
 import { cn } from "@/lib/classNames";
 
 interface AppSidebarProps {
   collapsed: boolean;
   onToggle: () => void;
+  todaysMystery: MysteryKey;
 }
 
-export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
+export function AppSidebar({
+  collapsed,
+  onToggle,
+  todaysMystery,
+}: AppSidebarProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
-  const todaysMystery = getTodaysMystery();
 
   const isHome = pathname === "/" || pathname === "";
   const isPray = pathname.includes("/prayer/");
@@ -45,13 +49,13 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
   ];
 
   return (
-    <div className="relative z-50">
+    <div className="z-50 min-w-0  h-screen sticky bottom-0 top-0">
       <aside
         className={cn(
-          "sticky top-0 h-screen border-r border-line flex flex-col gap-8",
+          "h-screen w-full min-w-0 border-r border-line flex flex-col gap-8 overflow-hidden",
           "bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
-          "transition-[padding,width] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
-          collapsed ? "px-2.5 py-8 w-16" : "px-7 py-8 w-60"
+          "transition-[padding] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
+          collapsed ? "px-2.5 py-8" : "px-7 pt-8 pb-11"
         )}
       >
         <button
@@ -68,18 +72,18 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
 
         {!collapsed ? (
           <>
-            <div className="text-nowrap">
-              <div className="font-display font-medium text-gold text-[2.125rem] leading-none tracking-[0.01em]">
+            <div className="min-w-0 overflow-hidden whitespace-nowrap">
+              <div className="overflow-hidden text-ellipsis font-display font-medium text-gold text-[2.125rem] leading-none tracking-[0.01em]">
                 {t("title")}
               </div>
 
-              <div className="font-ui text-[0.625rem] tracking-[0.32em] uppercase text-muted-2 mt-1.5">
+              <div className="mt-1.5 overflow-hidden text-ellipsis whitespace-nowrap font-ui text-[0.625rem] uppercase tracking-[0.32em] text-muted-2">
                 Today · MMXXVI
               </div>
             </div>
 
-            <nav className="flex flex-col gap-0.5">
-              <div className="font-ui text-[0.625rem] font-bold tracking-[0.22em] uppercase text-muted-2 px-2.5 pt-3 pb-2">
+            <nav className="flex flex-col gap-2.5">
+              <div className="overflow-hidden text-ellipsis whitespace-nowrap px-2.5 pb-2 pt-3 font-ui text-[0.625rem] font-bold uppercase tracking-[0.22em] text-muted-2">
                 {t("prayerSection")}
               </div>
 
@@ -88,7 +92,7 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
                   key={item.id}
                   href={item.href}
                   className={cn(
-                    "flex items-center gap-3 px-3 rounded-[0.875rem] py-2.5 font-ui text-sm text-muted transition-colors",
+                    "flex items-center gap-3 overflow-hidden rounded-[0.875rem] px-3 py-2.5 font-ui text-sm text-muted transition-colors",
                     "hover:bg-white/3 hover:text-bone",
                     item.active && "bg-gold-soft text-bone"
                   )}
@@ -96,11 +100,15 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
                   <span className="w-4.5 h-4.5 grid place-items-center text-gold shrink-0">
                     {item.icon}
                   </span>
-                  {item.label}
+
+                  <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                    {item.label}
+                  </span>
                 </Link>
               ))}
             </nav>
-            <div className="mt-auto font-display italic text-base text-muted-2 leading-normal pt-5 border-t border-line min-w-45.75">
+
+            <div className="mt-auto max-w-full overflow-hidden border-t border-line pt-5 font-display text-base italic leading-normal text-muted-2">
               &ldquo;{t("footerQuote")}&rdquo;
             </div>
           </>
@@ -110,7 +118,7 @@ export function AppSidebar({ collapsed, onToggle }: AppSidebarProps) {
               R
             </div>
 
-            <nav className="flex flex-col items-center gap-0.5 mt-6">
+            <nav className="flex flex-col items-center gap-2.5 mt-6">
               {navItems.map((item) => (
                 <Link
                   key={item.id}
