@@ -128,6 +128,23 @@
     "uiLanguage": "Lingua interfaciei",
     "prayerLanguage": "Lingua orationum"
   },
+  "shortcuts": {
+    "title": "Compendia Claviaturae",
+    "link": "Compendia claviaturae",
+    "groupGeneral": "Generalia",
+    "groupPrayer": "Oratio",
+    "openShortcuts": "Aperi compendia",
+    "openSettings": "Aperi configurationes",
+    "closePanel": "Claude fenestram",
+    "playPause": "Incipe / Pausa",
+    "prevStep": "Gradus prior",
+    "nextStep": "Gradus sequens",
+    "toggleAutoplay": "Commuta autoplay",
+    "toggleLeftMenu": "Commuta tabulam sinistram",
+    "togglePrayerStats": "Commuta tabulam statisticarum orationis",
+    "increaseSpeed": "Augere velocitatem",
+    "decreaseSpeed": "Minuere velocitatem"
+  },
   "donate": {
     "buttonLabel": "Dona",
     "eyebrow": "Adiuva opus",

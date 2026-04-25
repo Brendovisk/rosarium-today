@@ -128,6 +128,23 @@
     "uiLanguage": "Idioma da interface",
     "prayerLanguage": "Idioma das orações"
   },
+  "shortcuts": {
+    "title": "Atalhos de Teclado",
+    "link": "Atalhos de teclado",
+    "groupGeneral": "Geral",
+    "groupPrayer": "Oração",
+    "openShortcuts": "Abrir atalhos",
+    "openSettings": "Abrir configurações",
+    "closePanel": "Fechar painel",
+    "playPause": "Reproduzir / Pausar",
+    "prevStep": "Passo anterior",
+    "nextStep": "Próximo passo",
+    "toggleAutoplay": "Alternar reprodução automática",
+    "toggleLeftMenu": "Alternar menu esquerdo",
+    "togglePrayerStats": "Alternar painel de estatísticas da oração",
+    "increaseSpeed": "Aumentar velocidade",
+    "decreaseSpeed": "Diminuir velocidade"
+  },
   "donate": {
     "buttonLabel": "Doar",
     "eyebrow": "Apoie o projeto",
