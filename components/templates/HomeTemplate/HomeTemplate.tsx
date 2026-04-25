@@ -14,6 +14,7 @@ import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
 import { cn } from "@/lib/classNames";
+import { useRosaryProgress } from "@/lib/hooks/use-rosary-progress";
 import { useSettings } from "@/providers/SettingsProvider";
 import { getCurrentDate } from "@/utils/getCurrentDate";
 
@@ -24,6 +25,8 @@ interface HomeTemplateProps {
 export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   const t = useTranslations("home");
   const tPrayer = useTranslations("prayer");
+
+  const { canGoPrev } = useRosaryProgress(todaysMystery);
 
   const { settings, patchSettings } = useSettings();
 
@@ -91,6 +94,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
         <AppSidebar
           collapsed={settings.leftMenuCollapsed}
           onToggle={toggleLeftMenu}
+          todaysMystery={todaysMystery}
         />
       </div>
 
@@ -197,7 +201,8 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   href={`/prayer/${todaysMystery}`}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
                 >
-                  <Play size={18} fill="currentColor" /> {t("start")}
+                  <Play size={18} fill="currentColor" />{" "}
+                  {canGoPrev ? t("continue") : t("start")}
                 </Link>
 
                 <Link
