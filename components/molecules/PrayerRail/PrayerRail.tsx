@@ -194,7 +194,7 @@ export function PrayerRail({
               </div>
             </div>
 
-            <div className="mt-20 hidden border-t border-line pt-6 text-center font-display text-sm italic text-muted xl:block">
+            <div className="mt-20 hidden border-t border-line pt-4 text-center font-display text-sm italic text-muted xl:block">
               Ad Maiorem Dei Gloriam
             </div>
           </>

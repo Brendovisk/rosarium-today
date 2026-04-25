@@ -55,7 +55,7 @@ export function AppSidebar({
           "h-screen w-full min-w-0 border-r border-line flex flex-col overflow-hidden",
           "bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
           "transition-[padding] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
-          collapsed ? "px-2.5 py-8" : "px-7 pt-8 pb-11"
+          collapsed ? "px-2.5 py-8" : "px-7 pt-8 pb-6"
         )}
       >
         <button
@@ -112,7 +112,7 @@ export function AppSidebar({
                 ))}
               </nav>
 
-              <div className="mt-auto max-w-full overflow-hidden border-t border-line pt-5 font-display text-base italic leading-normal text-muted-2">
+              <div className="mt-auto max-w-full overflow-hidden border-t border-line pt-4 font-display text-base italic leading-normal text-muted">
                 &ldquo;{t("footerQuote")}&rdquo;
               </div>
             </>
