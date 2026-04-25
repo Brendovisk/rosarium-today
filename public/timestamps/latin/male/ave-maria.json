@@ -1,0 +1,152 @@
+[
+  {
+    "word": "Ave",
+    "start": 0.0,
+    "end": 1.1
+  },
+  {
+    "word": "Maria,",
+    "start": 1.1,
+    "end": 1.36
+  },
+  {
+    "word": "gratia",
+    "start": 1.68,
+    "end": 1.98
+  },
+  {
+    "word": "plena,",
+    "start": 1.98,
+    "end": 2.3
+  },
+  {
+    "word": "Dominus",
+    "start": 2.62,
+    "end": 3.04
+  },
+  {
+    "word": "tecum,",
+    "start": 3.04,
+    "end": 3.48
+  },
+  {
+    "word": "benedicta",
+    "start": 4.3,
+    "end": 4.8
+  },
+  {
+    "word": "tui",
+    "start": 4.8,
+    "end": 5.04
+  },
+  {
+    "word": "mulieribus,",
+    "start": 5.04,
+    "end": 5.76
+  },
+  {
+    "word": "et",
+    "start": 6.34,
+    "end": 6.42
+  },
+  {
+    "word": "benedictus",
+    "start": 6.42,
+    "end": 7.14
+  },
+  {
+    "word": "fructus",
+    "start": 7.14,
+    "end": 7.72
+  },
+  {
+    "word": "ventris",
+    "start": 7.72,
+    "end": 8.24
+  },
+  {
+    "word": "tui,",
+    "start": 8.24,
+    "end": 8.74
+  },
+  {
+    "word": "Iesus.",
+    "start": 8.88,
+    "end": 9.14
+  },
+  {
+    "word": "Sancta",
+    "start": 10.16,
+    "end": 10.74
+  },
+  {
+    "word": "Maria,",
+    "start": 10.74,
+    "end": 11.02
+  },
+  {
+    "word": "Mater",
+    "start": 11.3,
+    "end": 11.52
+  },
+  {
+    "word": "Dei,",
+    "start": 11.52,
+    "end": 11.98
+  },
+  {
+    "word": "ora",
+    "start": 12.52,
+    "end": 12.82
+  },
+  {
+    "word": "pro",
+    "start": 12.82,
+    "end": 13.04
+  },
+  {
+    "word": "nobis",
+    "start": 13.04,
+    "end": 13.42
+  },
+  {
+    "word": "peccatoribus,",
+    "start": 13.42,
+    "end": 14.34
+  },
+  {
+    "word": "nunc",
+    "start": 15.0,
+    "end": 15.34
+  },
+  {
+    "word": "et",
+    "start": 15.34,
+    "end": 15.6
+  },
+  {
+    "word": "in",
+    "start": 15.6,
+    "end": 15.7
+  },
+  {
+    "word": "hora",
+    "start": 15.7,
+    "end": 15.84
+  },
+  {
+    "word": "mortis",
+    "start": 15.84,
+    "end": 16.28
+  },
+  {
+    "word": "nostra,",
+    "start": 16.28,
+    "end": 16.5
+  },
+  {
+    "word": "amen.",
+    "start": 17.12,
+    "end": 17.34
+  }
+]
