@@ -60,6 +60,11 @@ export function useRosaryProgress(mysteryKey: MysteryKey) {
     setCurrentStepIndex(Math.max(0, Math.min(index, ROSARY_STEPS.length - 1)));
   }, []);
 
+  const resetProgress = useCallback(() => {
+    setCurrentStepIndex(0);
+    window.localStorage.setItem(getProgressStorageKey(mysteryKey), "0");
+  }, [mysteryKey]);
+
   const currentStep: RosaryStep = ROSARY_STEPS[currentStepIndex];
 
   return {
@@ -72,6 +77,7 @@ export function useRosaryProgress(mysteryKey: MysteryKey) {
     goNext,
     goPrev,
     jumpTo,
+    resetProgress,
     progressPercent: ((currentStepIndex + 1) / ROSARY_STEPS.length) * 100,
   };
 }
