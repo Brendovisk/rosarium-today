@@ -4,7 +4,9 @@
     "home": "Home",
     "pray": "Pray",
     "prayerSection": "Prayer",
-    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt."
+    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt.",
+    "expandMenu": "Expand menu",
+    "collapseMenu": "Collapse menu"
   },
   "home": {
     "kicker": "Pray today",
@@ -58,6 +60,8 @@
     "of": "of",
     "contemplare": "Contemplate the mystery",
     "nextStep": "Next",
+    "expandPanel": "Expand prayer panel",
+    "collapsePanel": "Collapse prayer panel",
     "stepCounter": "Step {current} / {total}",
     "decadeSubtitle": "Mystery {n}: {name}",
     "mysteries": {
@@ -106,12 +110,17 @@
   "controls": {
     "play": "Play",
     "pause": "Pause",
+    "previous": "Previous",
+    "next": "Next",
+    "autoplay": "Auto-play",
+    "toggleTheme": "Toggle theme",
     "speed": "Speed",
     "playbackSpeedCycle": "{rate}x — tap to change speed"
   },
   "settings": {
     "title": "Settings",
     "heading": "Settings",
+    "close": "Close",
     "voice": "Voice",
     "voiceMale": "Male",
     "voiceFemale": "Female",

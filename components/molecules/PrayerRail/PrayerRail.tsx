@@ -4,6 +4,11 @@ import { AnimatePresence,motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/atoms/Tooltip";
 import type { MysteryKey } from "@/config/rosary";
 import type { VoiceGender } from "@/config/settings";
 import {
@@ -54,16 +59,23 @@ export function PrayerRail({
         "relative hidden xl:flex flex-col h-[calc(100vh-6rem)] border-t border-line bg-black/10 transition-[padding] duration-300 xl:border-l xl:border-t-0"
       )}
     >
-      <button
-        onClick={onToggle}
-        className={cn(
-          "absolute top-5  z-50 hidden size-8 place-items-center rounded-full border border-line bg-ink-2 text-muted transition-colors hover:border-gold-dim hover:text-gold xl:grid",
-          collapsed ? "left-1/2 -translate-x-1/2" : "-left-4"
-        )}
-        aria-label={collapsed ? "Expand prayer panel" : "Collapse prayer panel"}
-      >
-        {collapsed ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
-      </button>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <button
+            onClick={onToggle}
+            className={cn(
+              "absolute top-5  z-50 hidden size-8 place-items-center rounded-full border border-line bg-ink-2 text-muted transition-colors hover:border-gold-dim hover:text-gold xl:grid",
+              collapsed ? "left-1/2 -translate-x-1/2" : "-left-4"
+            )}
+            aria-label={collapsed ? t("expandPanel") : t("collapsePanel")}
+          >
+            {collapsed ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
+          </button>
+        </TooltipTrigger>
+        <TooltipContent side="left">
+          {collapsed ? t("expandPanel") : t("collapsePanel")}
+        </TooltipContent>
+      </Tooltip>
 
       <div className="flex flex-col flex-1 min-h-0 overflow-y-auto scrollbar-none p-8">
         {collapsed ? (

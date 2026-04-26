@@ -5,6 +5,11 @@ import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/atoms/Button";
 import { Kbd } from "@/components/atoms/Kbd";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/atoms/Tooltip";
 import type { AccentColor } from "@/config/accents";
 import { ACCENT_OPTIONS } from "@/config/accents";
 import type { SupportedLocale } from "@/config/locales";
@@ -89,9 +94,14 @@ export function SettingsDrawer({
             </div>
           </div>
 
-          <Button onClick={onClose} variant="outline" size="icon">
-            <X size={16} />
-          </Button>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <Button onClick={onClose} variant="outline" size="icon">
+                <X size={16} />
+              </Button>
+            </TooltipTrigger>
+            <TooltipContent>{t("close")}</TooltipContent>
+          </Tooltip>
         </header>
 
         <section>

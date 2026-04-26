@@ -4,7 +4,9 @@
     "home": "Início",
     "pray": "Rezar",
     "prayerSection": "Oração",
-    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt."
+    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt.",
+    "expandMenu": "Expandir menu",
+    "collapseMenu": "Recolher menu"
   },
   "home": {
     "kicker": "Orar hoje",
@@ -58,6 +60,8 @@
     "of": "de",
     "contemplare": "Contemple o mistério",
     "nextStep": "Próximo",
+    "expandPanel": "Expandir painel",
+    "collapsePanel": "Recolher painel",
     "stepCounter": "Passo {current} / {total}",
     "decadeSubtitle": "{n}º Mistério: {name}",
     "mysteries": {
@@ -106,12 +110,17 @@
   "controls": {
     "play": "Iniciar",
     "pause": "Pausar",
+    "previous": "Anterior",
+    "next": "Próximo",
+    "autoplay": "Reprodução automática",
+    "toggleTheme": "Alternar tema",
     "speed": "Velocidade",
     "playbackSpeedCycle": "{rate}x — toque para mudar a velocidade"
   },
   "settings": {
     "title": "Configurações",
     "heading": "Ajustes",
+    "close": "Fechar",
     "voice": "Voz",
     "voiceMale": "Masculina",
     "voiceFemale": "Feminina",

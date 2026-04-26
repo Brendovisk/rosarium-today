@@ -7,6 +7,11 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 
 import { BeadViz } from "@/components/atoms/BeadViz";
 import { Button } from "@/components/atoms/Button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/atoms/Tooltip";
 import { DonateModal } from "@/components/molecules/DonateModal";
 import { MysteryCarousel } from "@/components/molecules/MysteryCarousel";
 import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
@@ -29,6 +34,8 @@ interface HomeTemplateProps {
 export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   const t = useTranslations("home");
   const tPrayer = useTranslations("prayer");
+  const tControls = useTranslations("controls");
+  const tSettings = useTranslations("settings");
 
   const [lastMystery, setLastMystery] = useState<MysteryKey | null>(null);
 
@@ -180,27 +187,36 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
               <span className="hidden sm:inline ml-2">{t("donate")}</span>
             </Button>
 
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="text-muted"
-            >
-              <Sun className="hidden dark:block" size={18} />
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                  className="text-muted"
+                >
+                  <Sun className="hidden dark:block" size={18} />
+                  <Moon className="dark:hidden" size={18} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{tControls("toggleTheme")}</TooltipContent>
+            </Tooltip>
 
-              <Moon className="dark:hidden" size={18} />
-            </Button>
-
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={openRightMenu}
-              aria-label="Settings"
-              className="text-muted"
-            >
-              <Settings size={18} />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={openRightMenu}
+                  aria-label={tSettings("title")}
+                  className="text-muted"
+                >
+                  <Settings size={18} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{tSettings("title")}</TooltipContent>
+            </Tooltip>
           </div>
         </div>
 

@@ -14,6 +14,7 @@ import {
 } from "react";
 
 import { saveSettingsCookie } from "@/app/actions/settings";
+import { TooltipProvider } from "@/components/atoms/Tooltip";
 import { getAccentVars } from "@/config/accents";
 import { type AppSettings, normalizeSettings } from "@/config/settings";
 
@@ -94,7 +95,7 @@ export function SettingsProvider({
 
   return (
     <SettingsContext.Provider value={value}>
-      {children}
+      <TooltipProvider>{children}</TooltipProvider>
     </SettingsContext.Provider>
   );
 }

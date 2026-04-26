@@ -126,7 +126,7 @@ export function useRosaryPlayer({
       setCurrentTime(0);
       setDuration(0);
     });
-  }, [audioSrc]);
+  }, [audioSrc, playbackRate]);
 
   useEffect(() => {
     if (audioRef.current) {

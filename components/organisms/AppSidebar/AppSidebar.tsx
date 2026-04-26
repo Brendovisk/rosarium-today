@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence,motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
@@ -12,6 +12,11 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/atoms/Tooltip";
 import type { MysteryKey } from "@/config/rosary";
 import { cn } from "@/utils/classNames";
 
@@ -59,17 +64,29 @@ export function AppSidebar({
           collapsed ? "px-2.5 py-8" : "px-7 pt-8 pb-6"
         )}
       >
-        <button
-          className={cn(
-            "absolute top-8 w-8 h-8 rounded-full border border-line bg-ink-2 text-muted",
-            "grid place-items-center z-50 transition-colors hover:text-gold hover:border-gold-dim",
-            collapsed ? "right-0 translate-x-1/2" : "-right-3.5"
-          )}
-          onClick={onToggle}
-          aria-label={collapsed ? "Expand menu" : "Collapse menu"}
-        >
-          {collapsed ? <ChevronRight size={14} /> : <ChevronLeft size={14} />}
-        </button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <button
+              className={cn(
+                "absolute top-8 w-8 h-8 rounded-full border border-line bg-ink-2 text-muted",
+                "grid place-items-center z-50 transition-colors hover:text-gold hover:border-gold-dim",
+                collapsed ? "right-0 translate-x-1/2" : "-right-3.5"
+              )}
+              onClick={onToggle}
+              aria-label={collapsed ? t("expandMenu") : t("collapseMenu")}
+            >
+              {collapsed ? (
+                <ChevronRight size={14} />
+              ) : (
+                <ChevronLeft size={14} />
+              )}
+            </button>
+          </TooltipTrigger>
+
+          <TooltipContent side="right">
+            {collapsed ? t("expandMenu") : t("collapseMenu")}
+          </TooltipContent>
+        </Tooltip>
 
         <div className="flex flex-col flex-1 min-w-0 overflow-hidden">
           {!collapsed ? (
@@ -79,12 +96,17 @@ export function AppSidebar({
                 animate="visible"
                 variants={{
                   hidden: {},
-                  visible: { transition: { staggerChildren: 0.08, delayChildren: 0.05 } },
+                  visible: {
+                    transition: { staggerChildren: 0.08, delayChildren: 0.05 },
+                  },
                 }}
                 className="flex flex-col flex-1 gap-8 min-w-0 overflow-hidden"
               >
                 <motion.div
-                  variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 8 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="min-w-0 overflow-hidden whitespace-nowrap"
                 >
@@ -98,7 +120,10 @@ export function AppSidebar({
                 </motion.div>
 
                 <motion.nav
-                  variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 8 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="flex flex-col gap-2.5"
                 >
@@ -128,7 +153,10 @@ export function AppSidebar({
                 </motion.nav>
 
                 <motion.div
-                  variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                  variants={{
+                    hidden: { opacity: 0, y: 8 },
+                    visible: { opacity: 1, y: 0 },
+                  }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
                   className="mt-auto max-w-full overflow-hidden border-t border-line pt-4 font-display text-base italic leading-normal text-muted"
                 >

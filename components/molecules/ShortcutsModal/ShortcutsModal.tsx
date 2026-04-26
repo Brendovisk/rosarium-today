@@ -23,11 +23,7 @@ type ShortcutsModalProps = {
   showPrayerShortcuts?: boolean;
 };
 
-export function ShortcutsModal({
-  open,
-  onClose,
-  showPrayerShortcuts = false,
-}: ShortcutsModalProps) {
+export function ShortcutsModal({ open, onClose }: ShortcutsModalProps) {
   const t = useTranslations("shortcuts");
   const isMac = useIsMac();
   const mod = isMac ? "⌘" : "Ctrl";

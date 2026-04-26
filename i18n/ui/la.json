@@ -4,7 +4,9 @@
     "home": "Initium",
     "pray": "Orare",
     "prayerSection": "Oratio",
-    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt."
+    "footerQuote": "Totus tuus ego sum, et omnia mea tua sunt.",
+    "expandMenu": "Expandere tabulam",
+    "collapseMenu": "Colligere tabulam"
   },
   "home": {
     "kicker": "Orare hodie",
@@ -58,6 +60,8 @@
     "of": "ex",
     "contemplare": "Contemplare mysterium",
     "nextStep": "Proximum",
+    "expandPanel": "Expandere tabulam",
+    "collapsePanel": "Colligere tabulam",
     "stepCounter": "Gradus {current} / {total}",
     "decadeSubtitle": "Mysterium {n}: {name}",
     "mysteries": {
@@ -106,12 +110,17 @@
   "controls": {
     "play": "Incipe",
     "pause": "Pausa",
+    "previous": "Prior",
+    "next": "Sequens",
+    "autoplay": "Autoplay",
+    "toggleTheme": "Aspectum mutare",
     "speed": "Velocitas",
     "playbackSpeedCycle": "{rate}x — tange ut velocitatem mutes"
   },
   "settings": {
     "title": "Dispositiones",
     "heading": "Dispositiones",
+    "close": "Claudere",
     "voice": "Vox",
     "voiceMale": "Masculina",
     "voiceFemale": "Feminina",

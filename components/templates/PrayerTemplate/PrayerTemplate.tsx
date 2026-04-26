@@ -18,6 +18,11 @@ import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/atoms/Tooltip";
 import { DonateModal } from "@/components/molecules/DonateModal";
 import { PrayerRail } from "@/components/molecules/PrayerRail";
 import { PrayerWord } from "@/components/molecules/PrayerWord";
@@ -62,6 +67,8 @@ export function PrayerTemplate({
   isSilent,
 }: PrayerTemplateProps) {
   const t = useTranslations("prayer");
+  const tControls = useTranslations("controls");
+  const tSettings = useTranslations("settings");
   const router = useRouter();
 
   const { settings, patchSettings } = useSettings();
@@ -484,36 +491,51 @@ export function PrayerTemplate({
           </div>
 
           <div className="flex shrink-0 items-center gap-2 justify-self-end sm:gap-3">
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={() => setDonateOpen(true)}
-              aria-label={t("donate")}
-              className="text-muted"
-            >
-              <Heart size={18} />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => setDonateOpen(true)}
+                  aria-label={t("donate")}
+                  className="text-muted"
+                >
+                  <Heart size={18} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{t("donate")}</TooltipContent>
+            </Tooltip>
 
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={toggleTheme}
-              aria-label="Toggle theme"
-              className="text-muted"
-            >
-              <Sun className="hidden dark:block" size={18} />
-              <Moon className="dark:hidden" size={18} />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                  className="text-muted"
+                >
+                  <Sun className="hidden dark:block" size={18} />
+                  <Moon className="dark:hidden" size={18} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{tControls("toggleTheme")}</TooltipContent>
+            </Tooltip>
 
-            <Button
-              variant="outline"
-              size="icon"
-              onClick={openRightMenu}
-              aria-label="Settings"
-              className="text-muted"
-            >
-              <Settings size={18} />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={openRightMenu}
+                  aria-label={tSettings("title")}
+                  className="text-muted"
+                >
+                  <Settings size={18} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>{tSettings("title")}</TooltipContent>
+            </Tooltip>
           </div>
         </header>
 
@@ -641,53 +663,77 @@ export function PrayerTemplate({
             <div className="border-t border-line bg-ink/90 px-5 py-4 backdrop-blur-xl">
               <div className="mx-auto flex max-w-3xl items-center justify-center gap-3">
                 {!isSilent && (
-                  <Button
-                    variant={settings.autoPlay ? "default" : "outline"}
-                    size="icon"
-                    onClick={toggleAutoPlay}
-                    aria-label="Auto play"
-                  >
-                    <Repeat size={16} />
-                  </Button>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant={settings.autoPlay ? "default" : "outline"}
+                        size="icon"
+                        onClick={toggleAutoPlay}
+                        aria-label="Auto play"
+                      >
+                        <Repeat size={16} />
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>{tControls("autoplay")}</TooltipContent>
+                  </Tooltip>
                 )}
 
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={goPrevWithResume}
-                  disabled={!canGoPrev}
-                  suppressHydrationWarning
-                  aria-label="Previous"
-                >
-                  <ChevronLeft size={18} />
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={goPrevWithResume}
+                      disabled={!canGoPrev}
+                      suppressHydrationWarning
+                      aria-label="Previous"
+                    >
+                      <ChevronLeft size={18} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{tControls("previous")}</TooltipContent>
+                </Tooltip>
 
                 {!isSilent &&
                   (isMysteryAnnouncement && settings.autoPlay ? (
                     <ReflectionButton progress={reflectionProgress} />
                   ) : (
-                    <Button
-                      onClick={togglePlayPause}
-                      disabled={isLoading || isMysteryAnnouncement}
-                      aria-label={isPlaying ? "Pause" : "Play"}
-                      className="size-14"
-                    >
-                      {isPlaying ? (
-                        <Pause size={20} fill="currentColor" />
-                      ) : (
-                        <Play size={22} fill="currentColor" />
-                      )}
-                    </Button>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          onClick={togglePlayPause}
+                          disabled={isLoading || isMysteryAnnouncement}
+                          aria-label={
+                            isPlaying ? tControls("pause") : tControls("play")
+                          }
+                          className="size-14"
+                        >
+                          {isPlaying ? (
+                            <Pause size={20} fill="currentColor" />
+                          ) : (
+                            <Play size={22} fill="currentColor" />
+                          )}
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        {isPlaying ? tControls("pause") : tControls("play")}
+                      </TooltipContent>
+                    </Tooltip>
                   ))}
 
-                <Button
-                  variant="outline"
-                  size="icon"
-                  onClick={handleNext}
-                  aria-label="Next"
-                >
-                  <ChevronRight size={18} />
-                </Button>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={handleNext}
+                      aria-label="Next"
+                    >
+                      <ChevronRight size={18} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>{tControls("next")}</TooltipContent>
+                </Tooltip>
 
                 {!isSilent && (
                   <div className="block">
@@ -729,7 +775,6 @@ export function PrayerTemplate({
       <ShortcutsModal
         open={shortcutsOpen}
         onClose={() => setShortcutsOpen(false)}
-        showPrayerShortcuts
       />
     </div>
   );
