@@ -655,7 +655,8 @@ export function PrayerTemplate({
                   variant="outline"
                   size="icon"
                   onClick={goPrevWithResume}
-                  disabled={!isProgressHydrated || !canGoPrev}
+                  disabled={!canGoPrev}
+                  suppressHydrationWarning
                   aria-label="Previous"
                 >
                   <ChevronLeft size={18} />
