@@ -11,7 +11,7 @@ npm run lint       # Run ESLint
 npm run lint:fix   # Auto-fix ESLint issues
 ```
 
-No test runner is configured yet.
+No test runner is configured yet. Vitest + React Testing Library is the planned choice.
 
 ## Architecture
 
@@ -66,3 +66,20 @@ Tailwind v4 uses a CSS-first approach — no `tailwind.config.ts`. Theme tokens 
 - **No magic numbers** — use named constants in the appropriate `config/` file.
 - **Replace, don't add alongside** — when migrating a pattern, remove the old version rather than leaving both.
 - **Minimal refactors** — extract one cohesive piece at a time; do not bundle hooks, sub-components, and column definitions in a single pass unless asked.
+- **No comments explaining what** — only comment when the *why* is non-obvious (hidden constraint, subtle invariant, browser workaround).
+- **`"use client"` at template level** — pages stay server components; push the client boundary down to the template.
+
+## Known Gaps
+
+See `ARCHITECTURE.md#known-gaps--roadmap` for a full list. Key items:
+- No test suite (no test runner configured)
+- No PWA manifest / service worker (despite PWA branding)
+- Home page stats (streak, last prayer) are hardcoded placeholders
+- `DonateModal` has empty URL constants (`PIX_KEY`, `KOFI_URL`, `BMC_URL`)
+- `ThemeSwitcher` atom appears unused — verify before removing
+
+## Docs Map
+
+- `README.md` — project overview, quick start, project structure
+- `ARCHITECTURE.md` — routing, settings system, audio playback, decision log
+- `CONTRIBUTING.md` — workflow, commit conventions, good first issues, how to add a locale
