@@ -67,7 +67,7 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
   const rafRef = useRef(0);
   const [tick, setTick] = useState(0);
   const [hoverState, setHoverState] = useState(false);
-  const activeBead = tick % BEAD_COUNT;
+  const activeBead = Math.floor(tick / 300) % BEAD_COUNT;
 
   if (!physicsRef.current) {
     const parts: Particle[] = [];
