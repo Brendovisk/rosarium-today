@@ -11,6 +11,11 @@ const PIX_KEY = "";
 const KOFI_URL = "";
 const BMC_URL = "";
 
+const HAS_PIX = PIX_KEY !== "";
+const HAS_KOFI = KOFI_URL !== "";
+const HAS_BMC = BMC_URL !== "";
+const HAS_ANY_METHOD = HAS_PIX || HAS_KOFI || HAS_BMC;
+
 type DonateModalProps = {
   open: boolean;
   onClose: () => void;
@@ -65,71 +70,83 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
         </div>
 
         <div className="flex flex-col gap-3">
-          <div className="p-[1.125rem_1.25rem] rounded-[0.875rem] border border-gold-dim bg-gold-soft">
-            <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
-              <div className="font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-gold">
-                Pix · Brasil
+          {!HAS_ANY_METHOD && (
+            <div className="rounded-[0.875rem] border border-line bg-ink-3 p-[1.125rem_1.25rem] text-center font-display italic text-muted">
+              {t("comingSoon")}
+            </div>
+          )}
+
+          {HAS_PIX && (
+            <div className="p-[1.125rem_1.25rem] rounded-[0.875rem] border border-gold-dim bg-gold-soft">
+              <div className="mb-2 flex flex-col gap-1 sm:flex-row sm:items-center sm:justify-between">
+                <div className="font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-gold">
+                  Pix · Brasil
+                </div>
+
+                <div className="font-display italic text-muted">
+                  {t("pixType")}
+                </div>
               </div>
 
-              <div className="font-display italic  text-muted">
-                {t("pixType")}
+              <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                <code className="break-all font-ui text-[0.9375rem] tracking-[0.02em] text-bone">
+                  {PIX_KEY}
+                </code>
+
+                <Button onClick={handleCopy} size="lg">
+                  {copied ? t("copied") : t("copy")}
+                </Button>
               </div>
             </div>
+          )}
 
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-              <code className="break-all font-ui text-[0.9375rem] tracking-[0.02em] text-bone">
-                {PIX_KEY}
-              </code>
-
-              <Button onClick={handleCopy} size="lg">
-                {copied ? t("copied") : t("copy")}
-              </Button>
-            </div>
-          </div>
-
-          <a
-            href={`https://${KOFI_URL}`}
-            target="_blank"
-            rel="noreferrer"
-            className={cn(
-              "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
-            )}
-          >
-            <div>
-              <div className="font-display text-[1.1875rem] text-bone">
-                Ko-fi
+          {HAS_KOFI && (
+            <a
+              href={`https://${KOFI_URL}`}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
+              )}
+            >
+              <div>
+                <div className="font-display text-[1.1875rem] text-bone">
+                  Ko-fi
+                </div>
+                <div className="break-all font-ui text-[0.75rem] text-muted">
+                  {KOFI_URL}
+                </div>
               </div>
-              <div className="break-all font-ui text-[0.75rem] text-muted">
-                {KOFI_URL}
-              </div>
-            </div>
 
-            <span className="text-gold font-ui text-[0.6875rem] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
-              {t("openLink")} <ExternalLink size={12} />
-            </span>
-          </a>
+              <span className="text-gold font-ui text-[0.6875rem] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
+                {t("openLink")} <ExternalLink size={12} />
+              </span>
+            </a>
+          )}
 
-          <a
-            href={`https://${BMC_URL}`}
-            target="_blank"
-            rel="noreferrer"
-            className={cn(
-              "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
-            )}
-          >
-            <div>
-              <div className="font-display text-[1.1875rem] text-bone">
-                Buy Me a Coffee
+          {HAS_BMC && (
+            <a
+              href={`https://${BMC_URL}`}
+              target="_blank"
+              rel="noreferrer"
+              className={cn(
+                "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
+              )}
+            >
+              <div>
+                <div className="font-display text-[1.1875rem] text-bone">
+                  Buy Me a Coffee
+                </div>
+                <div className="break-all font-ui text-[0.75rem] text-muted">
+                  {BMC_URL}
+                </div>
               </div>
-              <div className="break-all font-ui text-[0.75rem] text-muted">
-                {BMC_URL}
-              </div>
-            </div>
 
-            <span className="text-gold font-ui text-[0.6875rem] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
-              {t("openLink")} <ExternalLink size={12} />
-            </span>
-          </a>
+              <span className="text-gold font-ui text-[0.6875rem] font-bold tracking-[0.2em] uppercase flex items-center gap-1">
+                {t("openLink")} <ExternalLink size={12} />
+              </span>
+            </a>
+          )}
         </div>
 
         <div className="mt-6 pt-5 border-t border-line font-display italic text-lg text-muted-2 text-center">
