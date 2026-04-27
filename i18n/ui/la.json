@@ -18,6 +18,8 @@
     "readSilent": "Legere in silentio",
     "lastPrayer": "Oratio ultima",
     "lastPrayerValue": "ante {days} dies · completa",
+    "lastPrayerValueToday": "Hodie · completa",
+    "lastPrayerValueYesterday": "Heri · completa",
     "streak": "Dies continui",
     "avgDuration": "Duratio media",
     "avgDurationValue": "{count} min",

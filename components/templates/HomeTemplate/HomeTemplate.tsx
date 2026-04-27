@@ -20,8 +20,12 @@ import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
 import { isMysteryKey } from "@/config/rosary";
+import { usePrayerHistory } from "@/hooks/use-prayer-history";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
-import { LAST_MYSTERY_KEY } from "@/player/rosary-steps";
+import {
+  ESTIMATED_ROSARY_DURATION_MINS,
+  LAST_MYSTERY_KEY,
+} from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 import { getCurrentDate } from "@/utils/getCurrentDate";
@@ -48,6 +52,8 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
 
   const continueMystery = lastMystery ?? todaysMystery;
   const { canGoPrev } = useRosaryProgress(continueMystery);
+
+  const { lastPrayedDaysAgo, streak, isHydrated } = usePrayerHistory();
 
   const { settings, patchSettings } = useSettings();
 
@@ -245,7 +251,13 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   </span>
 
                   <strong className="font-display font-medium text-[1.375rem] text-bone">
-                    {t("lastPrayerValue", { days: 2 })}
+                    {!isHydrated || lastPrayedDaysAgo === null
+                      ? "—"
+                      : lastPrayedDaysAgo === 0
+                      ? t("lastPrayerValueToday")
+                      : lastPrayedDaysAgo === 1
+                      ? t("lastPrayerValueYesterday")
+                      : t("lastPrayerValue", { days: lastPrayedDaysAgo })}
                   </strong>
                 </div>
 
@@ -255,7 +267,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   </span>
 
                   <strong className="font-display font-medium text-[1.375rem] text-bone">
-                    14
+                    {isHydrated ? streak : "—"}
                   </strong>
                 </div>
 
@@ -265,7 +277,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   </span>
 
                   <strong className="font-display font-medium text-[1.375rem] text-bone">
-                    {t("avgDurationValue", { count: 22 })}
+                    {t("avgDurationValue", { count: ESTIMATED_ROSARY_DURATION_MINS })}
                   </strong>
                 </div>
               </div>

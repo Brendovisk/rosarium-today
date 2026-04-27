@@ -33,6 +33,7 @@ import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { PLAYBACK_RATES } from "@/config/settings";
+import { recordCompletion } from "@/hooks/use-prayer-history";
 import { useRosaryPlayer } from "@/hooks/use-rosary-player";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import type { PrayerKey } from "@/player/assets";
@@ -103,10 +104,11 @@ export function PrayerTemplate({
       shouldAutoPlayRef.current = true;
       goNext();
     } else {
+      recordCompletion(mysteryKey);
       resetProgress();
       router.push("/");
     }
-  }, [router, settings.autoPlay, canGoNext, goNext, resetProgress]);
+  }, [router, settings.autoPlay, canGoNext, goNext, resetProgress, mysteryKey]);
 
   const {
     audioRef,
@@ -304,10 +306,11 @@ export function PrayerTemplate({
       markResumeIfAudioPlaying();
       goNext();
     } else {
+      recordCompletion(mysteryKey);
       resetProgress();
       router.push("/");
     }
-  }, [canGoNext, goNext, markResumeIfAudioPlaying, resetProgress, router]);
+  }, [canGoNext, goNext, markResumeIfAudioPlaying, resetProgress, router, mysteryKey]);
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -428,6 +431,7 @@ export function PrayerTemplate({
 
         return;
       } else {
+        recordCompletion(mysteryKey);
         resetProgress();
         router.push("/");
       }
@@ -443,6 +447,7 @@ export function PrayerTemplate({
     canGoNext,
     goNext,
     resetProgress,
+    mysteryKey,
   ]);
 
   return (

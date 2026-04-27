@@ -18,6 +18,8 @@
     "readSilent": "Ler sem áudio",
     "lastPrayer": "Última oração",
     "lastPrayerValue": "há {days} dias · completa",
+    "lastPrayerValueToday": "Hoje · completa",
+    "lastPrayerValueYesterday": "Ontem · completa",
     "streak": "Dias seguidos",
     "avgDuration": "Duração média",
     "avgDurationValue": "{count} min",
