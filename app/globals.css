@@ -105,8 +105,7 @@
   --sidebar-border: color-mix(in oklab, var(--line) 80%, transparent);
   --sidebar-ring: color-mix(in oklab, var(--gold) 65%, transparent);
 
-  --bg-ambient:
-    radial-gradient(
+  --bg-ambient: radial-gradient(
       ellipse 80% 60% at 15% 20%,
       rgba(198, 161, 91, 0.08),
       transparent 55%
@@ -138,8 +137,7 @@ html.light {
   --gold: #8c6b2a;
   --gold-dim: rgba(140, 107, 42, 0.6);
   --gold-soft: rgba(140, 107, 42, 0.14);
-  --bg-ambient:
-    radial-gradient(
+  --bg-ambient: radial-gradient(
       ellipse 80% 60% at 15% 20%,
       rgba(140, 107, 42, 0.1),
       transparent 55%
@@ -185,7 +183,7 @@ html.light {
   body {
     @apply bg-background text-foreground;
     font-family: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
-    min-height: 100vh;
+    min-height: 100svh;
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;

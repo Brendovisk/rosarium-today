@@ -310,7 +310,14 @@ export function PrayerTemplate({
       resetProgress();
       router.push("/");
     }
-  }, [canGoNext, goNext, markResumeIfAudioPlaying, resetProgress, router, mysteryKey]);
+  }, [
+    canGoNext,
+    goNext,
+    markResumeIfAudioPlaying,
+    resetProgress,
+    router,
+    mysteryKey,
+  ]);
 
   useEffect(() => {
     function onKeyDown(e: KeyboardEvent) {
@@ -552,8 +559,8 @@ export function PrayerTemplate({
               : "xl:grid-cols-[minmax(0,1fr)_20rem]"
           )}
         >
-          <div className="grid grid-rows-[1fr_auto] h-[calc(100vh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col">
-            <section className="relative flex min-h-[calc(100vh-12rem)] flex-1 flex-col overflow-hidden lg:min-h-0">
+          <div className="grid grid-rows-[1fr_auto] h-[calc(100svh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col">
+            <section className="relative flex min-h-[calc(100svh-12rem)] flex-1 flex-col overflow-hidden lg:min-h-0">
               <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-linear-to-b from-background to-transparent" />
 
               <div className="flex items-center justify-between px-5 pt-8 font-ui text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-muted sm:px-8 lg:px-12">

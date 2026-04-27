@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence,motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
@@ -56,7 +56,7 @@ export function PrayerRail({
   return (
     <aside
       className={cn(
-        "relative hidden xl:flex flex-col h-[calc(100vh-6rem)] border-t border-line bg-black/10 transition-[padding] duration-300 xl:border-l xl:border-t-0"
+        "relative hidden xl:flex flex-col h-[calc(100svh-6rem)] border-t border-line bg-black/10 transition-[padding] duration-300 xl:border-l xl:border-t-0"
       )}
     >
       <Tooltip>
@@ -109,12 +109,17 @@ export function PrayerRail({
               animate="visible"
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
+                visible: {
+                  transition: { staggerChildren: 0.07, delayChildren: 0.05 },
+                },
               }}
               className="flex flex-col flex-1"
             >
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 8 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="mb-7 flex items-start justify-between gap-4"
               >
@@ -147,7 +152,10 @@ export function PrayerRail({
                   return (
                     <motion.button
                       key={decadeName}
-                      variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                      variants={{
+                        hidden: { opacity: 0, y: 8 },
+                        visible: { opacity: 1, y: 0 },
+                      }}
                       transition={{ duration: 0.25, ease: "easeOut" }}
                       onClick={() => onJumpToDecade(index)}
                       className={cn(
@@ -201,7 +209,10 @@ export function PrayerRail({
               </div>
 
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 8 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="mt-7 border-t border-line pt-5"
               >
@@ -213,7 +224,10 @@ export function PrayerRail({
               </motion.div>
 
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 8 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="mt-5 border-t border-line pt-5"
               >
@@ -228,7 +242,10 @@ export function PrayerRail({
               </motion.div>
 
               <motion.div
-                variants={{ hidden: { opacity: 0, y: 8 }, visible: { opacity: 1, y: 0 } }}
+                variants={{
+                  hidden: { opacity: 0, y: 8 },
+                  visible: { opacity: 1, y: 0 },
+                }}
                 transition={{ duration: 0.25, ease: "easeOut" }}
                 className="mt-20 hidden border-t border-line pt-4 text-center font-display text-sm italic text-muted xl:block"
               >
