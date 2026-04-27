@@ -46,7 +46,8 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: "Rosarium Today",
-  description: "Rosarium Today",
+  description:
+    "A quiet place to pray the Holy Rosary — word-by-word audio, three languages, no ads.",
 };
 
 export default function RootLayout({
