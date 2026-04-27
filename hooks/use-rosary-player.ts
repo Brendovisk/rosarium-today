@@ -51,9 +51,10 @@ export function useRosaryPlayer({
 }: UseRosaryPlayerParams): UseRosaryPlayerReturn {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const rafRef = useRef<number | undefined>(undefined);
-  // Ref keeps onEnded stable so the audio "ended" listener never needs to be
-  // re-registered when the parent re-renders with a new callback.
+  // Refs keep callbacks and volatile values stable so event listeners never
+  // need to be re-registered when the parent re-renders with new values.
   const onEndedRef = useRef(onEnded);
+  const playbackRateRef = useRef(playbackRate);
 
   const [words, setWords] = useState<readonly WordTimestamp[]>([]);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -64,6 +65,10 @@ export function useRosaryPlayer({
   useEffect(() => {
     onEndedRef.current = onEnded;
   }, [onEnded]);
+
+  useEffect(() => {
+    playbackRateRef.current = playbackRate;
+  }, [playbackRate]);
 
   useEffect(() => {
     if (!prayerKey) return;
@@ -216,7 +221,7 @@ export function useRosaryPlayer({
     };
 
     const handleLoadedMetadata = () => {
-      audio.playbackRate = playbackRate;
+      audio.playbackRate = playbackRateRef.current;
       setDuration(audio.duration);
     };
 
@@ -241,7 +246,7 @@ export function useRosaryPlayer({
       audio.removeEventListener("loadedmetadata", handleLoadedMetadata);
       audio.removeEventListener("timeupdate", handleTimeUpdate);
     };
-  }, [audioSrc, playbackRate]);
+  }, [audioSrc]);
 
   return {
     audioRef,
