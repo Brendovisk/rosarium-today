@@ -11,6 +11,7 @@ import { cookies } from "next/headers";
 import { NextIntlClientProvider } from "next-intl";
 import type { CSSProperties, ReactNode } from "react";
 
+import { InstallBanner } from "@/components/atoms/InstallBanner";
 import { ServiceWorkerRegistration } from "@/components/atoms/ServiceWorkerRegistration";
 import { getAccentVars } from "@/config/accents";
 import { parseSettingsCookie, SETTINGS_COOKIE_NAME } from "@/config/settings";
@@ -101,7 +102,10 @@ async function LayoutContent({ children }: { children: ReactNode }) {
         <SettingsProvider initialSettings={settings}>
           <NextIntlClientProvider>{children}</NextIntlClientProvider>
         </SettingsProvider>
+
         <ServiceWorkerRegistration />
+
+        <InstallBanner />
       </body>
     </html>
   );
