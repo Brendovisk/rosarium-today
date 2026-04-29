@@ -67,7 +67,7 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
   const rafRef = useRef(0);
   const [tick, setTick] = useState(0);
   const [hoverState, setHoverState] = useState(false);
-  const activeBead = Math.floor(tick / 300) % BEAD_COUNT;
+  const [activeBead, setActiveBead] = useState(0);
 
   if (!physicsRef.current) {
     const parts: Particle[] = [];
@@ -131,9 +131,9 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
     mouseRef.current.active = false;
   }, []);
 
-  const handleClick = useCallback(
-    (e: React.MouseEvent) => {
-      const [x, y] = pointerToViewBox(e.clientX, e.clientY);
+  const applyImpulse = useCallback(
+    (clientX: number, clientY: number) => {
+      const [x, y] = pointerToViewBox(clientX, clientY);
       mouseRef.current.clicked = 1;
       const physics = physicsRef.current!;
       const IMPULSE = 4.5;
@@ -145,8 +145,22 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
         p.x += (dx / d) * f;
         p.y += (dy / d) * f;
       }
+      setActiveBead((prev) => (prev + 1) % BEAD_COUNT);
     },
     [pointerToViewBox]
+  );
+
+  const handleClick = useCallback(
+    (e: React.MouseEvent) => applyImpulse(e.clientX, e.clientY),
+    [applyImpulse]
+  );
+
+  const handleTap = useCallback(
+    (e: React.TouchEvent) => {
+      const touch = e.changedTouches[0];
+      if (touch) applyImpulse(touch.clientX, touch.clientY);
+    },
+    [applyImpulse]
   );
 
   useEffect(() => {
@@ -267,6 +281,7 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
       onMouseEnter={handleEnter}
       onMouseLeave={handleLeave}
       onMouseDown={handleClick}
+      onTouchEnd={handleTap}
     >
       {!mounted ? null : (
         <svg
