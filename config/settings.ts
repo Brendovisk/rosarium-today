@@ -22,6 +22,9 @@ export type AppSettings = {
   leftMenuCollapsed: boolean;
   rightMenuCollapsed: boolean;
   prayerRailCollapsed: boolean;
+  binauralEnabled: boolean;
+  binauralVolume: number;
+  artworkEnabled: boolean;
 };
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -35,6 +38,9 @@ export const DEFAULT_SETTINGS: AppSettings = {
   leftMenuCollapsed: false,
   rightMenuCollapsed: true,
   prayerRailCollapsed: false,
+  binauralEnabled: false,
+  binauralVolume: 0.3,
+  artworkEnabled: false,
 };
 
 export function isThemePreference(value: unknown): value is ThemePreference {
@@ -91,6 +97,20 @@ export function normalizeSettings(settings: unknown): AppSettings {
       typeof partialSettings.prayerRailCollapsed === "boolean"
         ? partialSettings.prayerRailCollapsed
         : DEFAULT_SETTINGS.prayerRailCollapsed,
+    binauralEnabled:
+      typeof partialSettings.binauralEnabled === "boolean"
+        ? partialSettings.binauralEnabled
+        : DEFAULT_SETTINGS.binauralEnabled,
+    binauralVolume:
+      typeof partialSettings.binauralVolume === "number" &&
+      partialSettings.binauralVolume >= 0 &&
+      partialSettings.binauralVolume <= 1
+        ? partialSettings.binauralVolume
+        : DEFAULT_SETTINGS.binauralVolume,
+    artworkEnabled:
+      typeof partialSettings.artworkEnabled === "boolean"
+        ? partialSettings.artworkEnabled
+        : DEFAULT_SETTINGS.artworkEnabled,
   };
 }
 

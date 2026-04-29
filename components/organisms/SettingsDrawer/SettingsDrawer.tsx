@@ -272,6 +272,105 @@ export function SettingsDrawer({
           </div>
         </section>
 
+        <section>
+          <div className={SECTION_LABEL}>{t("binauralAudio")}</div>
+
+          <button
+            onClick={() =>
+              patchSettings({ binauralEnabled: !settings.binauralEnabled })
+            }
+            className={cn(
+              "w-full flex items-center justify-between rounded-[0.875rem] border p-[1rem_1.125rem] transition-all",
+              settings.binauralEnabled
+                ? "border-gold bg-gold-soft"
+                : "border-line bg-transparent hover:border-line-2"
+            )}
+          >
+            <div className="text-left">
+              <div className="font-display text-[0.9375rem] text-bone leading-none">
+                {t("binauralAudio")}
+              </div>
+              <div className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 mt-1">
+                {t("binauralAudioSub")}
+              </div>
+            </div>
+            <div
+              className={cn(
+                "w-10 h-6 rounded-full relative transition-colors shrink-0",
+                settings.binauralEnabled ? "bg-gold" : "bg-line-2"
+              )}
+            >
+              <div
+                className={cn(
+                  "absolute top-1 w-4 h-4 rounded-full bg-ink transition-transform",
+                  settings.binauralEnabled ? "translate-x-5" : "translate-x-1"
+                )}
+              />
+            </div>
+          </button>
+
+          {settings.binauralEnabled && (
+            <div className="mt-3 flex items-center gap-3 px-1">
+              <span className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 shrink-0">
+                {t("binauralVolume")}
+              </span>
+              <input
+                type="range"
+                min={0}
+                max={1}
+                step={0.05}
+                value={settings.binauralVolume}
+                onChange={(e) =>
+                  patchSettings({ binauralVolume: Number(e.target.value) })
+                }
+                className="flex-1 accent-gold"
+                aria-label={t("binauralVolume")}
+              />
+              <span className="font-ui text-xs text-muted-2 w-8 text-right shrink-0">
+                {Math.round(settings.binauralVolume * 100)}%
+              </span>
+            </div>
+          )}
+        </section>
+
+        <section>
+          <div className={SECTION_LABEL}>{t("artworkBackground")}</div>
+
+          <button
+            onClick={() =>
+              patchSettings({ artworkEnabled: !settings.artworkEnabled })
+            }
+            className={cn(
+              "w-full flex items-center justify-between rounded-[0.875rem] border p-[1rem_1.125rem] transition-all",
+              settings.artworkEnabled
+                ? "border-gold bg-gold-soft"
+                : "border-line bg-transparent hover:border-line-2"
+            )}
+          >
+            <div className="text-left">
+              <div className="font-display text-[0.9375rem] text-bone leading-none">
+                {t("artworkBackground")}
+              </div>
+              <div className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 mt-1">
+                {t("artworkBackgroundSub")}
+              </div>
+            </div>
+            <div
+              className={cn(
+                "w-10 h-6 rounded-full relative transition-colors shrink-0",
+                settings.artworkEnabled ? "bg-gold" : "bg-line-2"
+              )}
+            >
+              <div
+                className={cn(
+                  "absolute top-1 w-4 h-4 rounded-full bg-ink transition-transform",
+                  settings.artworkEnabled ? "translate-x-5" : "translate-x-1"
+                )}
+              />
+            </div>
+          </button>
+        </section>
+
         <div className="mt-auto pt-6 border-t border-line flex flex-col gap-4">
           <button
             onClick={onShortcuts}

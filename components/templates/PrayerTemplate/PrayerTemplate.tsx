@@ -5,6 +5,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Heart,
+  Image,
   Moon,
   Pause,
   Play,
@@ -15,6 +16,7 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
@@ -23,6 +25,8 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@/components/atoms/Tooltip";
+import { ArtworkBackground } from "@/components/molecules/ArtworkBackground";
+import { BinauralControl } from "@/components/molecules/BinauralControl";
 import { DonateModal } from "@/components/molecules/DonateModal";
 import { PrayerRail } from "@/components/molecules/PrayerRail";
 import { PrayerWord } from "@/components/molecules/PrayerWord";
@@ -31,8 +35,10 @@ import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { SpeedControl } from "@/components/molecules/SpeedControl";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
+import { getAccentVars } from "@/config/accents";
 import type { MysteryKey } from "@/config/rosary";
 import { PLAYBACK_RATES } from "@/config/settings";
+import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { recordCompletion } from "@/hooks/use-prayer-history";
 import { useRosaryPlayer } from "@/hooks/use-rosary-player";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
@@ -129,6 +135,11 @@ export function PrayerTemplate({
     playbackRate: settings.playbackRate,
     onEnded: handleEnded,
   });
+
+  useBinauralAudio(
+    !isSilent && settings.binauralEnabled,
+    settings.binauralVolume
+  );
 
   const markResumeIfAudioPlaying = useCallback(() => {
     if (!isSilent && isPlaying && currentStep.prayerKey) {
@@ -457,27 +468,56 @@ export function PrayerTemplate({
     mysteryKey,
   ]);
 
+  const forceDark = settings.artworkEnabled && settings.theme === "light";
+  const darkAccentVars = forceDark
+    ? getAccentVars(settings.accent, "dark")
+    : null;
+
   return (
     <div
       className={cn(
         "relative z-2 grid min-h-screen grid-cols-1 transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] lg:h-screen lg:overflow-hidden",
         settings.leftMenuCollapsed
           ? "lg:grid-cols-[4rem_1fr]"
-          : "lg:grid-cols-[15rem_1fr]"
+          : "lg:grid-cols-[15rem_1fr]",
+        forceDark && "dark force-dark"
       )}
+      style={
+        darkAccentVars
+          ? ({
+              "--gold": darkAccentVars.gold,
+              "--gold-dim": darkAccentVars.dim,
+              "--gold-soft": darkAccentVars.soft,
+            } as CSSProperties)
+          : undefined
+      }
     >
       <audio ref={audioRef} preload="auto" />
+
+      <ArtworkBackground
+        mysteryKey={mysteryKey}
+        decadeIndex={decadeIndex}
+        visible={settings.artworkEnabled}
+      />
 
       <div className="hidden lg:block">
         <AppSidebar
           collapsed={settings.leftMenuCollapsed}
           onToggle={toggleLeftMenu}
           todaysMystery={todaysMystery}
+          artworkEnabled={settings.artworkEnabled}
         />
       </div>
 
       <div className="flex min-h-screen min-w-0 flex-col lg:h-screen lg:min-h-0">
-        <header className="sticky top-0 z-10 grid shrink-0 grid-cols-[1fr_auto] items-center gap-4 border-b border-line bg-ink/75 px-5 py-4 backdrop-blur-[0.875rem] sm:px-8 lg:grid-cols-[1fr_auto_1fr] lg:px-11 lg:py-5.5">
+        <header
+          className={cn(
+            "sticky top-0 z-10 grid shrink-0 grid-cols-[1fr_auto] items-center gap-4 px-5 py-4 sm:px-8 lg:grid-cols-[1fr_auto_1fr] lg:px-11 lg:py-5.5",
+            settings.artworkEnabled
+              ? ""
+              : "border-b border-line bg-ink/75 backdrop-blur-[0.875rem]"
+          )}
+        >
           <div className="min-w-0 justify-self-start">
             <Link
               href="/"
@@ -561,7 +601,9 @@ export function PrayerTemplate({
         >
           <div className="grid grid-rows-[1fr_auto] h-[calc(100svh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col">
             <section className="relative flex min-h-[calc(100svh-12rem)] flex-1 flex-col overflow-hidden lg:min-h-0">
-              <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-linear-to-b from-background to-transparent" />
+              {!settings.artworkEnabled && (
+                <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-linear-to-b from-background to-transparent" />
+              )}
 
               <div className="flex items-center justify-between px-5 pt-8 font-ui text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-muted sm:px-8 lg:px-12">
                 <span>
@@ -669,10 +711,19 @@ export function PrayerTemplate({
                 </div>
               </div>
 
-              <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-linear-to-t from-background to-transparent" />
+              {!settings.artworkEnabled && (
+                <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-linear-to-t from-background to-transparent" />
+              )}
             </section>
 
-            <div className="border-t border-line bg-ink/90 px-5 py-4 backdrop-blur-xl">
+            <div
+              className={cn(
+                "px-5 py-4",
+                settings.artworkEnabled
+                  ? ""
+                  : "border-t border-line bg-ink/90 backdrop-blur-xl"
+              )}
+            >
               <div className="mx-auto flex max-w-3xl items-center justify-center gap-3">
                 {!isSilent && (
                   <Tooltip>
@@ -757,6 +808,46 @@ export function PrayerTemplate({
                     />
                   </div>
                 )}
+
+                {!isSilent && (
+                  <BinauralControl
+                    enabled={settings.binauralEnabled}
+                    volume={settings.binauralVolume}
+                    onToggle={() =>
+                      patchSettings({
+                        binauralEnabled: !settings.binauralEnabled,
+                      })
+                    }
+                    onVolumeChange={(binauralVolume) =>
+                      patchSettings({ binauralVolume })
+                    }
+                  />
+                )}
+
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant={settings.artworkEnabled ? "default" : "outline"}
+                      size="icon"
+                      onClick={() =>
+                        patchSettings({
+                          artworkEnabled: !settings.artworkEnabled,
+                        })
+                      }
+                      aria-label={
+                        settings.artworkEnabled
+                          ? "Hide artwork"
+                          : "Show artwork"
+                      }
+                      className={settings.artworkEnabled ? "" : "text-muted"}
+                    >
+                      <Image size={16} />
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    {settings.artworkEnabled ? "Hide artwork" : "Show artwork"}
+                  </TooltipContent>
+                </Tooltip>
               </div>
             </div>
           </div>
@@ -772,6 +863,7 @@ export function PrayerTemplate({
             collapsed={settings.prayerRailCollapsed}
             onToggle={togglePrayerRail}
             onJumpToDecade={jumpToDecade}
+            artworkEnabled={settings.artworkEnabled}
           />
         </main>
       </div>

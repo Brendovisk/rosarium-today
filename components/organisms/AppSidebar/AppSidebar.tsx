@@ -24,12 +24,14 @@ interface AppSidebarProps {
   collapsed: boolean;
   onToggle: () => void;
   todaysMystery: MysteryKey;
+  artworkEnabled?: boolean;
 }
 
 export function AppSidebar({
   collapsed,
   onToggle,
   todaysMystery,
+  artworkEnabled = false,
 }: AppSidebarProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
@@ -58,9 +60,13 @@ export function AppSidebar({
     <div className="z-50 min-w-0  h-screen sticky bottom-0 top-0">
       <aside
         className={cn(
-          "h-screen w-full min-w-0 border-r border-line flex flex-col overflow-hidden",
-          "bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
+          "h-screen w-full min-w-0 flex flex-col overflow-hidden",
           "transition-[padding] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
+          artworkEnabled
+            ? collapsed
+              ? ""
+              : "backdrop-blur-md"
+            : "border-r border-line bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
           collapsed ? "px-2.5 py-8" : "px-7 pt-8 pb-6"
         )}
       >
@@ -158,9 +164,34 @@ export function AppSidebar({
                     visible: { opacity: 1, y: 0 },
                   }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
-                  className="mt-auto max-w-full overflow-hidden border-t border-line pt-4 font-display text-base italic leading-normal text-muted"
+                  className="mt-auto max-w-full overflow-hidden border-t border-line pt-4"
                 >
-                  &ldquo;{t("footerQuote")}&rdquo;
+                  <p className="font-display text-base italic leading-normal text-muted">
+                    &ldquo;{t("footerQuote")}&rdquo;
+                  </p>
+
+                  <div className="mt-4 flex flex-wrap gap-x-4 gap-y-1">
+                    <a
+                      href="https://github.com/Brendovisk/rosarium-today"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="font-ui text-[0.625rem] text-muted-2 transition-colors hover:text-muted"
+                    >
+                      GitHub
+                    </a>
+                    <Link
+                      href="/privacy"
+                      className="font-ui text-[0.625rem] text-muted-2 transition-colors hover:text-muted"
+                    >
+                      Privacy
+                    </Link>
+                    <Link
+                      href="/terms"
+                      className="font-ui text-[0.625rem] text-muted-2 transition-colors hover:text-muted"
+                    >
+                      Terms
+                    </Link>
+                  </div>
                 </motion.div>
               </motion.div>
             </AnimatePresence>

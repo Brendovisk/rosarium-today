@@ -35,3 +35,16 @@ export function getTodaysMystery(): MysteryKey {
 export function isMysteryKey(value: string): value is MysteryKey {
   return MYSTERIES.includes(value as MysteryKey);
 }
+
+export const MYSTERY_ARTWORKS: Record<MysteryKey, readonly string[]> = {
+  joyful: [
+    "/artwork/joyful/auguste_pichon_the_annunciation.jpg",
+    "/artwork/joyful/unkown_the_annunciation.png",
+    "/artwork/joyful/bartolomé_esteban_perez_murillo_adoración_de_los_pastores.jpg",
+    "/artwork/joyful/philippe_de_champaigne_the_presentation_of_the_temple.jpg",
+    "/artwork/joyful/hofmann_the_boy_jesus_in_the_temple.webp",
+  ],
+  sorrowful: [],
+  glorious: [],
+  luminous: [],
+};

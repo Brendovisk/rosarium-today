@@ -95,7 +95,12 @@
     "wine": "Wine",
     "moss": "Moss",
     "uiLanguage": "Interface language",
-    "prayerLanguage": "Prayer language"
+    "prayerLanguage": "Prayer language",
+    "binauralAudio": "Binaural audio",
+    "binauralAudioSub": "Alpha-wave beat for focus",
+    "binauralVolume": "Volume",
+    "artworkBackground": "Artwork background",
+    "artworkBackgroundSub": "Mystery illustration behind prayer text"
   },
   "shortcuts": {
     "title": "Keyboard Shortcuts",

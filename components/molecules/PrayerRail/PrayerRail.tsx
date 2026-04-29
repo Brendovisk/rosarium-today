@@ -28,6 +28,7 @@ type PrayerRailProps = {
   collapsed: boolean;
   onToggle: () => void;
   onJumpToDecade: (decadeIndex: number) => void;
+  artworkEnabled?: boolean;
 };
 
 export function PrayerRail({
@@ -41,6 +42,7 @@ export function PrayerRail({
   collapsed,
   onToggle,
   onJumpToDecade,
+  artworkEnabled = false,
 }: PrayerRailProps) {
   const t = useTranslations("prayer");
   const tSettings = useTranslations("settings");
@@ -56,7 +58,12 @@ export function PrayerRail({
   return (
     <aside
       className={cn(
-        "relative hidden xl:flex flex-col h-[calc(100svh-6rem)] border-t border-line bg-black/10 transition-[padding] duration-300 xl:border-l xl:border-t-0"
+        "relative hidden xl:flex flex-col h-[calc(100svh-6rem)] transition-[padding] duration-300",
+        artworkEnabled
+          ? collapsed
+            ? ""
+            : "backdrop-blur-sm"
+          : "border-t border-line bg-black/10 xl:border-l xl:border-t-0"
       )}
     >
       <Tooltip>

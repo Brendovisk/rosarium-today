@@ -95,7 +95,12 @@
     "wine": "Vinum",
     "moss": "Muscus",
     "uiLanguage": "Lingua interfaciei",
-    "prayerLanguage": "Lingua orationum"
+    "prayerLanguage": "Lingua orationum",
+    "binauralAudio": "Sonus binauralis",
+    "binauralAudioSub": "Pulsus undae alpha ad concentrationem",
+    "binauralVolume": "Volumen",
+    "artworkBackground": "Imago in fundo",
+    "artworkBackgroundSub": "Pictura mysterii post textum orationis"
   },
   "shortcuts": {
     "title": "Compendia Claviaturae",

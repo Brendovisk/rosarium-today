@@ -95,7 +95,12 @@
     "wine": "Vinho",
     "moss": "Musgo",
     "uiLanguage": "Idioma da interface",
-    "prayerLanguage": "Idioma das orações"
+    "prayerLanguage": "Idioma das orações",
+    "binauralAudio": "Áudio binaural",
+    "binauralAudioSub": "Batida de onda alfa para foco",
+    "binauralVolume": "Volume",
+    "artworkBackground": "Imagem de fundo",
+    "artworkBackgroundSub": "Ilustração do mistério atrás do texto"
   },
   "shortcuts": {
     "title": "Atalhos de Teclado",

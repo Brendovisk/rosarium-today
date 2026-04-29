@@ -166,6 +166,18 @@ html.light {
   color-scheme: light;
 }
 
+.force-dark {
+  --ink: #181410;
+  --ink-2: #241e19;
+  --ink-3: #2f2720;
+  --line: #3a3128;
+  --line-2: #564a40;
+  --muted: #958c83;
+  --muted-2: #78706a;
+  --bone: #f7f3eb;
+  color-scheme: dark;
+}
+
 @layer base {
   *,
   *::before,
