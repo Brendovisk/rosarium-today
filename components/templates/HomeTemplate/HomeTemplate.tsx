@@ -329,9 +329,39 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
             />
           </section>
 
-          <div className="mt-14 flex flex-col items-center justify-between gap-2 border-t border-line pt-7 text-center font-display text-[0.875rem] italic text-muted sm:mt-20 sm:flex-row sm:text-left">
-            <span>Rosarium Today · MMXXVI</span>
-            <span>Ad Maiorem Dei Gloriam</span>
+          <div className="mt-14 border-t border-line pt-7 sm:mt-20">
+            <div className="flex flex-col items-center justify-between gap-3 sm:flex-row">
+              <span className="font-display text-[0.875rem] italic text-muted">
+                Rosarium Today · MMXXVI
+              </span>
+
+              <div className="flex items-center gap-5">
+                <a
+                  href="https://github.com/Brendovisk/rosarium-today"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-ui text-xs text-muted transition-colors hover:text-bone"
+                >
+                  GitHub
+                </a>
+                <Link
+                  href="/privacy"
+                  className="font-ui text-xs text-muted transition-colors hover:text-bone"
+                >
+                  Privacy Policy
+                </Link>
+                <Link
+                  href="/terms"
+                  className="font-ui text-xs text-muted transition-colors hover:text-bone"
+                >
+                  Terms of Use
+                </Link>
+              </div>
+
+              <span className="font-display text-[0.875rem] italic text-muted">
+                Ad Maiorem Dei Gloriam
+              </span>
+            </div>
           </div>
         </div>
       </div>
