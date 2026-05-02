@@ -574,30 +574,29 @@ export function PrayerTemplate({
               <TooltipContent>{tControls("toggleTheme")}</TooltipContent>
             </Tooltip>
 
-            {!isSilent && (
-              <Tooltip>
-                <TooltipTrigger asChild>
-                  <Button
-                    variant={settings.binauralEnabled ? "default" : "outline"}
-                    size="icon"
-                    onClick={() =>
-                      patchSettings({
-                        binauralEnabled: !settings.binauralEnabled,
-                      })
-                    }
-                    aria-label="Toggle background audio"
-                    className={settings.binauralEnabled ? "" : "text-muted"}
-                  >
-                    <Music2 size={18} />
-                  </Button>
-                </TooltipTrigger>
-                <TooltipContent>
-                  {settings.binauralEnabled
-                    ? "Disable background audio"
-                    : "Enable background audio"}
-                </TooltipContent>
-              </Tooltip>
-            )}
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant={settings.binauralEnabled ? "default" : "outline"}
+                  size="icon"
+                  onClick={() =>
+                    patchSettings({
+                      binauralEnabled: !settings.binauralEnabled,
+                    })
+                  }
+                  aria-label="Toggle background audio"
+                  className={settings.binauralEnabled ? "" : "text-muted"}
+                >
+                  <Music2 size={18} />
+                </Button>
+              </TooltipTrigger>
+
+              <TooltipContent>
+                {settings.binauralEnabled
+                  ? "Disable background audio"
+                  : "Enable background audio"}
+              </TooltipContent>
+            </Tooltip>
 
             <Tooltip>
               <TooltipTrigger asChild>
