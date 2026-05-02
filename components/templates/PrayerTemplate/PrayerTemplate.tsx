@@ -5,7 +5,9 @@ import {
   ChevronLeft,
   ChevronRight,
   Heart,
+  Image,
   Moon,
+  Music2,
   Pause,
   Play,
   Repeat,
@@ -510,7 +512,7 @@ export function PrayerTemplate({
       <div className="flex min-h-screen min-w-0 flex-col lg:h-screen lg:min-h-0">
         <header
           className={cn(
-            "sticky top-0 z-10 grid shrink-0 grid-cols-[1fr_auto] items-center gap-4 px-5 py-4 sm:px-8 lg:grid-cols-[1fr_auto_1fr] lg:px-11 lg:py-5.5",
+            "sticky top-0 z-10 grid shrink-0 grid-cols-[1fr_auto] items-center gap-4 px-4 lg:grid-cols-[1fr_auto_1fr] lg:pl-10 lg:pr-4 min-h-[4.5rem] lg:min-h-[5.125rem]",
             settings.artworkEnabled
               ? ""
               : "border-b border-line bg-ink/75 backdrop-blur-[0.875rem]"
@@ -570,6 +572,52 @@ export function PrayerTemplate({
                 </Button>
               </TooltipTrigger>
               <TooltipContent>{tControls("toggleTheme")}</TooltipContent>
+            </Tooltip>
+
+            {!isSilent && (
+              <Tooltip>
+                <TooltipTrigger asChild>
+                  <Button
+                    variant={settings.binauralEnabled ? "default" : "outline"}
+                    size="icon"
+                    onClick={() =>
+                      patchSettings({
+                        binauralEnabled: !settings.binauralEnabled,
+                      })
+                    }
+                    aria-label="Toggle background audio"
+                    className={settings.binauralEnabled ? "" : "text-muted"}
+                  >
+                    <Music2 size={18} />
+                  </Button>
+                </TooltipTrigger>
+                <TooltipContent>
+                  {settings.binauralEnabled
+                    ? "Disable background audio"
+                    : "Enable background audio"}
+                </TooltipContent>
+              </Tooltip>
+            )}
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  variant={settings.artworkEnabled ? "default" : "outline"}
+                  size="icon"
+                  onClick={() =>
+                    patchSettings({ artworkEnabled: !settings.artworkEnabled })
+                  }
+                  aria-label="Toggle background image"
+                  className={settings.artworkEnabled ? "" : "text-muted"}
+                >
+                  <Image size={18} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent>
+                {settings.artworkEnabled
+                  ? "Hide background image"
+                  : "Show background image"}
+              </TooltipContent>
             </Tooltip>
 
             <Tooltip>

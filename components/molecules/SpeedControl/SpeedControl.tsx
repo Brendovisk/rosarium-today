@@ -20,37 +20,14 @@ function nextMobilePlaybackRate(current: PlaybackRate): PlaybackRate {
     return 1;
   }
 
-  return MOBILE_PLAYBACK_CYCLE[
-    (index + 1) % MOBILE_PLAYBACK_CYCLE.length
-  ];
+  return MOBILE_PLAYBACK_CYCLE[(index + 1) % MOBILE_PLAYBACK_CYCLE.length];
 }
 
 function formatRateLabel(rate: PlaybackRate): string {
   return `${rate}x`;
 }
 
-function SpeedControlDesktop({ rate, onChange }: SpeedControlProps) {
-  return (
-    <div className="flex gap-1 rounded-full border border-line p-1 font-ui text-[0.6875rem] font-semibold">
-      {PLAYBACK_RATES.map((playbackRate) => (
-        <button
-          key={playbackRate}
-          onClick={() => onChange(playbackRate)}
-          className={cn(
-            "min-w-8 rounded-full px-2 py-1.5 transition-colors",
-            rate === playbackRate
-              ? "bg-gold text-ink"
-              : "text-muted hover:text-bone"
-          )}
-        >
-          {playbackRate}x
-        </button>
-      ))}
-    </div>
-  );
-}
-
-function SpeedControlMobile({ rate, onChange }: SpeedControlProps) {
+export function SpeedControl({ rate, onChange }: SpeedControlProps) {
   const t = useTranslations("controls");
 
   return (
@@ -64,19 +41,5 @@ function SpeedControlMobile({ rate, onChange }: SpeedControlProps) {
     >
       {formatRateLabel(rate)}
     </Button>
-  );
-}
-
-export function SpeedControl(props: SpeedControlProps) {
-  return (
-    <>
-      <div className="hidden sm:block">
-        <SpeedControlDesktop {...props} />
-      </div>
-
-      <div className="sm:hidden">
-        <SpeedControlMobile {...props} />
-      </div>
-    </>
   );
 }

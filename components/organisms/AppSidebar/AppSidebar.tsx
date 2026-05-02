@@ -57,7 +57,7 @@ export function AppSidebar({
   ];
 
   return (
-    <div className="z-50 min-w-0  h-screen sticky bottom-0 top-0">
+    <div className="z-50 min-w-0 h-screen sticky bottom-0 top-0 w-full">
       <aside
         className={cn(
           "h-screen w-full min-w-0 flex flex-col overflow-hidden",

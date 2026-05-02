@@ -187,7 +187,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
       </div>
 
       <div className="min-w-0 flex flex-col min-h-screen">
-        <div className="flex items-center justify-between gap-4 px-5 py-4 border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[0.875rem] z-10 shrink-0 sm:px-8 lg:px-11 lg:py-5.5">
+        <div className="flex items-center justify-between gap-4 px-4 py-2 border-b border-line sticky top-0 bg-ink/75 backdrop-blur-[0.875rem] z-10 shrink-0 lg:pl-10 lg:pr-4 min-h-[4.5rem] lg:min-h-[5.125rem]">
           <div className="min-w-0 flex items-center gap-3 text-muted font-ui text-xs sm:gap-4.5 sm:text-sm">
             <span className="truncate font-display font-medium text-base text-bone capitalize sm:text-[1.125rem]">
               {dateStr}
@@ -301,7 +301,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 </div>
               </div>
 
-              <div className="flex flex-col items-stretch justify-center gap-3 w-fit sm:grid sm:grid-cols-[auto_auto_auto]">
+              <div className="flex flex-col items-stretch justify-center gap-3 w-full xl:justify-start sm:flex-row flex-nowrap">
                 <Link
                   href={`/prayer/${continueMystery}`}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
@@ -317,7 +317,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   <BookOpen size={18} /> {t("readSilent")}
                 </Link>
 
-                <div className="relative self-center h-full aspect-square">
+                <div className="relative -top-52 ml-auto sm:right-auto sm:ml-0 sm:top-auto w-[3.4375rem] h-[3.4375rem]">
                   <AnimatePresence>
                     {settings.binauralEnabled &&
                       (
@@ -401,20 +401,20 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
               </span>
 
               <div className="flex items-center gap-5">
-                <a
+                <Link
                   href="https://github.com/Brendovisk/rosarium-today"
-                  target="_blank"
-                  rel="noopener noreferrer"
                   className="font-ui text-xs text-muted transition-colors hover:text-bone"
                 >
                   GitHub
-                </a>
+                </Link>
+
                 <Link
                   href="/privacy"
                   className="font-ui text-xs text-muted transition-colors hover:text-bone"
                 >
                   Privacy Policy
                 </Link>
+
                 <Link
                   href="/terms"
                   className="font-ui text-xs text-muted transition-colors hover:text-bone"
