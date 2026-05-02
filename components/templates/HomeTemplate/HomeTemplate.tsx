@@ -1,6 +1,17 @@
 "use client";
 
-import { BookOpen, Heart, Moon, Play, Settings, Sun } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import {
+  BookOpen,
+  Heart,
+  Moon,
+  Music,
+  Music2,
+  Music3,
+  Play,
+  Settings,
+  Sun,
+} from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useCallback, useEffect, useMemo, useState } from "react";
@@ -20,6 +31,7 @@ import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
 import { isMysteryKey } from "@/config/rosary";
+import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { usePrayerHistory } from "@/hooks/use-prayer-history";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import {
@@ -56,6 +68,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   const { lastPrayedDaysAgo, streak, isHydrated } = usePrayerHistory();
 
   const { settings, patchSettings } = useSettings();
+  useBinauralAudio(settings.binauralEnabled, settings.binauralVolume);
 
   const [donateOpen, setDonateOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
@@ -142,6 +155,10 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
 
   function toggleTheme() {
     patchSettings({ theme: settings.theme === "dark" ? "light" : "dark" });
+  }
+
+  function toggleBinaural() {
+    patchSettings({ binauralEnabled: !settings.binauralEnabled });
   }
 
   function openRightMenu() {
@@ -277,12 +294,14 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   </span>
 
                   <strong className="font-display font-medium text-[1.375rem] text-bone">
-                    {t("avgDurationValue", { count: ESTIMATED_ROSARY_DURATION_MINS })}
+                    {t("avgDurationValue", {
+                      count: ESTIMATED_ROSARY_DURATION_MINS,
+                    })}
                   </strong>
                 </div>
               </div>
 
-              <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4.5 xl:justify-start">
+              <div className="flex flex-col items-stretch justify-center gap-3 w-fit sm:grid sm:grid-cols-[auto_auto_auto]">
                 <Link
                   href={`/prayer/${continueMystery}`}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
@@ -297,6 +316,52 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 >
                   <BookOpen size={18} /> {t("readSilent")}
                 </Link>
+
+                <div className="relative self-center h-full aspect-square">
+                  <AnimatePresence>
+                    {settings.binauralEnabled &&
+                      (
+                        [
+                          { Icon: Music, delay: 0, x: 0, size: 14 },
+                          { Icon: Music2, delay: 0.6, x: 14, size: 13 },
+                          { Icon: Music3, delay: 1.2, x: 6, size: 15 },
+                          { Icon: Music, delay: 1.8, x: 12, size: 12 },
+                        ] as const
+                      ).map(({ Icon, delay, x, size }, i) => (
+                        <motion.span
+                          key={i}
+                          aria-hidden
+                          className="pointer-events-none absolute left-1/2 top-0 text-gold"
+                          initial={{ x, y: 0, opacity: 0, scale: 0.8 }}
+                          animate={{
+                            y: -60,
+                            opacity: [0, 1, 0],
+                            scale: [0.8, 1, 1.6],
+                          }}
+                          exit={{ opacity: 0, transition: { duration: 0.2 } }}
+                          transition={{
+                            duration: 2.4,
+                            delay,
+                            repeat: Infinity,
+                            ease: "easeOut",
+                            times: [0, 0.2, 1],
+                          }}
+                        >
+                          <Icon size={size} />
+                        </motion.span>
+                      ))}
+                  </AnimatePresence>
+
+                  <Button
+                    variant={settings.binauralEnabled ? "default" : "outline"}
+                    size="icon"
+                    onClick={toggleBinaural}
+                    className="rounded-full w-full h-full"
+                    aria-label="Toggle binaural audio"
+                  >
+                    <Music2 size={18} />
+                  </Button>
+                </div>
               </div>
             </div>
 
