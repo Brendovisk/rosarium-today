@@ -246,11 +246,11 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
         <div className="mx-auto w-full max-w-7xl px-5 pb-14 pt-0 sm:px-8 sm:pb-16 lg:px-14 lg:pb-20 overflow-hidden">
           <section className="grid grid-cols-1 items-center gap-8 py-10 sm:gap-10 sm:py-12 xl:grid-cols-[1.1fr_1fr] xl:gap-18 xl:py-14">
             <div className="text-center xl:text-left">
-              <div className="mb-5.5 inline-flex items-center justify-center gap-3 font-ui text-[0.6875rem] font-bold uppercase tracking-[0.32em] text-gold before:h-px before:w-7 before:bg-gold-dim before:content-[''] after:h-px after:w-7 after:bg-gold-dim after:content-[''] xl:justify-start">
+              <div className="mb-5.5 hidden sm:inline-flex items-center justify-center gap-3 font-ui text-[0.6875rem] font-bold uppercase tracking-[0.32em] text-gold before:h-px before:w-7 before:bg-gold-dim before:content-[''] after:h-px after:w-7 after:bg-gold-dim after:content-[''] xl:justify-start">
                 {t("kicker")}
               </div>
 
-              <h1 className="m-0 mb-6 font-display text-[clamp(3.75rem,13vw,5.75rem)] font-normal leading-[0.95] tracking-[-0.01em] text-bone sm:mb-8 xl:mb-10">
+              <h1 className="m-0 mb-6 font-display text-[clamp(2.8rem,8vw,5.75rem)] font-normal leading-[0.95] tracking-[-0.01em] text-bone sm:mb-8 xl:mb-10">
                 {t("welcome")}
                 <br />
 
@@ -301,7 +301,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 </div>
               </div>
 
-              <div className="flex flex-col items-stretch justify-center gap-3 w-full xl:justify-start sm:flex-row flex-nowrap">
+              <div className="flex relative flex-col items-stretch justify-center gap-3 w-full xl:justify-start sm:flex-row flex-nowrap">
                 <Link
                   href={`/prayer/${continueMystery}`}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
@@ -317,7 +317,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   <BookOpen size={18} /> {t("readSilent")}
                 </Link>
 
-                <div className="relative -top-52 ml-auto sm:right-auto sm:ml-0 sm:top-auto w-[3.4375rem] h-[3.4375rem]">
+                <div className="absolute -top-20 right-0 sm:relative sm:right-0 sm:top-auto w-[3.4375rem] h-[3.4375rem]">
                   <AnimatePresence>
                     {settings.binauralEnabled &&
                       (
