@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          "border-gold bg-gold text-ink font-semibold tracking-[0.01em] shadow-[0_0.875rem_2.5rem_-1.125rem_rgba(198,161,91,0.7)] hover:bg-gold/90",
+          "border-gold !bg-gold text-ink font-semibold tracking-[0.01em] shadow-[0_0.875rem_2.5rem_-1.125rem_rgba(198,161,91,0.7)] hover:bg-gold/90",
         outline:
           "border-line-2 bg-transparent text-bone hover:border-gold-dim hover:bg-ink-2/30 aria-expanded:border-gold-dim aria-expanded:bg-ink-2/30",
         ghost:
@@ -22,7 +22,7 @@ const buttonVariants = cva(
         xs: "h-6 gap-1 px-2 text-xs in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 [&_svg:not([class*='size-'])]:size-3",
         sm: "h-8 gap-1 px-2.5 in-data-[slot=button-group]:rounded-md has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5",
         lg: "h-10 gap-1.5 px-2.5 has-data-[icon=inline-end]:pr-2 has-data-[icon=inline-start]:pl-2",
-        icon: "size-9",
+        icon: "size-9 not-dark:bg-secondary/30",
         "icon-xs":
           "size-6 in-data-[slot=button-group]:rounded-md [&_svg:not([class*='size-'])]:size-3",
         "icon-sm": "size-8 in-data-[slot=button-group]:rounded-md",

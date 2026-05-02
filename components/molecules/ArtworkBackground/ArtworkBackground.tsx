@@ -1,36 +1,61 @@
 "use client";
 
-import type { MysteryKey } from "@/config/rosary";
-import { MYSTERY_ARTWORKS } from "@/config/rosary";
+import { AnimatePresence, motion } from "framer-motion";
+
+import type { Artwork } from "@/config/rosary";
 import { cn } from "@/utils/classNames";
 
 interface ArtworkBackgroundProps {
-  mysteryKey: MysteryKey;
-  decadeIndex: number;
+  artwork: Artwork | null;
   visible: boolean;
+  isMysteryAnnouncement: boolean;
+  theme: "dark" | "light";
 }
 
 export function ArtworkBackground({
-  mysteryKey,
-  decadeIndex,
+  artwork,
   visible,
+  isMysteryAnnouncement,
+  theme,
 }: ArtworkBackgroundProps) {
-  const artworks = MYSTERY_ARTWORKS[mysteryKey];
-  if (!artworks.length) return null;
-
-  const src = artworks[Math.max(0, decadeIndex) % artworks.length];
-
   return (
     <div
       className={cn(
-        "pointer-events-none absolute inset-0 -z-10 transition-opacity duration-700",
+        "pointer-events-none absolute inset-0 -z-10 overflow-hidden transition-opacity duration-700",
         visible ? "opacity-100" : "opacity-0"
       )}
       aria-hidden
     >
-      <div className="absolute inset-0 before:absolute before:inset-0 before:bg-black/70">
-        <img src={src} alt="" className="h-full w-full object-cover" />
-      </div>
+      <AnimatePresence>
+        {artwork && (
+          <motion.div
+            key={artwork.src}
+            className="absolute inset-0"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.4, ease: "easeInOut" }}
+          >
+            <motion.img
+              src={artwork.src}
+              alt={artwork.alt}
+              width={artwork.width}
+              height={artwork.height}
+              className="absolute inset-0 h-full w-full object-cover"
+              style={{ objectPosition: artwork.position }}
+              initial={{ scale: 1 }}
+              animate={{ scale: 1.07 }}
+              transition={{ duration: 40, ease: "linear" }}
+            />
+            <div
+              className={cn(
+                "absolute inset-0 duration-1000 bg-(--line)/70",
+                isMysteryAnnouncement && "bg-(--line)/40"
+              )}
+            />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }

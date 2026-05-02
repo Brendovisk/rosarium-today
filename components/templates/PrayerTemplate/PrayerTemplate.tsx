@@ -17,7 +17,6 @@ import {
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import type { CSSProperties } from "react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
@@ -35,8 +34,8 @@ import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { SpeedControl } from "@/components/molecules/SpeedControl";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
-import { getAccentVars } from "@/config/accents";
 import type { MysteryKey } from "@/config/rosary";
+import { getStepArtwork } from "@/config/rosary";
 import { PLAYBACK_RATES } from "@/config/settings";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { recordCompletion } from "@/hooks/use-prayer-history";
@@ -239,6 +238,7 @@ export function PrayerTemplate({
     ? t(PRAYER_NAME_KEYS[currentStep.prayerKey] as "steps.aveMaria")
     : mysteryName;
   const decadeIndex = currentStep.decadeIndex ?? -1;
+  const artwork = getStepArtwork(mysteryKey, currentStep);
   const activeDecadeName =
     decadeIndex >= 0 ? decades[decadeIndex] : mysteryName;
   const isMysteryAnnouncement = currentStep.prayerKey === null;
@@ -468,36 +468,22 @@ export function PrayerTemplate({
     mysteryKey,
   ]);
 
-  const forceDark = settings.artworkEnabled && settings.theme === "light";
-  const darkAccentVars = forceDark
-    ? getAccentVars(settings.accent, "dark")
-    : null;
-
   return (
     <div
       className={cn(
         "relative z-2 grid min-h-screen grid-cols-1 transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] lg:h-screen lg:overflow-hidden",
         settings.leftMenuCollapsed
           ? "lg:grid-cols-[4rem_1fr]"
-          : "lg:grid-cols-[15rem_1fr]",
-        forceDark && "dark force-dark"
+          : "lg:grid-cols-[15rem_1fr]"
       )}
-      style={
-        darkAccentVars
-          ? ({
-              "--gold": darkAccentVars.gold,
-              "--gold-dim": darkAccentVars.dim,
-              "--gold-soft": darkAccentVars.soft,
-            } as CSSProperties)
-          : undefined
-      }
     >
       <audio ref={audioRef} preload="auto" />
 
       <ArtworkBackground
-        mysteryKey={mysteryKey}
-        decadeIndex={decadeIndex}
+        artwork={artwork}
         visible={settings.artworkEnabled}
+        theme={settings.theme}
+        isMysteryAnnouncement={isMysteryAnnouncement}
       />
 
       <div className="hidden lg:block">
@@ -670,7 +656,18 @@ export function PrayerTemplate({
                   </div>
 
                   {isMysteryAnnouncement ? (
-                    <div className="mx-auto max-w-xl rounded-[1.375rem] border border-line bg-ink-2 p-8">
+                    <div
+                      className={cn(
+                        "mx-auto max-w-xl rounded-[1.375rem] border border-line bg-ink-2 p-8",
+                        settings.artworkEnabled && "backdrop-blur-sm",
+                        settings.artworkEnabled &&
+                          settings.theme === "dark" &&
+                          "bg-(--ink)/20",
+                        settings.artworkEnabled &&
+                          settings.theme === "light" &&
+                          "bg-(--ink)/20"
+                      )}
+                    >
                       <BookOpen className="mx-auto mb-5 text-gold" size={28} />
 
                       <div className="font-display text-[2rem] italic text-gold">
@@ -694,7 +691,11 @@ export function PrayerTemplate({
                       </div>
                     </div>
                   ) : (
-                    <div className="font-display text-[clamp(1.75rem,4vw,2.125rem)] leading-[1.65] text-muted">
+                    <div
+                      className={cn(
+                        "font-display text-[clamp(1.75rem,4vw,2.125rem)] leading-[1.65] font-medium"
+                      )}
+                    >
                       {words.map((word, index) => {
                         const isActive = index === activeWordIndex;
 

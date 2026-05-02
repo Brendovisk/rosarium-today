@@ -60,10 +60,10 @@ export function AppSidebar({
     <div className="z-50 min-w-0 h-screen sticky bottom-0 top-0 w-full">
       <aside
         className={cn(
-          "h-screen w-full min-w-0 flex flex-col overflow-hidden",
+          "h-screen w-full min-w-0 flex flex-col",
           "transition-[padding] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
           artworkEnabled
-            ? collapsed
+            ? "backdrop-blur-md"
             : "border-r border-line bg-[linear-gradient(180deg,rgba(198,161,91,0.04),transparent_40%),rgba(0,0,0,0.12)]",
           collapsed ? "px-2.5 py-8" : "px-7 pt-8 pb-6"
         )}

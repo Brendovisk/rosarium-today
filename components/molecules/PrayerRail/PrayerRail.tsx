@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslations } from "next-intl";
 
+import { Button } from "@/components/atoms/Button";
 import {
   Tooltip,
   TooltipContent,
@@ -61,9 +62,9 @@ export function PrayerRail({
         "relative hidden xl:flex flex-col h-[calc(100svh-6rem)] transition-[padding] duration-300",
         artworkEnabled
           ? collapsed
-            ? ""
-            : "backdrop-blur-sm"
-          : "border-t border-line bg-black/10 xl:border-l xl:border-t-0"
+            ? "backdrop-blur-md"
+            : "backdrop-blur-md"
+          : "border-t border-line  xl:border-l xl:border-t-0"
       )}
     >
       <Tooltip>
@@ -93,19 +94,16 @@ export function PrayerRail({
 
             <div className="mt-6 flex flex-col gap-1.5">
               {decades.map((decadeName, index) => (
-                <button
+                <Button
                   key={decadeName}
+                  size="icon"
                   onClick={() => onJumpToDecade(index)}
-                  className={cn(
-                    "size-8 rounded-full border font-ui text-[0.6875rem] transition-colors",
-                    index === decadeIndex
-                      ? "border-gold bg-gold-soft text-gold"
-                      : "border-line text-muted hover:border-line-2 hover:text-bone"
-                  )}
+                  variant={index === decadeIndex ? "default" : "outline"}
+                  className="size-8 rounded-full border font-ui text-[0.6875rem] transition-colors"
                   aria-label={decadeName}
                 >
                   {index + 1}
-                </button>
+                </Button>
               ))}
             </div>
           </div>
