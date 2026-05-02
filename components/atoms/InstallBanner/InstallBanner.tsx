@@ -1,6 +1,7 @@
 "use client";
 
 import { Download, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { useEffect, useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
@@ -13,6 +14,7 @@ interface BeforeInstallPromptEvent extends Event {
 const DISMISSED_KEY = "pwa-install-dismissed";
 
 export function InstallBanner() {
+  const t = useTranslations("install");
   const [deferredPrompt, setDeferredPrompt] =
     useState<BeforeInstallPromptEvent | null>(null);
 
@@ -45,18 +47,49 @@ export function InstallBanner() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 flex items-center justify-between gap-3 border-t border-line bg-ink-2 px-4 py-3 shadow-lg">
-      <p className="text-sm text-bone">
-        Add <span className="font-semibold text-gold">Rosarium Today</span> to
-        your home screen for quick access.
-      </p>
-      <div className="flex shrink-0 items-center gap-2">
-        <Button size="sm" onClick={handleInstall}>
+    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gold-dim bg-ink-2/95 px-4 py-4 shadow-[0_-2rem_4rem_-1rem_rgba(0,0,0,0.6)] backdrop-blur-md">
+      <div className="mx-auto">
+        <div className="flex items-center gap-4 px-2 py-4 md:py-2">
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-base leading-snug text-bone">
+              {t("before")} <em className="italic text-gold">Rosarium Today</em>{" "}
+              {t("after")}
+            </p>
+            <p className="mt-0.5 font-ui text-xs text-muted">{t("subtitle")}</p>
+          </div>
+
+          <div className="hidden shrink-0 items-center gap-4 sm:flex">
+            <Button onClick={handleInstall}>
+              {t("install")}
+
+              <Download className="size-4" />
+            </Button>
+
+            <Button
+              size="icon"
+              variant="outline"
+              onClick={handleDismiss}
+              aria-label={t("dismiss")}
+            >
+              <X />
+            </Button>
+          </div>
+
+          <Button
+            size="icon"
+            variant="outline"
+            onClick={handleDismiss}
+            aria-label={t("dismiss")}
+            className="sm:hidden"
+          >
+            <X />
+          </Button>
+        </div>
+
+        <Button className="mt-3 w-full sm:hidden" onClick={handleInstall}>
+          {t("install")}
+
           <Download className="size-4" />
-          Install
-        </Button>
-        <Button size="icon-sm" variant="ghost" onClick={handleDismiss} aria-label="Dismiss">
-          <X />
         </Button>
       </div>
     </div>

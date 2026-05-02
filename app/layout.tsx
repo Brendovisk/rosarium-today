@@ -100,12 +100,13 @@ async function LayoutContent({ children }: { children: ReactNode }) {
     >
       <body className="antialiased">
         <SettingsProvider initialSettings={settings}>
-          <NextIntlClientProvider>{children}</NextIntlClientProvider>
+          <NextIntlClientProvider>
+            {children}
+            <InstallBanner />
+          </NextIntlClientProvider>
         </SettingsProvider>
 
         <ServiceWorkerRegistration />
-
-        <InstallBanner />
       </body>
     </html>
   );

@@ -119,6 +119,13 @@
     "increaseSpeed": "Aumentar velocidade",
     "decreaseSpeed": "Diminuir velocidade"
   },
+  "install": {
+    "before": "Adicione",
+    "after": "à sua tela inicial.",
+    "subtitle": "Acesso rápido ao seu Rosário diário.",
+    "install": "Instalar",
+    "dismiss": "Dispensar"
+  },
   "donate": {
     "buttonLabel": "Doar",
     "eyebrow": "Apoie o projeto",

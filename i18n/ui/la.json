@@ -119,6 +119,13 @@
     "increaseSpeed": "Augere velocitatem",
     "decreaseSpeed": "Minuere velocitatem"
   },
+  "install": {
+    "before": "Adde",
+    "after": "ad scrinium principale.",
+    "subtitle": "Accede facile ad Rosarium cotidianum.",
+    "install": "Installa",
+    "dismiss": "Dimitte"
+  },
   "donate": {
     "buttonLabel": "Dona",
     "eyebrow": "Adiuva opus",

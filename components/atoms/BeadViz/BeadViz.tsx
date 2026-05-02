@@ -297,7 +297,10 @@ export function BeadViz({ mysteryName, mysteryDay, kicker }: BeadVizProps) {
           <defs>
             <radialGradient id="bvGlow" cx="50%" cy="45%" r="45%">
               <stop offset="0%" stopColor="var(--gold-soft)" />
-              <stop offset="70%" stopColor="color-mix(in oklab, var(--gold) 0%, transparent)" />
+              <stop
+                offset="70%"
+                stopColor="color-mix(in oklab, var(--gold) 0%, transparent)"
+              />
             </radialGradient>
             <radialGradient id="bvBead" cx="32%" cy="28%" r="75%">
               <stop

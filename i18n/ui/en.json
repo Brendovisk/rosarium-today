@@ -119,6 +119,13 @@
     "increaseSpeed": "Increase speed",
     "decreaseSpeed": "Decrease speed"
   },
+  "install": {
+    "before": "Add",
+    "after": "to your home screen.",
+    "subtitle": "Quick access to your daily Rosary.",
+    "install": "Install",
+    "dismiss": "Dismiss"
+  },
   "donate": {
     "buttonLabel": "Donate",
     "eyebrow": "Support the project",
