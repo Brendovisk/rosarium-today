@@ -1,37 +1,75 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 const BACKGROUND_SOUND_SRC = "/background-sound/contemplative.mp3";
 
+// Singleton — persists across component mounts/navigations so there is no
+// churn and the play-promise race (unlock fires on same click as disable) is
+// resolved by waiting for the in-flight promise before pausing.
+let audio: HTMLAudioElement | null = null;
+let playPromise: Promise<void> | null = null;
+
+function getAudio(): HTMLAudioElement {
+  if (!audio) {
+    audio = new Audio(BACKGROUND_SOUND_SRC);
+    audio.loop = true;
+  }
+  return audio;
+}
+
 export function useBinauralAudio(enabled: boolean, volume: number) {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+  useEffect(() => {
+    getAudio().volume = volume;
+  }, [volume]);
 
   useEffect(() => {
-    const audio = new Audio(BACKGROUND_SOUND_SRC);
-    audio.loop = true;
-    audio.volume = volume;
-    audioRef.current = audio;
+    const a = getAudio();
+
+    if (!enabled) {
+      if (playPromise) {
+        playPromise.then(() => a.pause()).catch(() => a.pause());
+        playPromise = null;
+      } else {
+        a.pause();
+      }
+      return;
+    }
+
+    let unlockAdded = false;
+
+    const unlock = () => {
+      document.removeEventListener("click", unlock);
+      document.removeEventListener("keydown", unlock);
+      document.removeEventListener("touchstart", unlock);
+      const p = a.play();
+      if (p) {
+        playPromise = p;
+        p.then(() => { if (playPromise === p) playPromise = null; })
+         .catch(() => { if (playPromise === p) playPromise = null; });
+      }
+    };
+
+    const p = a.play();
+    if (p) {
+      playPromise = p;
+      p.then(() => {
+        if (playPromise === p) playPromise = null;
+      }).catch(() => {
+        if (playPromise === p) playPromise = null;
+        unlockAdded = true;
+        document.addEventListener("click", unlock);
+        document.addEventListener("keydown", unlock);
+        document.addEventListener("touchstart", unlock);
+      });
+    }
 
     return () => {
-      audio.pause();
-      audioRef.current = null;
+      if (unlockAdded) {
+        document.removeEventListener("click", unlock);
+        document.removeEventListener("keydown", unlock);
+        document.removeEventListener("touchstart", unlock);
+      }
     };
-  }, []);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    if (enabled) {
-      void audio.play().catch(() => undefined);
-    } else {
-      audio.pause();
-    }
   }, [enabled]);
-
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (audio) audio.volume = volume;
-  }, [volume]);
 }
