@@ -124,14 +124,14 @@ export function useRosaryPlayer({
     audio.src = audioSrc;
     audio.load();
     // Re-apply playbackRate here because audio.load() resets it to 1 on some browsers.
-    audio.playbackRate = playbackRate;
+    audio.playbackRate = playbackRateRef.current;
 
     queueMicrotask(() => {
       setIsPlaying(false);
       setCurrentTime(0);
       setDuration(0);
     });
-  }, [audioSrc, playbackRate]);
+  }, [audioSrc]);
 
   useEffect(() => {
     if (audioRef.current) {
