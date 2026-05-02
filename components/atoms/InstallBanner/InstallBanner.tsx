@@ -34,8 +34,11 @@ export function InstallBanner() {
 
   async function handleInstall() {
     if (!deferredPrompt) return;
+
     await deferredPrompt.prompt();
+
     const { outcome } = await deferredPrompt.userChoice;
+
     if (outcome === "accepted" || outcome === "dismissed") {
       setDeferredPrompt(null);
     }
@@ -47,51 +50,30 @@ export function InstallBanner() {
   }
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gold-dim bg-ink-2/95 px-4 py-4 shadow-[0_-2rem_4rem_-1rem_rgba(0,0,0,0.6)] backdrop-blur-md">
-      <div className="mx-auto">
-        <div className="flex items-center gap-4 px-2 py-4 md:py-2">
-          <div className="min-w-0 flex-1">
-            <p className="font-display text-base leading-snug text-bone">
-              {t("before")} <em className="italic text-gold">Rosarium Today</em>{" "}
-              {t("after")}
-            </p>
-            <p className="mt-0.5 font-ui text-xs text-muted">{t("subtitle")}</p>
-          </div>
-
-          <div className="hidden shrink-0 items-center gap-4 sm:flex">
-            <Button onClick={handleInstall}>
-              {t("install")}
-
-              <Download className="size-4" />
-            </Button>
-
-            <Button
-              size="icon"
-              variant="outline"
-              onClick={handleDismiss}
-              aria-label={t("dismiss")}
-            >
-              <X />
-            </Button>
-          </div>
-
-          <Button
-            size="icon"
-            variant="outline"
-            onClick={handleDismiss}
-            aria-label={t("dismiss")}
-            className="sm:hidden"
-          >
-            <X />
-          </Button>
+    <div className="fixed bottom-0 left-0 right-0 z-50 border-t border-gold-dim bg-ink-2/95 px-4 py-4 shadow-[0_-2rem_4rem_-1rem_rgba(0,0,0,0.6)] backdrop-blur-md lg:hidden">
+      <div className="flex items-center gap-4 px-2 py-1">
+        <div className="min-w-0 flex-1">
+          <p className="font-display text-base leading-snug text-bone">
+            {t("before")} <em className="italic text-gold">Rosarium Today</em>{" "}
+            {t("after")}
+          </p>
+          <p className="mt-0.5 font-ui text-xs text-muted">{t("subtitle")}</p>
         </div>
 
-        <Button className="mt-3 w-full sm:hidden" onClick={handleInstall}>
-          {t("install")}
-
-          <Download className="size-4" />
+        <Button
+          size="icon"
+          variant="outline"
+          onClick={handleDismiss}
+          aria-label={t("dismiss")}
+        >
+          <X />
         </Button>
       </div>
+
+      <Button className="mt-3 w-full" onClick={handleInstall}>
+        {t("install")}
+        <Download className="size-4" />
+      </Button>
     </div>
   );
 }
