@@ -1,3 +1,8 @@
-const config = { extends: ["@commitlint/config-conventional"] };
+const config = {
+  extends: ["@commitlint/config-conventional"],
+  rules: {
+    "header-max-length": [0, "always", 100],
+  },
+};
 
 export default config;
