@@ -310,10 +310,11 @@ export function SettingsDrawer({
           </button>
 
           {settings.binauralEnabled && (
-            <div className="mt-3 flex items-center gap-3 px-1">
+            <div className="mt-5 flex items-center gap-3 px-1">
               <span className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 shrink-0">
                 {t("binauralVolume")}
               </span>
+
               <input
                 type="range"
                 min={0}
@@ -323,9 +324,10 @@ export function SettingsDrawer({
                 onChange={(e) =>
                   patchSettings({ binauralVolume: Number(e.target.value) })
                 }
-                className="flex-1 accent-gold"
+                className="flex-1 accent-gold cursor-grab"
                 aria-label={t("binauralVolume")}
               />
+
               <span className="font-ui text-xs text-muted-2 w-8 text-right shrink-0">
                 {Math.round(settings.binauralVolume * 100)}%
               </span>

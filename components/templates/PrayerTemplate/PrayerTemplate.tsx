@@ -5,7 +5,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Heart,
-  Image,
   Moon,
   Pause,
   Play,
@@ -26,7 +25,6 @@ import {
   TooltipTrigger,
 } from "@/components/atoms/Tooltip";
 import { ArtworkBackground } from "@/components/molecules/ArtworkBackground";
-import { BinauralControl } from "@/components/molecules/BinauralControl";
 import { DonateModal } from "@/components/molecules/DonateModal";
 import { PrayerRail } from "@/components/molecules/PrayerRail";
 import { PrayerWord } from "@/components/molecules/PrayerWord";
@@ -85,7 +83,7 @@ export function PrayerTemplate({
 
   const wordRefsMap = useRef<Map<number, HTMLButtonElement>>(new Map());
   const prevActiveWordRef = useRef(-1);
-  const shouldAutoPlayRef = useRef(false);
+  const shouldAutoPlayRef = useRef(true);
   const hasAutoStartedRef = useRef(false);
   const resumeAfterStepNavRef = useRef(false);
 
@@ -808,46 +806,6 @@ export function PrayerTemplate({
                     />
                   </div>
                 )}
-
-                {!isSilent && (
-                  <BinauralControl
-                    enabled={settings.binauralEnabled}
-                    volume={settings.binauralVolume}
-                    onToggle={() =>
-                      patchSettings({
-                        binauralEnabled: !settings.binauralEnabled,
-                      })
-                    }
-                    onVolumeChange={(binauralVolume) =>
-                      patchSettings({ binauralVolume })
-                    }
-                  />
-                )}
-
-                <Tooltip>
-                  <TooltipTrigger asChild>
-                    <Button
-                      variant={settings.artworkEnabled ? "default" : "outline"}
-                      size="icon"
-                      onClick={() =>
-                        patchSettings({
-                          artworkEnabled: !settings.artworkEnabled,
-                        })
-                      }
-                      aria-label={
-                        settings.artworkEnabled
-                          ? "Hide artwork"
-                          : "Show artwork"
-                      }
-                      className={settings.artworkEnabled ? "" : "text-muted"}
-                    >
-                      <Image size={16} />
-                    </Button>
-                  </TooltipTrigger>
-                  <TooltipContent>
-                    {settings.artworkEnabled ? "Hide artwork" : "Show artwork"}
-                  </TooltipContent>
-                </Tooltip>
               </div>
             </div>
           </div>
