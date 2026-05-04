@@ -1,18 +1,36 @@
-import { BookOpen } from "lucide-react";
+import { BookOpen, Pause, Play } from "lucide-react";
+import { useState } from "react";
 
 const CIRCLE_RADIUS = 24;
 const CIRCLE_CIRCUMFERENCE = 2 * Math.PI * CIRCLE_RADIUS;
 
 type ReflectionButtonProps = {
   progress: number;
+  paused: boolean;
+  onToggle: () => void;
 };
 
-export function ReflectionButton({ progress }: ReflectionButtonProps) {
+export function ReflectionButton({
+  progress,
+  paused,
+  onToggle,
+}: ReflectionButtonProps) {
+  const [hovered, setHovered] = useState(false);
+
+  function getIcon() {
+    if (paused && hovered) return <Play size={18} fill="currentColor" />;
+    if (!paused && hovered) return <Pause size={18} fill="currentColor" />;
+    if (paused) return <Pause size={18} fill="currentColor" className="opacity-50" />;
+    return <BookOpen size={18} />;
+  }
+
   return (
     <button
-      disabled
-      className="relative grid size-14 place-items-center rounded-full border border-gold bg-gold-soft text-gold"
-      aria-label="Reflection countdown"
+      onClick={onToggle}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      className="relative grid size-14 place-items-center rounded-full border border-gold bg-gold-soft text-gold transition-opacity hover:opacity-80"
+      aria-label={paused ? "Resume reflection" : "Pause reflection"}
     >
       <svg
         viewBox="0 0 56 56"
@@ -37,9 +55,10 @@ export function ReflectionButton({ progress }: ReflectionButtonProps) {
           strokeDashoffset={CIRCLE_CIRCUMFERENCE * (1 - progress)}
           strokeLinecap="round"
           strokeWidth="3"
+          className={paused ? "opacity-50" : undefined}
         />
       </svg>
-      <BookOpen size={18} />
+      {getIcon()}
     </button>
   );
 }

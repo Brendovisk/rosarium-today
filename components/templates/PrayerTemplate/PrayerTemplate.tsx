@@ -81,6 +81,8 @@ export function PrayerTemplate({
   const [donateOpen, setDonateOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [reflectionProgress, setReflectionProgress] = useState(0);
+  const [reflectionPaused, setReflectionPaused] = useState(false);
+  const reflectionElapsedRef = useRef(0);
 
   const wordRefsMap = useRef<Map<number, HTMLButtonElement>>(new Map());
   const prevActiveWordRef = useRef(-1);
@@ -242,7 +244,9 @@ export function PrayerTemplate({
   const activeDecadeName =
     decadeIndex >= 0 ? decades[decadeIndex] : mysteryName;
   const isMysteryAnnouncement = currentStep.prayerKey === null;
-  const prayerTotal = steps.filter((s) => s.type !== "mystery-announcement").length;
+  const prayerTotal = steps.filter(
+    (s) => s.type !== "mystery-announcement"
+  ).length;
   const prayerCurrent = steps
     .slice(0, isMysteryAnnouncement ? currentStepIndex : currentStepIndex + 1)
     .filter((s) => s.type !== "mystery-announcement").length;
@@ -429,13 +433,20 @@ export function PrayerTemplate({
   ]);
 
   useEffect(() => {
+    queueMicrotask(() => setReflectionPaused(false));
+  }, [currentStepIndex]);
+
+  useEffect(() => {
     if (!shouldRunReflectionTimer) {
+      reflectionElapsedRef.current = 0;
       queueMicrotask(() => setReflectionProgress(0));
       return;
     }
 
+    if (reflectionPaused) return;
+
     let frameId = 0;
-    const startedAt = performance.now();
+    const startedAt = performance.now() - reflectionElapsedRef.current;
 
     const tick = (now: number) => {
       const progress = Math.min((now - startedAt) / REFLECTION_DURATION_MS, 1);
@@ -447,6 +458,7 @@ export function PrayerTemplate({
         return;
       }
 
+      reflectionElapsedRef.current = 0;
       if (canGoNext) {
         shouldAutoPlayRef.current = true;
         goNext();
@@ -461,11 +473,15 @@ export function PrayerTemplate({
 
     frameId = requestAnimationFrame(tick);
 
-    return () => cancelAnimationFrame(frameId);
+    return () => {
+      cancelAnimationFrame(frameId);
+      reflectionElapsedRef.current = performance.now() - startedAt;
+    };
   }, [
     currentStepIndex,
     router,
     shouldRunReflectionTimer,
+    reflectionPaused,
     canGoNext,
     goNext,
     resetProgress,
@@ -809,7 +825,11 @@ export function PrayerTemplate({
 
                 {!isSilent &&
                   (isMysteryAnnouncement && settings.autoPlay ? (
-                    <ReflectionButton progress={reflectionProgress} />
+                    <ReflectionButton
+                      progress={reflectionProgress}
+                      paused={reflectionPaused}
+                      onToggle={() => setReflectionPaused((p) => !p)}
+                    />
                   ) : (
                     <Tooltip>
                       <TooltipTrigger asChild>
