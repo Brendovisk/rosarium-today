@@ -137,10 +137,7 @@ export function PrayerTemplate({
     onEnded: handleEnded,
   });
 
-  useBinauralAudio(
-    !isSilent && settings.binauralEnabled,
-    settings.binauralVolume
-  );
+  useBinauralAudio(settings.binauralEnabled, settings.binauralVolume);
 
   const markResumeIfAudioPlaying = useCallback(() => {
     if (!isSilent && isPlaying && currentStep.prayerKey) {
@@ -733,6 +730,7 @@ export function PrayerTemplate({
                           <PrayerWord
                             key={index}
                             word={word.word}
+                            disabled={isSilent}
                             state={state}
                             onClick={() => {
                               if (!isSilent) {
