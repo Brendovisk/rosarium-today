@@ -242,6 +242,10 @@ export function PrayerTemplate({
   const activeDecadeName =
     decadeIndex >= 0 ? decades[decadeIndex] : mysteryName;
   const isMysteryAnnouncement = currentStep.prayerKey === null;
+  const prayerTotal = steps.filter((s) => s.type !== "mystery-announcement").length;
+  const prayerCurrent = steps
+    .slice(0, isMysteryAnnouncement ? currentStepIndex : currentStepIndex + 1)
+    .filter((s) => s.type !== "mystery-announcement").length;
   const isAve =
     currentStep.label === "aveMaria" && currentStep.aveIndex !== null;
   const aveIndex = currentStep.aveIndex ?? 0;
@@ -639,8 +643,8 @@ export function PrayerTemplate({
               <div className="flex items-center justify-between px-5 pt-8 font-ui text-[0.6875rem] font-bold uppercase tracking-[0.18em] text-muted sm:px-8 lg:px-12">
                 <span>
                   {t("stepCounter", {
-                    current: currentStepIndex + 1,
-                    total: steps.length,
+                    current: prayerCurrent,
+                    total: prayerTotal,
                   })}
                 </span>
 

@@ -20,15 +20,15 @@ A free, open-source rosary prayer PWA — word-by-word guided audio, multiple la
 
 ## Stack
 
-| Layer | Tech |
-|---|---|
-| Framework | Next.js 15 (App Router) |
-| Language | TypeScript 5 |
-| Styling | Tailwind CSS v4 (CSS-first) |
-| Components | shadcn/ui + Radix UI |
-| Animation | Framer Motion |
-| i18n | next-intl |
-| Audio | Native `<audio>` + word-timestamp JSON |
+| Layer      | Tech                                   |
+| ---------- | -------------------------------------- |
+| Framework  | Next.js 15 (App Router)                |
+| Language   | TypeScript 5                           |
+| Styling    | Tailwind CSS v4 (CSS-first)            |
+| Components | shadcn/ui + Radix UI                   |
+| Animation  | Framer Motion                          |
+| i18n       | next-intl                              |
+| Audio      | Native `<audio>` + word-timestamp JSON |
 
 ---
 
@@ -109,6 +109,7 @@ For significant changes, open an issue first to discuss the approach.
 Three locales are supported: English (`en`), Brazilian Portuguese (`pt-br`), and Latin (`la`).
 
 To add a new locale:
+
 1. Add the locale key to `config/locales.ts`
 2. Create `i18n/ui/{locale}.json` and `i18n/prayers/{locale}.json`
 3. Add audio files to `public/audios/{locale}/`

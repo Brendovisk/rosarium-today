@@ -1,7 +1,11 @@
 import type { MysteryKey } from "@/config/rosary";
 import type { PrayerKey } from "@/player/assets";
 
-export type RosaryStepType = "opening" | "mystery-announcement" | "decade" | "closing";
+export type RosaryStepType =
+  | "opening"
+  | "mystery-announcement"
+  | "decade"
+  | "closing";
 
 export interface RosaryStep {
   readonly prayerKey: PrayerKey | null;
@@ -29,6 +33,7 @@ const OPENING_STEPS: ReadonlyArray<Pick<RosaryStep, "prayerKey" | "label">> = [
 
 const CLOSING_STEPS: ReadonlyArray<Pick<RosaryStep, "prayerKey" | "label">> = [
   { prayerKey: "salve-regina", label: "salveRegina" },
+  { prayerKey: "signum-crucis", label: "signumCrucis" },
 ];
 
 function buildRosarySteps(): RosaryStep[] {

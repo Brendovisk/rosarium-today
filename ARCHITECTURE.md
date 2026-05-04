@@ -15,9 +15,9 @@ Browser
 
 ## Routing
 
-| Route | Component | Server/Client |
-|---|---|---|
-| `/` | `HomeTemplate` | Server page → client template |
+| Route               | Component        | Server/Client                 |
+| ------------------- | ---------------- | ----------------------------- |
+| `/`                 | `HomeTemplate`   | Server page → client template |
 | `/prayer/[mystery]` | `PrayerTemplate` | Server page → client template |
 
 Pages are server components by default. Templates (which need state and browser APIs) are client components. The `"use client"` boundary lives at the template level, not the page level.
@@ -142,11 +142,11 @@ Tailwind v4 uses CSS custom properties instead of a config file. All base tokens
 
 ```css
 :root {
-  --ink: ...;    /* primary text */
-  --bone: ...;   /* background */
-  --gold: ...;   /* accent (overwritten at runtime) */
-  --line: ...;   /* borders */
-  --muted: ...;  /* secondary text */
+  --ink: ...; /* primary text */
+  --bone: ...; /* background */
+  --gold: ...; /* accent (overwritten at runtime) */
+  --line: ...; /* borders */
+  --muted: ...; /* secondary text */
 }
 ```
 
@@ -171,9 +171,9 @@ Three accent palettes: `gold`, `wine`, `moss`.
 
 `next-intl` with two message namespaces:
 
-| Namespace | Path | Contents |
-|---|---|---|
-| `ui` | `i18n/ui/{locale}.json` | Nav labels, settings text, keyboard shortcuts |
+| Namespace | Path                         | Contents                                       |
+| --------- | ---------------------------- | ---------------------------------------------- |
+| `ui`      | `i18n/ui/{locale}.json`      | Nav labels, settings text, keyboard shortcuts  |
 | `prayers` | `i18n/prayers/{locale}.json` | Mystery names, decade titles, prayer step text |
 
 The locale is read from the `rosarium-settings` cookie in `i18n/request.ts` and injected into the Next.js request context. Client components call `useTranslations("namespace")`.
@@ -205,16 +205,16 @@ app/layout.tsx
 
 These are open areas suitable for first contributions:
 
-| Area | Status | Notes |
-|---|---|---|
-| Test suite | Missing | No test runner configured. Vitest + Testing Library recommended. |
-| PWA manifest | Missing | `manifest.json` and service worker needed for install prompt and offline support |
-| Prayer history | Hardcoded | Home stats (streak, last prayer, avg duration) are static; needs localStorage-based tracker |
-| Donation links | Empty | `DonateModal` has placeholder constants for PIX, Ko-fi, Buy Me a Coffee |
-| CI pipeline | Missing | No GitHub Actions workflow; needs lint + build checks on PRs |
-| Error boundaries | Missing | No React error boundaries; audio load failures are silent |
-| More locales | Wanted | Spanish, Italian, French, German, Polish all have large Catholic populations |
-| Glorious mysteries audio | Possibly missing | Verify all 4 mystery sets have complete audio for all locales |
+| Area                     | Status           | Notes                                                                                       |
+| ------------------------ | ---------------- | ------------------------------------------------------------------------------------------- |
+| Test suite               | Missing          | No test runner configured. Vitest + Testing Library recommended.                            |
+| PWA manifest             | Missing          | `manifest.json` and service worker needed for install prompt and offline support            |
+| Prayer history           | Hardcoded        | Home stats (streak, last prayer, avg duration) are static; needs localStorage-based tracker |
+| Donation links           | Empty            | `DonateModal` has placeholder constants for PIX, Ko-fi, Buy Me a Coffee                     |
+| CI pipeline              | Missing          | No GitHub Actions workflow; needs lint + build checks on PRs                                |
+| Error boundaries         | Missing          | No React error boundaries; audio load failures are silent                                   |
+| More locales             | Wanted           | Spanish, Italian, French, German, Polish all have large Catholic populations                |
+| Glorious mysteries audio | Possibly missing | Verify all 4 mystery sets have complete audio for all locales                               |
 
 ---
 
