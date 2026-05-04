@@ -17,9 +17,8 @@ export interface WordTimestamp {
   readonly end: number;
 }
 
-// English UI uses pt-br audio since no English recordings exist.
 const LOCALE_TO_ASSET_DIR: Record<SupportedLocale, string> = {
-  en: "pt-br",
+  en: "en",
   "pt-br": "pt-br",
   la: "latin",
 };
