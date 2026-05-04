@@ -119,7 +119,7 @@ export const MYSTERY_ARTWORKS: Record<MysteryKey, readonly Artwork[]> = {
       width: 2994,
       height: 3906,
       alt: "The Presentation of the Temple — Philippe de Champaigne",
-      position: "center",
+      position: "top",
     },
     {
       src: "/artwork/joyful/hofmann_the_boy_jesus_in_the_temple.webp",
@@ -163,7 +163,7 @@ export const MYSTERY_ARTWORKS: Record<MysteryKey, readonly Artwork[]> = {
       width: 2046,
       height: 3051,
       alt: "Cristo Crucificado — Diego Velázquez",
-      position: "center",
+      position: "top",
     },
   ],
   glorious: [
@@ -179,7 +179,7 @@ export const MYSTERY_ARTWORKS: Record<MysteryKey, readonly Artwork[]> = {
       width: 1743,
       height: 2560,
       alt: "The Ascension — Benjamin West",
-      position: "center",
+      position: "top",
     },
     {
       src: "/artwork/glorious/jean_II_restout_pentecost.jpg",
@@ -230,7 +230,7 @@ export const MYSTERY_ARTWORKS: Record<MysteryKey, readonly Artwork[]> = {
       width: 2250,
       height: 1634,
       alt: "Transfiguration of Christ — Luca Giordano",
-      position: "center",
+      position: "top",
     },
     {
       src: "/artwork/luminous/juan_de_juanes_ultima_cena.jpg",
