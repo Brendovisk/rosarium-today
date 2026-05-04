@@ -55,9 +55,12 @@ export async function fetchTimestamps(
   locale: SupportedLocale,
   gender: VoiceGender
 ): Promise<WordTimestamp[]> {
-  const response = await fetch(getTimestampUrl(prayerKey, locale, gender));
-
-  if (!response.ok) return [];
-
-  return response.json() as Promise<WordTimestamp[]>;
+  try {
+    const response = await fetch(getTimestampUrl(prayerKey, locale, gender));
+    if (!response.ok) return [];
+    const data: unknown = await response.json();
+    return Array.isArray(data) ? (data as WordTimestamp[]) : [];
+  } catch {
+    return [];
+  }
 }

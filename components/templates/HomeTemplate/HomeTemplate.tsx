@@ -32,6 +32,7 @@ import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
 import { isMysteryKey } from "@/config/rosary";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { usePrayerHistory } from "@/hooks/use-prayer-history";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import {
@@ -41,7 +42,6 @@ import {
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 import { getCurrentDate } from "@/utils/getCurrentDate";
-import { isMacOS } from "@/utils/platform";
 
 interface HomeTemplateProps {
   todaysMystery: MysteryKey;
@@ -79,79 +79,36 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
     patchSettings({ leftMenuCollapsed: !settings.leftMenuCollapsed });
   }, [patchSettings, settings.leftMenuCollapsed]);
 
-  useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      if (
-        e.target instanceof HTMLInputElement ||
-        e.target instanceof HTMLTextAreaElement
-      )
-        return;
+  useKeyboardShortcuts((e, mod) => {
+    if (mod && e.key === ".") {
+      e.preventDefault();
+      setShortcutsOpen(true);
+    } else if (mod && e.key === ",") {
+      e.preventDefault();
+      patchSettings({ rightMenuCollapsed: false });
+    } else if (e.key === "Escape") {
+      setShortcutsOpen(false);
+    } else if (mod && e.key === "/") {
+      e.preventDefault();
+      toggleLeftMenu();
+    }
+  });
 
-      const mod = isMacOS() ? e.metaKey : e.ctrlKey;
+  const { mysteryDecades, mysteryNames, mysteryDays } = useMemo(() => {
+    const decades = {} as Record<MysteryKey, string[]>;
+    const names = {} as Record<MysteryKey, string>;
+    const days = {} as Record<MysteryKey, string>;
 
-      // open shortcuts modal
-      if (mod && e.key === ".") {
-        e.preventDefault();
-        setShortcutsOpen(true);
-        return;
-      }
-
-      // open settings drawer
-      if (mod && e.key === ",") {
-        e.preventDefault();
-        patchSettings({ rightMenuCollapsed: false });
-        return;
-      }
-
-      // close shortcuts modal
-      if (e.key === "Escape") {
-        setShortcutsOpen(false);
-        return;
-      }
-
-      // toggle left menu
-      if (mod && e.key === "/") {
-        e.preventDefault();
-        toggleLeftMenu();
-        return;
-      }
+    for (const key of MYSTERIES) {
+      decades[key] = [0, 1, 2, 3, 4].map((i) =>
+        tPrayer(`mysteries.${key}.decades.${i}` as `mysteries.joyful.decades.0`)
+      );
+      names[key] = t(`mysteries.${key}`);
+      days[key] = t(`days.${key}`);
     }
 
-    window.addEventListener("keydown", onKeyDown);
-
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [patchSettings, toggleLeftMenu]);
-
-  const mysteryDecades = useMemo(
-    () =>
-      MYSTERIES.reduce<Record<MysteryKey, string[]>>((acc, key) => {
-        acc[key] = [0, 1, 2, 3, 4].map((i) =>
-          tPrayer(
-            `mysteries.${key}.decades.${i}` as `mysteries.joyful.decades.0`
-          )
-        );
-        return acc;
-      }, {} as Record<MysteryKey, string[]>),
-    [tPrayer]
-  );
-
-  const mysteryNames = useMemo(
-    () =>
-      MYSTERIES.reduce<Record<MysteryKey, string>>((acc, key) => {
-        acc[key] = t(`mysteries.${key}`);
-        return acc;
-      }, {} as Record<MysteryKey, string>),
-    [t]
-  );
-
-  const mysteryDays = useMemo(
-    () =>
-      MYSTERIES.reduce<Record<MysteryKey, string>>((acc, key) => {
-        acc[key] = t(`days.${key}`);
-        return acc;
-      }, {} as Record<MysteryKey, string>),
-    [t]
-  );
+    return { mysteryDecades: decades, mysteryNames: names, mysteryDays: days };
+  }, [t, tPrayer]);
 
   function toggleTheme() {
     patchSettings({ theme: settings.theme === "dark" ? "light" : "dark" });

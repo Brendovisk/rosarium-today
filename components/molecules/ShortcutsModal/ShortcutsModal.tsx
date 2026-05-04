@@ -20,7 +20,6 @@ type ShortcutGroup = {
 type ShortcutsModalProps = {
   open: boolean;
   onClose: () => void;
-  showPrayerShortcuts?: boolean;
 };
 
 export function ShortcutsModal({ open, onClose }: ShortcutsModalProps) {

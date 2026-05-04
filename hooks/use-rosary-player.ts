@@ -38,7 +38,6 @@ type UseRosaryPlayerReturn = {
   lastStartedIndex: number;
   togglePlayPause: () => void;
   seekToWord: (startTime: number) => void;
-  seekTo: (time: number) => void;
 };
 
 export function useRosaryPlayer({
@@ -201,14 +200,6 @@ export function useRosaryPlayer({
     void audio.play().catch(() => undefined);
   }, []);
 
-  const seekTo = useCallback((time: number) => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    audio.currentTime = time;
-    setCurrentTime(time);
-  }, []);
-
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -259,6 +250,5 @@ export function useRosaryPlayer({
     lastStartedIndex,
     togglePlayPause,
     seekToWord,
-    seekTo,
   };
 }

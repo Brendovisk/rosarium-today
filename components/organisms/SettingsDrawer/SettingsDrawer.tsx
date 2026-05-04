@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Keyboard, X } from "lucide-react";
+import { Keyboard, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/atoms/Button";
@@ -12,15 +12,15 @@ import {
 } from "@/components/atoms/Tooltip";
 import type { AccentColor } from "@/config/accents";
 import { ACCENT_OPTIONS } from "@/config/accents";
-import type { SupportedLocale } from "@/config/locales";
-import { LOCALE_OPTIONS } from "@/config/locales";
 import type { ThemePreference, VoiceGender } from "@/config/settings";
 import { VOICE_GENDERS } from "@/config/settings";
 import { useIsMac } from "@/hooks/use-is-mac";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
+import { LanguageSelector } from "./LanguageSelector";
 import { getThemeOptions } from "./settings-options";
+import { SettingToggle } from "./SettingToggle";
 
 interface SettingsDrawerProps {
   open: boolean;
@@ -49,14 +49,6 @@ export function SettingsDrawer({
 
   function handleAccentChange(accent: AccentColor) {
     patchSettings({ accent });
-  }
-
-  function handleUiLanguageChange(uiLanguage: SupportedLocale) {
-    patchSettings({ uiLanguage });
-  }
-
-  function handlePrayerLanguageChange(prayerLanguage: SupportedLocale) {
-    patchSettings({ prayerLanguage });
   }
 
   function handleVoiceGenderChange(voiceGender: VoiceGender) {
@@ -182,11 +174,7 @@ export function SettingsDrawer({
           <div className="grid grid-cols-2 gap-2.5">
             {VOICE_GENDERS.map((value) => {
               const active = settings.voiceGender === value;
-
-              const label =
-                value === "male"
-                  ? t("voiceMale" as "voice")
-                  : t("voiceFemale" as "voice");
+              const label = t(value === "male" ? "voiceMale" : "voiceFemale");
 
               return (
                 <button
@@ -208,106 +196,31 @@ export function SettingsDrawer({
 
         <section>
           <div className={SECTION_LABEL}>{t("uiLanguage")}</div>
-
-          <div className="flex flex-col gap-1.5">
-            {LOCALE_OPTIONS.map(({ value, label }) => {
-              const active = settings.uiLanguage === value;
-
-              return (
-                <Button
-                  key={value}
-                  variant="outline"
-                  onClick={() => handleUiLanguageChange(value)}
-                  className={cn(
-                    "rounded-[0.625rem] flex justify-between",
-                    "font-display",
-                    active
-                      ? "border-gold bg-gold-soft"
-                      : "border-line bg-transparent hover:border-line-2"
-                  )}
-                >
-                  <span>{label}</span>
-
-                  {active && (
-                    <span className="text-gold text-[1.125rem]">
-                      <Check />
-                    </span>
-                  )}
-                </Button>
-              );
-            })}
-          </div>
+          <LanguageSelector
+            value={settings.uiLanguage}
+            onChange={(uiLanguage) => patchSettings({ uiLanguage })}
+          />
         </section>
 
         <section>
           <div className={SECTION_LABEL}>{t("prayerLanguage")}</div>
-
-          <div className="flex flex-col gap-1.5">
-            {LOCALE_OPTIONS.map(({ value, label }) => {
-              const active = settings.prayerLanguage === value;
-
-              return (
-                <Button
-                  key={value}
-                  variant="outline"
-                  onClick={() => handlePrayerLanguageChange(value)}
-                  className={cn(
-                    "rounded-[0.625rem] flex justify-between",
-                    "font-display",
-                    active
-                      ? "border-gold bg-gold-soft"
-                      : "border-line bg-transparent hover:border-line-2"
-                  )}
-                >
-                  <span>{label}</span>
-
-                  {active && (
-                    <span className="text-gold text-[1.125rem]">
-                      <Check />
-                    </span>
-                  )}
-                </Button>
-              );
-            })}
-          </div>
+          <LanguageSelector
+            value={settings.prayerLanguage}
+            onChange={(prayerLanguage) => patchSettings({ prayerLanguage })}
+          />
         </section>
 
         <section>
           <div className={SECTION_LABEL}>{t("binauralAudio")}</div>
 
-          <button
-            onClick={() =>
+          <SettingToggle
+            enabled={settings.binauralEnabled}
+            onToggle={() =>
               patchSettings({ binauralEnabled: !settings.binauralEnabled })
             }
-            className={cn(
-              "w-full flex items-center justify-between rounded-[0.875rem] border p-[1rem_1.125rem] transition-all",
-              settings.binauralEnabled
-                ? "border-gold bg-gold-soft"
-                : "border-line bg-transparent hover:border-line-2"
-            )}
-          >
-            <div className="text-left">
-              <div className="font-display text-[0.9375rem] text-bone leading-none">
-                {t("binauralAudio")}
-              </div>
-              <div className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 mt-1">
-                {t("binauralAudioSub")}
-              </div>
-            </div>
-            <div
-              className={cn(
-                "w-10 h-6 rounded-full relative transition-colors shrink-0",
-                settings.binauralEnabled ? "bg-gold" : "bg-line-2"
-              )}
-            >
-              <div
-                className={cn(
-                  "absolute top-1 w-4 h-4 rounded-full bg-ink transition-transform",
-                  settings.binauralEnabled ? "translate-x-5" : "translate-x-1"
-                )}
-              />
-            </div>
-          </button>
+            label={t("binauralAudio")}
+            sub={t("binauralAudioSub")}
+          />
 
           {settings.binauralEnabled && (
             <div className="mt-5 flex items-center gap-3 px-1">
@@ -338,39 +251,14 @@ export function SettingsDrawer({
         <section>
           <div className={SECTION_LABEL}>{t("artworkBackground")}</div>
 
-          <button
-            onClick={() =>
+          <SettingToggle
+            enabled={settings.artworkEnabled}
+            onToggle={() =>
               patchSettings({ artworkEnabled: !settings.artworkEnabled })
             }
-            className={cn(
-              "w-full flex items-center justify-between rounded-[0.875rem] border p-[1rem_1.125rem] transition-all",
-              settings.artworkEnabled
-                ? "border-gold bg-gold-soft"
-                : "border-line bg-transparent hover:border-line-2"
-            )}
-          >
-            <div className="text-left">
-              <div className="font-display text-[0.9375rem] text-bone leading-none">
-                {t("artworkBackground")}
-              </div>
-              <div className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 mt-1">
-                {t("artworkBackgroundSub")}
-              </div>
-            </div>
-            <div
-              className={cn(
-                "w-10 h-6 rounded-full relative transition-colors shrink-0",
-                settings.artworkEnabled ? "bg-gold" : "bg-line-2"
-              )}
-            >
-              <div
-                className={cn(
-                  "absolute top-1 w-4 h-4 rounded-full bg-ink transition-transform",
-                  settings.artworkEnabled ? "translate-x-5" : "translate-x-1"
-                )}
-              />
-            </div>
-          </button>
+            label={t("artworkBackground")}
+            sub={t("artworkBackgroundSub")}
+          />
         </section>
 
         <div className="mt-auto pt-6 border-t border-line flex flex-col gap-4">

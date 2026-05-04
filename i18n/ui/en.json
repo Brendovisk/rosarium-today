@@ -74,6 +74,10 @@
     "next": "Next",
     "autoplay": "Auto-play",
     "toggleTheme": "Toggle theme",
+    "enableBinaural": "Enable background audio",
+    "disableBinaural": "Disable background audio",
+    "showArtwork": "Show background image",
+    "hideArtwork": "Hide background image",
     "speed": "Speed",
     "playbackSpeedCycle": "{rate}x — tap to change speed"
   },

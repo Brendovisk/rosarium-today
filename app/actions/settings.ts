@@ -4,16 +4,14 @@ import { cookies } from "next/headers";
 
 import {
   type AppSettings,
-  normalizeSettings,
   serializeSettingsCookie,
   SETTINGS_COOKIE_NAME,
 } from "@/config/settings";
 
 export async function saveSettingsCookie(settings: AppSettings) {
   const cookieStore = await cookies();
-  const normalizedSettings = normalizeSettings(settings);
 
-  cookieStore.set(SETTINGS_COOKIE_NAME, serializeSettingsCookie(normalizedSettings), {
+  cookieStore.set(SETTINGS_COOKIE_NAME, serializeSettingsCookie(settings), {
     httpOnly: false,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",

@@ -51,12 +51,8 @@ export function SettingsProvider({
 }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const normalizedInitialSettings = useMemo(
-    () => normalizeSettings(initialSettings),
-    [initialSettings]
-  );
-  const [settings, setSettings] = useState(normalizedInitialSettings);
-  const settingsRef = useRef(normalizedInitialSettings);
+  const [settings, setSettings] = useState(initialSettings);
+  const settingsRef = useRef(initialSettings);
 
   useEffect(() => {
     applySettingsToDocument(settings);

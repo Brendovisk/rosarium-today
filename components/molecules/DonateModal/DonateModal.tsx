@@ -2,7 +2,7 @@
 
 import { ExternalLink, Heart, X } from "lucide-react";
 import { useTranslations } from "next-intl";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
 import { cn } from "@/utils/classNames";
@@ -24,11 +24,15 @@ type DonateModalProps = {
 export function DonateModal({ open, onClose }: DonateModalProps) {
   const t = useTranslations("donate");
   const [copied, setCopied] = useState(false);
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => () => clearTimeout(copyTimerRef.current), []);
 
   function handleCopy() {
     navigator.clipboard?.writeText(PIX_KEY);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    clearTimeout(copyTimerRef.current);
+    copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
   }
 
   if (!open) return null;

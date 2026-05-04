@@ -74,6 +74,10 @@
     "next": "Próximo",
     "autoplay": "Reprodução automática",
     "toggleTheme": "Alternar tema",
+    "enableBinaural": "Ativar áudio de fundo",
+    "disableBinaural": "Desativar áudio de fundo",
+    "showArtwork": "Mostrar imagem de fundo",
+    "hideArtwork": "Ocultar imagem de fundo",
     "speed": "Velocidade",
     "playbackSpeedCycle": "{rate}x — toque para mudar a velocidade"
   },

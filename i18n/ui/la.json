@@ -74,6 +74,10 @@
     "next": "Sequens",
     "autoplay": "Autoplay",
     "toggleTheme": "Aspectum mutare",
+    "enableBinaural": "Activare sonum in fundo",
+    "disableBinaural": "Deactivare sonum in fundo",
+    "showArtwork": "Monstrare imaginem in fundo",
+    "hideArtwork": "Celare imaginem in fundo",
     "speed": "Velocitas",
     "playbackSpeedCycle": "{rate}x — tange ut velocitatem mutes"
   },
