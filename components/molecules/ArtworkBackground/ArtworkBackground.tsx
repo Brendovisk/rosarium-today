@@ -9,14 +9,12 @@ interface ArtworkBackgroundProps {
   artwork: Artwork | null;
   visible: boolean;
   isMysteryAnnouncement: boolean;
-  theme: "dark" | "light";
 }
 
 export function ArtworkBackground({
   artwork,
   visible,
   isMysteryAnnouncement,
-  theme,
 }: ArtworkBackgroundProps) {
   return (
     <div
