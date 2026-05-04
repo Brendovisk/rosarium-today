@@ -142,5 +142,37 @@
     "openLink": "Open",
     "footerNote": "May God reward your generosity.",
     "comingSoon": "Donation methods coming soon."
+  },
+  "privacy": {
+    "pageTitle": "Privacy Policy — Rosarium Today",
+    "heading": "Privacy Policy",
+    "effectiveDate": "Effective: January 1, 2026",
+    "back": "Back",
+    "noDataTitle": "No data collected.",
+    "noDataBody": "Rosarium Today does not collect, store, transmit, or track any personal data of any kind. There are no accounts, no sign-ups, no analytics, no third-party scripts, and no advertising.",
+    "localStorageTitle": "Local storage only",
+    "localStorageBody": "Your prayer progress, streak, and UI settings are saved exclusively in your browser's local storage and a single functional cookie. This data never leaves your device and is never transmitted to any server.",
+    "noThirdPartiesTitle": "No third parties",
+    "noThirdPartiesBody": "No analytics platforms, advertising networks, tracking pixels, or external services of any kind are embedded in this application. All audio files and assets are served from the same domain.",
+    "openSourceTitle": "Open source",
+    "openSourceBody": "The full source code is publicly available on <link>GitHub</link>. You can verify these claims directly.",
+    "contactTitle": "Contact",
+    "contactBody": "Questions or concerns? Open an issue on <link>GitHub</link>."
+  },
+  "terms": {
+    "pageTitle": "Terms of Use — Rosarium Today",
+    "heading": "Terms of Use",
+    "effectiveDate": "Effective: January 1, 2026",
+    "back": "Back",
+    "freeToUseTitle": "Free to use",
+    "freeToUseBody": "Rosarium Today is free to use for personal and spiritual purposes. No account, payment, or license is required. No conditions are placed on your use of the app for personal prayer.",
+    "noWarrantiesTitle": "No warranties",
+    "noWarrantiesBody": "This application is provided “as is” without warranties of any kind, express or implied. We make no guarantee of availability, accuracy, or fitness for any particular purpose.",
+    "openSourceTitle": "Open source",
+    "openSourceBody": "The source code is licensed under the MIT License and is available on <link>GitHub</link>.",
+    "contentTitle": "Content",
+    "contentBody": "Prayer texts are from the traditional Catholic Rosary and are in the public domain. Audio recordings are original works; all rights reserved by their respective contributors.",
+    "changesTitle": "Changes",
+    "changesBody": "These terms may be updated at any time without prior notice. Continued use of the application after changes constitutes acceptance of the revised terms."
   }
 }

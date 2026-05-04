@@ -1,91 +1,88 @@
+import { ArrowLeftIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Privacy Policy — Rosarium Today",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("privacy");
+  return { title: t("pageTitle") };
+}
 
-export default function PrivacyPage() {
+export default async function PrivacyPage() {
+  const t = await getTranslations("privacy");
+
   return (
     <main className="mx-auto max-w-2xl px-6 py-16 font-body text-bone">
       <Link
         href="/"
-        className="mb-8 inline-block font-ui text-sm text-muted transition-colors hover:text-bone"
+        className="mb-8 flex items-center gap-2 font-ui text-sm text-muted transition-colors hover:text-bone"
       >
-        ← Back
+        <ArrowLeftIcon className="h-4 w-4" />
+        {t("back")}
       </Link>
 
-      <h1 className="mb-3 font-display text-4xl font-normal">Privacy Policy</h1>
-      <p className="mb-12 font-ui text-xs text-muted">Effective: January 1, 2026</p>
+      <h1 className="mb-3 font-display text-4xl font-normal">{t("heading")}</h1>
+      <p className="mb-12 font-ui text-xs text-muted">{t("effectiveDate")}</p>
 
       <div className="space-y-10 leading-relaxed text-muted">
         <section className="space-y-3">
           <h2 className="font-display text-2xl font-normal text-bone">
-            No data collected.
+            {t("noDataTitle")}
+          </h2>
+          <p>{t("noDataBody")}</p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="font-display text-2xl font-normal text-bone">
+            {t("localStorageTitle")}
+          </h2>
+          <p>{t("localStorageBody")}</p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="font-display text-2xl font-normal text-bone">
+            {t("noThirdPartiesTitle")}
+          </h2>
+          <p>{t("noThirdPartiesBody")}</p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="font-display text-2xl font-normal text-bone">
+            {t("openSourceTitle")}
           </h2>
           <p>
-            Rosarium Today does not collect, store, transmit, or track any
-            personal data of any kind. There are no accounts, no sign-ups, no
-            analytics, no third-party scripts, and no advertising.
+            {t.rich("openSourceBody", {
+              link: (chunks) => (
+                <a
+                  href="https://github.com/Brendovisk/rosarium-today"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold hover:underline"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="font-display text-2xl font-normal text-bone">
-            Local storage only
+            {t("contactTitle")}
           </h2>
           <p>
-            Your prayer progress, streak, and UI settings are saved exclusively
-            in your browser&apos;s local storage and a single functional cookie.
-            This data never leaves your device and is never transmitted to any
-            server.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="font-display text-2xl font-normal text-bone">
-            No third parties
-          </h2>
-          <p>
-            No analytics platforms, advertising networks, tracking pixels, or
-            external services of any kind are embedded in this application. All
-            audio files and assets are served from the same domain.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="font-display text-2xl font-normal text-bone">
-            Open source
-          </h2>
-          <p>
-            The full source code is publicly available on{" "}
-            <a
-              href="https://github.com/Brendovisk/rosarium-today"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gold hover:underline"
-            >
-              GitHub
-            </a>
-            . You can verify these claims directly.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="font-display text-2xl font-normal text-bone">
-            Contact
-          </h2>
-          <p>
-            Questions or concerns? Open an issue on{" "}
-            <a
-              href="https://github.com/Brendovisk/rosarium-today/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gold hover:underline"
-            >
-              GitHub
-            </a>
-            .
+            {t.rich("contactBody", {
+              link: (chunks) => (
+                <a
+                  href="https://github.com/Brendovisk/rosarium-today/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold hover:underline"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
           </p>
         </section>
       </div>

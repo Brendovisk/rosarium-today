@@ -1,85 +1,76 @@
+import { ArrowLeftIcon } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 
-export const metadata: Metadata = {
-  title: "Terms of Use — Rosarium Today",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getTranslations("terms");
+  return { title: t("pageTitle") };
+}
 
-export default function TermsPage() {
+export default async function TermsPage() {
+  const t = await getTranslations("terms");
+
   return (
     <main className="mx-auto max-w-2xl px-6 py-16 font-body text-bone">
       <Link
         href="/"
-        className="mb-8 inline-block font-ui text-sm text-muted transition-colors hover:text-bone"
+        className="mb-8 flex items-center gap-2 font-ui text-sm text-muted transition-colors hover:text-bone"
       >
-        ← Back
+        <ArrowLeftIcon className="h-4 w-4" />
+        {t("back")}
       </Link>
 
-      <h1 className="mb-3 font-display text-4xl font-normal">Terms of Use</h1>
-      <p className="mb-12 font-ui text-xs text-muted">Effective: January 1, 2026</p>
+      <h1 className="mb-3 font-display text-4xl font-normal">{t("heading")}</h1>
+      <p className="mb-12 font-ui text-xs text-muted">{t("effectiveDate")}</p>
 
       <div className="space-y-10 leading-relaxed text-muted">
         <section className="space-y-3">
           <h2 className="font-display text-2xl font-normal text-bone">
-            Free to use
+            {t("freeToUseTitle")}
+          </h2>
+          <p>{t("freeToUseBody")}</p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="font-display text-2xl font-normal text-bone">
+            {t("noWarrantiesTitle")}
+          </h2>
+          <p>{t("noWarrantiesBody")}</p>
+        </section>
+
+        <section className="space-y-3">
+          <h2 className="font-display text-2xl font-normal text-bone">
+            {t("openSourceTitle")}
           </h2>
           <p>
-            Rosarium Today is free to use for personal and spiritual purposes.
-            No account, payment, or license is required. No conditions are
-            placed on your use of the app for personal prayer.
+            {t.rich("openSourceBody", {
+              link: (chunks) => (
+                <a
+                  href="https://github.com/Brendovisk/rosarium-today"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-gold hover:underline"
+                >
+                  {chunks}
+                </a>
+              ),
+            })}
           </p>
         </section>
 
         <section className="space-y-3">
           <h2 className="font-display text-2xl font-normal text-bone">
-            No warranties
+            {t("contentTitle")}
           </h2>
-          <p>
-            This application is provided &ldquo;as is&rdquo; without warranties
-            of any kind, express or implied. We make no guarantee of
-            availability, accuracy, or fitness for any particular purpose.
-          </p>
+          <p>{t("contentBody")}</p>
         </section>
 
         <section className="space-y-3">
           <h2 className="font-display text-2xl font-normal text-bone">
-            Open source
+            {t("changesTitle")}
           </h2>
-          <p>
-            The source code is licensed under the MIT License and is available
-            on{" "}
-            <a
-              href="https://github.com/Brendovisk/rosarium-today"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gold hover:underline"
-            >
-              GitHub
-            </a>
-            .
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="font-display text-2xl font-normal text-bone">
-            Content
-          </h2>
-          <p>
-            Prayer texts are from the traditional Catholic Rosary and are in the
-            public domain. Audio recordings are original works; all rights
-            reserved by their respective contributors.
-          </p>
-        </section>
-
-        <section className="space-y-3">
-          <h2 className="font-display text-2xl font-normal text-bone">
-            Changes
-          </h2>
-          <p>
-            These terms may be updated at any time without prior notice.
-            Continued use of the application after changes constitutes
-            acceptance of the revised terms.
-          </p>
+          <p>{t("changesBody")}</p>
         </section>
       </div>
     </main>

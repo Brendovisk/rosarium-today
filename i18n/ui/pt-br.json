@@ -142,5 +142,37 @@
     "openLink": "Abrir",
     "footerNote": "Que Deus recompense sua generosidade.",
     "comingSoon": "Métodos de doação em breve."
+  },
+  "privacy": {
+    "pageTitle": "Política de Privacidade — Rosarium Today",
+    "heading": "Política de Privacidade",
+    "effectiveDate": "Vigência: 1 de janeiro de 2026",
+    "back": "Voltar",
+    "noDataTitle": "Nenhum dado coletado.",
+    "noDataBody": "Rosarium Today não coleta, armazena, transmite ou rastreia nenhum dado pessoal de qualquer tipo. Não há contas, cadastros, análises, scripts de terceiros ou publicidade.",
+    "localStorageTitle": "Apenas armazenamento local",
+    "localStorageBody": "Seu progresso de oração, sequência e configurações de interface são salvos exclusivamente no armazenamento local do seu navegador e em um único cookie funcional. Esses dados nunca saem do seu dispositivo e nunca são transmitidos a nenhum servidor.",
+    "noThirdPartiesTitle": "Sem terceiros",
+    "noThirdPartiesBody": "Nenhuma plataforma de análise, rede de publicidade, pixel de rastreamento ou serviço externo de qualquer tipo está incorporado neste aplicativo. Todos os arquivos de áudio e ativos são servidos pelo mesmo domínio.",
+    "openSourceTitle": "Código aberto",
+    "openSourceBody": "O código-fonte completo está disponível publicamente no <link>GitHub</link>. Você pode verificar essas afirmações diretamente.",
+    "contactTitle": "Contato",
+    "contactBody": "Dúvidas ou preocupações? Abra uma issue no <link>GitHub</link>."
+  },
+  "terms": {
+    "pageTitle": "Termos de Uso — Rosarium Today",
+    "heading": "Termos de Uso",
+    "effectiveDate": "Vigência: 1 de janeiro de 2026",
+    "back": "Voltar",
+    "freeToUseTitle": "Uso gratuito",
+    "freeToUseBody": "Rosarium Today é gratuito para uso pessoal e espiritual. Não é necessária conta, pagamento ou licença. Nenhuma condição é imposta ao uso do aplicativo para oração pessoal.",
+    "noWarrantiesTitle": "Sem garantias",
+    "noWarrantiesBody": "Este aplicativo é fornecido “no estado em que se encontra”, sem garantias de qualquer tipo, expressas ou implícitas. Não oferecemos garantia de disponibilidade, precisão ou adequação a qualquer finalidade específica.",
+    "openSourceTitle": "Código aberto",
+    "openSourceBody": "O código-fonte está licenciado sob a Licença MIT e está disponível no <link>GitHub</link>.",
+    "contentTitle": "Conteúdo",
+    "contentBody": "Os textos de oração são do Rosário Católico tradicional e são de domínio público. As gravações de áudio são obras originais; todos os direitos reservados por seus respectivos contribuidores.",
+    "changesTitle": "Alterações",
+    "changesBody": "Estes termos podem ser atualizados a qualquer momento sem aviso prévio. O uso continuado do aplicativo após as alterações constitui aceitação dos termos revisados."
   }
 }

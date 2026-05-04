@@ -142,5 +142,37 @@
     "openLink": "Aperi",
     "footerNote": "Deus bonitatem tuam remuneretur.",
     "comingSoon": "Modi donationis mox aderunt."
+  },
+  "privacy": {
+    "pageTitle": "Consilium Secreti — Rosarium Today",
+    "heading": "Consilium Secreti",
+    "effectiveDate": "Viguit a: Kalendis Ianuariis anni MMXXVI",
+    "back": "Redire",
+    "noDataTitle": "Nulla data collecta.",
+    "noDataBody": "Rosarium Today nullam personae notitiam omnino colligit, servat, transmittit vel investigat. Nulla sunt instrumenta inscriptionum, nullae significationes, nullae analyticae, nulli codicilli alieni, nulla publicitas.",
+    "localStorageTitle": "Sola repositio localis",
+    "localStorageBody": "Progressus orationis, series, et dispositiones faciei in sola repositione locali navigatricis tuae et uno frustulo functionali servantur. Haec data dispositum tuum numquam relinquunt et ad nullum servientem umquam transmittuntur.",
+    "noThirdPartiesTitle": "Nullae alienae partes",
+    "noThirdPartiesBody": "Nullae platformae analyticae, retia publicitatis, imagines investigationis vel officia externa ullo genere in hanc applicationem inserta sunt. Omnes fasciculi sonori et bona ex eodem dominio serviunt.",
+    "openSourceTitle": "Fons apertus",
+    "openSourceBody": "Totus codex fontis publice praesto est in <link>GitHub</link>. Has assertiones directe verificare potes.",
+    "contactTitle": "Contactus",
+    "contactBody": "Quaestiones vel curas habes? Aperi quaestionem in <link>GitHub</link>."
+  },
+  "terms": {
+    "pageTitle": "Condiciones Usus — Rosarium Today",
+    "heading": "Condiciones Usus",
+    "effectiveDate": "Viguit a: Kalendis Ianuariis anni MMXXVI",
+    "back": "Redire",
+    "freeToUseTitle": "Usus gratuitus",
+    "freeToUseBody": "Rosarium Today gratis utendum ad usus personales et spirituales est. Nulla inscriptio, nulla solutio, nullaque licentia requiritur. Nullae condiciones in usu applicationis ad orationem personalem ponuntur.",
+    "noWarrantiesTitle": "Sine praestationibus",
+    "noWarrantiesBody": "Haec applicatio “sicut est” sine praestationibus ullius generis, expressis vel tacitis, praebetur. Nullam praestationem praestabilitas, accurati, vel aptitudinis ad aliquem finem specialem damus.",
+    "openSourceTitle": "Fons apertus",
+    "openSourceBody": "Codex fontis sub Licentia MIT licentiatus est et in <link>GitHub</link> praesto est.",
+    "contentTitle": "Contenta",
+    "contentBody": "Textus orationum ex Rosario Catholico tradicionario sunt et in publicum dominium cadunt. Recordationes sonorum opera originalia sunt; omnia iura a suis contributoribus reservantur.",
+    "changesTitle": "Mutationes",
+    "changesBody": "Hae condiciones quolibet tempore sine praeaviso mutari possunt. Usus continuus applicationis post mutationes consensum condicionum mutatarum constituit."
   }
 }
