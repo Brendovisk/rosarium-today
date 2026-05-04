@@ -65,13 +65,13 @@ export function MysteryCarousel({
   }
 
   return (
-    <div className="relative before:pointer-events-none before:absolute before:-inset-y-4 before:-left-6 before:z-10 before:w-12 before:bg-linear-to-r before:from-background before:to-transparent after:pointer-events-none after:absolute after:-inset-y-4 after:-right-6 after:z-10 after:w-12 after:bg-linear-to-l after:from-background after:to-transparent sm:before:w-16 sm:after:w-16">
+    <div className="relative before:pointer-events-none before:absolute before:-inset-y-4 before:-left-14 xl:before:-left-6 xl:after:-right-6 before:z-10 before:w-12 before:bg-linear-to-r before:from-background before:to-transparent after:pointer-events-none after:absolute after:-inset-y-4 after:-right-14 after:z-10 after:w-12 after:bg-linear-to-l after:from-background after:to-transparent sm:before:w-16 sm:after:w-16">
       <div className="px-8" ref={emblaRef}>
         <div className="flex gap-4.5 max-[640px]:gap-0">
           {cards.map((card, i) => (
             <div
               key={MYSTERIES[i]}
-              className="min-w-0 flex-[0_0_17.5rem] max-[640px]:flex-[0_0_100%] max-[640px]:pr-4"
+              className="min-w-0 flex-[0_0_17.5rem] md:flex-[0_0_calc(33.333%_-_12px)] max-[640px]:flex-[0_0_100%] max-[640px]:pr-4"
             >
               {card}
             </div>
