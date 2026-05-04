@@ -16,6 +16,7 @@ import {
 import { saveSettingsCookie } from "@/app/actions/settings";
 import { TooltipProvider } from "@/components/atoms/Tooltip";
 import { getAccentVars } from "@/config/accents";
+import { getCanonicalPath, getLocalizedPath } from "@/config/routes";
 import { type AppSettings, normalizeSettings } from "@/config/settings";
 
 type PatchSettings = (patch: Partial<AppSettings>) => void;
@@ -65,8 +66,8 @@ export function SettingsProvider({
         ...patch,
       });
 
-      const shouldRefresh =
-        patch.uiLanguage !== undefined || patch.prayerLanguage !== undefined;
+      const localeChanged = patch.uiLanguage !== undefined;
+      const prayerLangChanged = patch.prayerLanguage !== undefined;
 
       settingsRef.current = nextSettings;
 
@@ -75,7 +76,11 @@ export function SettingsProvider({
 
       startTransition(() => {
         void saveSettingsCookie(nextSettings).then(() => {
-          if (shouldRefresh) {
+          if (localeChanged) {
+            const canonical = getCanonicalPath(window.location.pathname);
+            const newPath = getLocalizedPath(canonical, nextSettings.uiLanguage);
+            router.push(newPath + window.location.search);
+          } else if (prayerLangChanged) {
             router.refresh();
           }
         });

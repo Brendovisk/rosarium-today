@@ -31,6 +31,7 @@ import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
 import { isMysteryKey } from "@/config/rosary";
+import { getLocalizedPath, getLocalizedPrayerPath } from "@/config/routes";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { usePrayerHistory } from "@/hooks/use-prayer-history";
@@ -260,7 +261,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
 
               <div className="flex relative flex-col items-stretch justify-center gap-3 w-full xl:justify-start sm:flex-row flex-nowrap">
                 <Link
-                  href={`/prayer/${continueMystery}`}
+                  href={getLocalizedPrayerPath(continueMystery, settings.uiLanguage)}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
                 >
                   <Play size={18} fill="currentColor" />{" "}
@@ -268,7 +269,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 </Link>
 
                 <Link
-                  href={`/prayer/${todaysMystery}?silent=1`}
+                  href={`${getLocalizedPrayerPath(todaysMystery, settings.uiLanguage)}?silent=1`}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-line-2 bg-transparent px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-bone transition-colors hover:border-gold hover:text-gold"
                 >
                   <BookOpen size={18} /> {t("readSilent")}
@@ -366,14 +367,14 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 </Link>
 
                 <Link
-                  href="/privacy"
+                  href={getLocalizedPath("/privacy", settings.uiLanguage)}
                   className="font-ui text-xs text-muted transition-colors hover:text-bone"
                 >
                   Privacy Policy
                 </Link>
 
                 <Link
-                  href="/terms"
+                  href={getLocalizedPath("/terms", settings.uiLanguage)}
                   className="font-ui text-xs text-muted transition-colors hover:text-bone"
                 >
                   Terms of Use

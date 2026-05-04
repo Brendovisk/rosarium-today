@@ -7,7 +7,9 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/atoms/Button";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
+import { getLocalizedPrayerPath } from "@/config/routes";
 import { getProgressStorageKey } from "@/player/rosary-steps";
+import { useSettings } from "@/providers/SettingsProvider";
 
 import { MysteryCard } from "../MysteryCard";
 
@@ -28,6 +30,7 @@ export function MysteryCarousel({
   todayBadge,
   kicker,
 }: MysteryCarouselProps) {
+  const { settings } = useSettings();
   const { width } = useWindowSize();
   const shouldSnapFullCards = width == null || width <= 640;
 
@@ -50,7 +53,7 @@ export function MysteryCarousel({
       days={mysteryDays[key]}
       meditations={mysteryDecades[key]}
       isToday={key === todaysMystery}
-      href={`/prayer/${key}`}
+      href={getLocalizedPrayerPath(key, settings.uiLanguage)}
       todayBadge={todayBadge}
       kicker={kicker}
       onClick={() => clearProgress(key)}

@@ -37,7 +37,7 @@ Settings (theme, accent, UI language, prayer language, sidebar collapse state) f
 2. **Context** (`providers/SettingsProvider.tsx`) — holds state and exposes `useSettings()` hook
 3. **DOM** — provider applies CSS custom properties, `dark`/`light` classes, and `lang` attribute directly to `<html>`
 
-Mutations call `saveSettingsCookie()` (a server action in `app/actions/settings.ts`) via `useTransition`, then `router.refresh()` for locale changes. Config types, cookie parsing, and defaults live in `config/settings.ts`.
+Mutations call `saveSettingsCookie()` (a server action in `app/actions/settings.ts`) via `useTransition`. On `uiLanguage` change, `SettingsProvider` redirects to the localized URL for the current page via `router.push`. On `prayerLanguage` change, it calls `router.refresh()`. Config types, cookie parsing, and defaults live in `config/settings.ts`.
 
 ### i18n
 
@@ -46,6 +46,15 @@ Mutations call `saveSettingsCookie()` (a server action in `app/actions/settings.
 - `i18n/prayers/` — rosary mystery names and decade prayers
 
 Request config at `i18n/request.ts` dynamically imports the correct JSON files. Components call `useTranslations("namespace")` on the client.
+
+### Localized Routes
+
+`proxy.ts` (Next.js 16 proxy, formerly middleware) handles route-based i18n. Localized URL segments are defined in `config/routes.ts`:
+- `en`: `/prayer/joyful`, `/privacy`, `/terms`
+- `pt-br`: `/oracao/gozosos`, `/privacidade`, `/termos`
+- `la`: `/oratio/gaudiosa`, `/privata`, `/termini`
+
+The proxy rewrites non-English URLs to canonical en paths internally, and redirects canonical paths to localized URLs when locale ≠ `en`. Navigation links use `getLocalizedPrayerPath` / `getLocalizedPath` from `config/routes.ts`.
 
 ### Theming & Styling
 

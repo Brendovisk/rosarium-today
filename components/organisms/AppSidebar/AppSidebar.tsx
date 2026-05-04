@@ -18,6 +18,8 @@ import {
   TooltipTrigger,
 } from "@/components/atoms/Tooltip";
 import type { MysteryKey } from "@/config/rosary";
+import { getLocalizedPrayerPath, PRAYER_SEGMENT } from "@/config/routes";
+import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
 interface AppSidebarProps {
@@ -35,9 +37,12 @@ export function AppSidebar({
 }: AppSidebarProps) {
   const t = useTranslations("nav");
   const pathname = usePathname();
+  const { settings } = useSettings();
 
   const isHome = pathname === "/" || pathname === "";
-  const isPray = pathname.includes("/prayer/");
+  const isPray = Object.values(PRAYER_SEGMENT).some((seg) =>
+    pathname.startsWith(`/${seg}/`)
+  );
 
   const navItems = [
     {
@@ -51,7 +56,7 @@ export function AppSidebar({
       id: "pray",
       label: t("pray"),
       icon: <Heart size={18} />,
-      href: `/prayer/${todaysMystery}`,
+      href: getLocalizedPrayerPath(todaysMystery, settings.uiLanguage),
       active: isPray,
     },
   ];
