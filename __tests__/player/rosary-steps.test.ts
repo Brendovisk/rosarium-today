@@ -7,9 +7,9 @@ import {
 } from "@/player/rosary-steps";
 
 describe("ROSARY_STEPS", () => {
-  // 7 opening + 5 × (1 announcement + 1 paterNoster + 10 aveMaria + 1 gloria + 1 oratio) + 1 closing
+  // 7 opening + 5 × (1 announcement + 1 paterNoster + 10 aveMaria + 1 gloria + 1 oratio) + 2 closing
   const EXPECTED_TOTAL =
-    7 + DECADES_PER_ROSARY * (1 + 1 + AVE_MARIAS_PER_DECADE + 1 + 1) + 1;
+    7 + DECADES_PER_ROSARY * (1 + 1 + AVE_MARIAS_PER_DECADE + 1 + 1) + 2;
 
   it("has correct total step count", () => {
     expect(ROSARY_STEPS.length).toBe(EXPECTED_TOTAL);
