@@ -465,7 +465,7 @@ export function PrayerTemplate({
               : "xl:grid-cols-[minmax(0,1fr)_20rem]"
           )}
         >
-          <div className="grid grid-rows-[1fr_auto] h-[calc(100svh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col">
+          <div className="grid grid-rows-[1fr_auto] h-[calc(100svh-4.5rem)] xl:h-[calc(100svh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col">
             <PrayerContent
               words={words}
               isLoading={isLoading}

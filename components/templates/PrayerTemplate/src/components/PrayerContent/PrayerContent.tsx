@@ -52,7 +52,7 @@ export function PrayerContent({
   const t = useTranslations("prayer");
 
   return (
-    <section className="relative flex min-h-[calc(100svh-12rem)] flex-1 flex-col overflow-hidden lg:min-h-0">
+    <section className="relative flex  flex-1 flex-col overflow-hidden lg:min-h-0">
       {!artworkEnabled && (
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-linear-to-b from-background to-transparent" />
       )}
@@ -65,7 +65,7 @@ export function PrayerContent({
         <span>{Math.round(progressPercent)}%</span>
       </div>
 
-      <div className="flex-1 overflow-y-auto px-5 py-10 sm:px-8 lg:px-12">
+      <div className="flex-1 overflow-y-auto p-5 sm:py-10 sm:px-8 lg:px-12">
         <div className="mx-auto flex min-h-full max-w-3xl flex-col justify-center text-center">
           <div className="mb-8">
             <h1 className="m-0 font-ui text-sm font-bold uppercase tracking-[0.32em] text-gold">
