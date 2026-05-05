@@ -103,7 +103,15 @@ export function HomeTemplate({
         patchSettings({ rightMenuCollapsed: false });
         break;
       case e.key === "Escape":
-        setShortcutsOpen(false);
+        if (donateOpen) {
+          setDonateOpen(false);
+          break;
+        }
+        if (shortcutsOpen) {
+          setShortcutsOpen(false);
+          break;
+        }
+        patchSettings({ rightMenuCollapsed: true });
         break;
       case mod && e.key === "/":
         e.preventDefault();

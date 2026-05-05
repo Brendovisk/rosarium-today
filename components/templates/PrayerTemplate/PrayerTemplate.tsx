@@ -318,7 +318,15 @@ export function PrayerTemplate({
         toggleLeftMenu();
         break;
       case e.key === "Escape":
-        setShortcutsOpen(false);
+        if (donateOpen) {
+          setDonateOpen(false);
+          break;
+        }
+        if (shortcutsOpen) {
+          setShortcutsOpen(false);
+          break;
+        }
+        patchSettings({ rightMenuCollapsed: true });
         break;
       case !mod && e.key === " " && !isSilent:
         e.preventDefault();
