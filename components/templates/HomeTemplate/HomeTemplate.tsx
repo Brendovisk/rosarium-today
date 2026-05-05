@@ -14,7 +14,13 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useState,
+} from "react";
 
 import { BeadViz } from "@/components/atoms/BeadViz";
 import { Button } from "@/components/atoms/Button";
@@ -29,8 +35,7 @@ import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
-import { MYSTERIES } from "@/config/rosary";
-import { isMysteryKey } from "@/config/rosary";
+import { getTodaysMystery, isMysteryKey, MYSTERIES } from "@/config/rosary";
 import { getLocalizedPath, getLocalizedPrayerPath } from "@/config/routes";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
@@ -48,7 +53,13 @@ type HomeTemplateProps = {
   todaysMystery: MysteryKey;
 };
 
-export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
+export function HomeTemplate({
+  todaysMystery: serverTodaysMystery,
+}: HomeTemplateProps) {
+  const [todaysMystery, setTodaysMystery] = useState(serverTodaysMystery);
+
+  useLayoutEffect(() => setTodaysMystery(getTodaysMystery()), []);
+
   const t = useTranslations("home");
   const tPrayer = useTranslations("prayer");
   const tControls = useTranslations("controls");

@@ -2,7 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 
 import { ArtworkBackground } from "@/components/molecules/ArtworkBackground";
 import { DonateModal } from "@/components/molecules/DonateModal";
@@ -11,7 +18,7 @@ import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
-import { getStepArtwork } from "@/config/rosary";
+import { getStepArtwork, getTodaysMystery } from "@/config/rosary";
 import { PLAYBACK_RATES, PlaybackRate } from "@/config/settings";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
@@ -46,9 +53,13 @@ const PRAYER_NAME_KEYS: Record<PrayerKey, string> = {
 
 export function PrayerTemplate({
   mysteryKey,
-  todaysMystery,
+  todaysMystery: serverTodaysMystery,
   isSilent,
 }: PrayerTemplateProps) {
+  const [todaysMystery, setTodaysMystery] = useState(serverTodaysMystery);
+
+  useLayoutEffect(() => setTodaysMystery(getTodaysMystery()), []);
+
   const t = useTranslations("prayer");
   const router = useRouter();
 
