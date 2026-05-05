@@ -153,7 +153,8 @@ export function PrayerTemplate({
   }, [audioRef, currentStep.prayerKey, currentStepIndex, isSilent]);
 
   useEffect(() => {
-    if (activeWordIndex < 0 || activeWordIndex === prevActiveWordRef.current) return;
+    if (activeWordIndex < 0 || activeWordIndex === prevActiveWordRef.current)
+      return;
     prevActiveWordRef.current = activeWordIndex;
     wordRefsMap.current.get(activeWordIndex)?.scrollIntoView({
       behavior: "smooth",
@@ -178,13 +179,19 @@ export function PrayerTemplate({
     }
   }, [audioRef, currentStep.prayerKey, isProgressHydrated, isSilent]);
 
-  const mysteryName = t(`mysteries.${mysteryKey}.name` as "mysteries.joyful.name");
-  const mysteryShortName = t(`mysteries.${mysteryKey}.shortName` as "mysteries.joyful.shortName");
+  const mysteryName = t(
+    `mysteries.${mysteryKey}.name` as "mysteries.joyful.name"
+  );
+  const mysteryShortName = t(
+    `mysteries.${mysteryKey}.shortName` as "mysteries.joyful.shortName"
+  );
 
   const decades = useMemo(
     () =>
       [0, 1, 2, 3, 4].map((index) =>
-        t(`mysteries.${mysteryKey}.decades.${index}` as "mysteries.joyful.decades.0")
+        t(
+          `mysteries.${mysteryKey}.decades.${index}` as "mysteries.joyful.decades.0"
+        )
       ),
     [mysteryKey, t]
   );
@@ -194,15 +201,20 @@ export function PrayerTemplate({
     : mysteryName;
   const decadeIndex = currentStep.decadeIndex ?? -1;
   const artwork = getStepArtwork(mysteryKey, currentStep);
-  const activeDecadeName = decadeIndex >= 0 ? decades[decadeIndex] : mysteryName;
+  const activeDecadeName =
+    decadeIndex >= 0 ? decades[decadeIndex] : mysteryName;
   const isMysteryAnnouncement = currentStep.prayerKey === null;
-  const prayerTotal = steps.filter((s) => s.type !== "mystery-announcement").length;
+  const prayerTotal = steps.filter(
+    (s) => s.type !== "mystery-announcement"
+  ).length;
   const prayerCurrent = steps
     .slice(0, isMysteryAnnouncement ? currentStepIndex : currentStepIndex + 1)
     .filter((s) => s.type !== "mystery-announcement").length;
-  const isAve = currentStep.label === "aveMaria" && currentStep.aveIndex !== null;
+  const isAve =
+    currentStep.label === "aveMaria" && currentStep.aveIndex !== null;
   const aveIndex = currentStep.aveIndex ?? 0;
-  const shouldRunReflectionTimer = !isSilent && isMysteryAnnouncement && settings.autoPlay;
+  const shouldRunReflectionTimer =
+    !isSilent && isMysteryAnnouncement && settings.autoPlay;
 
   const remainingMins = useMemo(() => {
     const stepsLeft = steps.length - currentStepIndex - 1;
@@ -240,7 +252,8 @@ export function PrayerTemplate({
   const increasePlaybackRate = useCallback(() => {
     const currentIndex = PLAYBACK_RATES.indexOf(settings.playbackRate);
     if (currentIndex < 0) return;
-    const nextRate = PLAYBACK_RATES[Math.min(currentIndex + 1, PLAYBACK_RATES.length - 1)];
+    const nextRate =
+      PLAYBACK_RATES[Math.min(currentIndex + 1, PLAYBACK_RATES.length - 1)];
     patchSettings({ playbackRate: nextRate });
   }, [patchSettings, settings.playbackRate]);
 
@@ -260,7 +273,14 @@ export function PrayerTemplate({
       resetProgress();
       router.push("/");
     }
-  }, [canGoNext, goNext, markResumeIfAudioPlaying, resetProgress, router, mysteryKey]);
+  }, [
+    canGoNext,
+    goNext,
+    markResumeIfAudioPlaying,
+    resetProgress,
+    router,
+    mysteryKey,
+  ]);
 
   useKeyboardShortcuts((e, mod) => {
     if (mod && e.key === ".") {
@@ -375,7 +395,6 @@ export function PrayerTemplate({
       <ArtworkBackground
         artwork={artwork}
         visible={settings.artworkEnabled}
-        theme={settings.theme}
         isMysteryAnnouncement={isMysteryAnnouncement}
       />
 
@@ -447,7 +466,9 @@ export function PrayerTemplate({
               playbackRate={settings.playbackRate}
               reflectionProgress={reflectionProgress}
               reflectionPaused={reflectionPaused}
-              onToggleAutoPlay={() => patchSettings({ autoPlay: !settings.autoPlay })}
+              onToggleAutoPlay={() =>
+                patchSettings({ autoPlay: !settings.autoPlay })
+              }
               onPrev={goPrevWithResume}
               onNext={handleNext}
               onPlayPause={togglePlayPause}
