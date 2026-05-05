@@ -20,7 +20,10 @@ export const TERMS_SEGMENT: Record<SupportedLocale, string> = {
   la: "termini",
 };
 
-export const MYSTERY_SLUGS: Record<SupportedLocale, Record<MysteryKey, string>> = {
+export const MYSTERY_SLUGS: Record<
+  SupportedLocale,
+  Record<MysteryKey, string>
+> = {
   en: {
     joyful: "joyful",
     sorrowful: "sorrowful",
@@ -55,14 +58,17 @@ export function getLocalizedPath(
   const prayerMatch = canonical.match(
     /^\/prayer\/(joyful|sorrowful|glorious|luminous)(\/.*)?$/
   );
+
   if (prayerMatch) {
     const key = prayerMatch[1] as MysteryKey;
     const rest = prayerMatch[2] ?? "";
     return `/${PRAYER_SEGMENT[locale]}/${MYSTERY_SLUGS[locale][key]}${rest}`;
   }
+
   if (canonical === "/privacy" || canonical.startsWith("/privacy/")) {
     return canonical.replace("/privacy", `/${PRIVACY_SEGMENT[locale]}`);
   }
+
   if (canonical === "/terms" || canonical.startsWith("/terms/")) {
     return canonical.replace("/terms", `/${TERMS_SEGMENT[locale]}`);
   }
@@ -76,7 +82,9 @@ export function getCanonicalPath(path: string): string {
         return `/prayer/${key}`;
       }
     }
+
     if (path === `/${PRIVACY_SEGMENT[locale]}`) return "/privacy";
+
     if (path === `/${TERMS_SEGMENT[locale]}`) return "/terms";
   }
   return path;
