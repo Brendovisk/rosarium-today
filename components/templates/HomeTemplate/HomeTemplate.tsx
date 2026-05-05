@@ -44,9 +44,9 @@ import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 import { getCurrentDate } from "@/utils/getCurrentDate";
 
-interface HomeTemplateProps {
+type HomeTemplateProps = {
   todaysMystery: MysteryKey;
-}
+};
 
 export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   const t = useTranslations("home");
@@ -59,6 +59,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   useEffect(() => {
     queueMicrotask(() => {
       const stored = localStorage.getItem(LAST_MYSTERY_KEY);
+
       if (stored && isMysteryKey(stored)) setLastMystery(stored);
     });
   }, []);
@@ -81,17 +82,24 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
   }, [patchSettings, settings.leftMenuCollapsed]);
 
   useKeyboardShortcuts((e, mod) => {
-    if (mod && e.key === ".") {
-      e.preventDefault();
-      setShortcutsOpen(true);
-    } else if (mod && e.key === ",") {
-      e.preventDefault();
-      patchSettings({ rightMenuCollapsed: false });
-    } else if (e.key === "Escape") {
-      setShortcutsOpen(false);
-    } else if (mod && e.key === "/") {
-      e.preventDefault();
-      toggleLeftMenu();
+    switch (true) {
+      case mod && e.key === ".":
+        e.preventDefault();
+        setShortcutsOpen(true);
+        break;
+      case mod && e.key === ",":
+        e.preventDefault();
+        patchSettings({ rightMenuCollapsed: false });
+        break;
+      case e.key === "Escape":
+        setShortcutsOpen(false);
+        break;
+      case mod && e.key === "/":
+        e.preventDefault();
+        toggleLeftMenu();
+        break;
+      default:
+        break;
     }
   });
 
@@ -104,6 +112,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
       decades[key] = [0, 1, 2, 3, 4].map((i) =>
         tPrayer(`mysteries.${key}.decades.${i}` as `mysteries.joyful.decades.0`)
       );
+
       names[key] = t(`mysteries.${key}`);
       days[key] = t(`days.${key}`);
     }
@@ -111,21 +120,21 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
     return { mysteryDecades: decades, mysteryNames: names, mysteryDays: days };
   }, [t, tPrayer]);
 
-  function toggleTheme() {
+  const toggleTheme = () => {
     patchSettings({ theme: settings.theme === "dark" ? "light" : "dark" });
-  }
+  };
 
-  function toggleBinaural() {
+  const toggleBinaural = () => {
     patchSettings({ binauralEnabled: !settings.binauralEnabled });
-  }
+  };
 
-  function openRightMenu() {
+  const openRightMenu = () => {
     patchSettings({ rightMenuCollapsed: false });
-  }
+  };
 
-  function closeRightMenu() {
+  const closeRightMenu = () => {
     patchSettings({ rightMenuCollapsed: true });
-  }
+  };
 
   return (
     <div
@@ -165,6 +174,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
               aria-label={t("donate")}
             >
               <Heart />
+
               <span className="hidden sm:inline ml-2">{t("donate")}</span>
             </Button>
 
@@ -178,9 +188,11 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   className="text-muted"
                 >
                   <Sun className="hidden dark:block" size={18} />
+
                   <Moon className="dark:hidden" size={18} />
                 </Button>
               </TooltipTrigger>
+
               <TooltipContent>{tControls("toggleTheme")}</TooltipContent>
             </Tooltip>
 
@@ -196,6 +208,7 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   <Settings size={18} />
                 </Button>
               </TooltipTrigger>
+
               <TooltipContent>{tSettings("title")}</TooltipContent>
             </Tooltip>
           </div>
@@ -261,7 +274,10 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
 
               <div className="flex relative flex-col items-stretch justify-center gap-3 w-full xl:justify-start sm:flex-row flex-nowrap">
                 <Link
-                  href={getLocalizedPrayerPath(continueMystery, settings.uiLanguage)}
+                  href={getLocalizedPrayerPath(
+                    continueMystery,
+                    settings.uiLanguage
+                  )}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
                 >
                   <Play size={18} fill="currentColor" />{" "}
@@ -269,7 +285,10 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                 </Link>
 
                 <Link
-                  href={`${getLocalizedPrayerPath(todaysMystery, settings.uiLanguage)}?silent=1`}
+                  href={`${getLocalizedPrayerPath(
+                    todaysMystery,
+                    settings.uiLanguage
+                  )}?silent=1`}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-line-2 bg-transparent px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-bone transition-colors hover:border-gold hover:text-gold"
                 >
                   <BookOpen size={18} /> {t("readSilent")}
@@ -370,14 +389,14 @@ export function HomeTemplate({ todaysMystery }: HomeTemplateProps) {
                   href={getLocalizedPath("/privacy", settings.uiLanguage)}
                   className="font-ui text-xs text-muted transition-colors hover:text-bone"
                 >
-                  Privacy Policy
+                  {t("privacyPolicy")}
                 </Link>
 
                 <Link
                   href={getLocalizedPath("/terms", settings.uiLanguage)}
                   className="font-ui text-xs text-muted transition-colors hover:text-bone"
                 >
-                  Terms of Use
+                  {t("termsOfUse")}
                 </Link>
               </div>
 

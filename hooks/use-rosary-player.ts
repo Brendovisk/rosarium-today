@@ -40,18 +40,16 @@ type UseRosaryPlayerReturn = {
   seekToWord: (startTime: number) => void;
 };
 
-export function useRosaryPlayer({
+export const useRosaryPlayer = ({
   prayerKey,
   rosaryStepIndex,
   locale,
   voiceGender,
   playbackRate,
   onEnded,
-}: UseRosaryPlayerParams): UseRosaryPlayerReturn {
+}: UseRosaryPlayerParams): UseRosaryPlayerReturn => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const rafRef = useRef<number | undefined>(undefined);
-  // Refs keep callbacks and volatile values stable so event listeners never
-  // need to be re-registered when the parent re-renders with new values.
   const onEndedRef = useRef(onEnded);
   const playbackRateRef = useRef(playbackRate);
 
@@ -74,8 +72,6 @@ export function useRosaryPlayer({
 
     let cancelled = false;
 
-    // queueMicrotask defers setState out of the effect body to satisfy the
-    // react-hooks/set-state-in-effect lint rule while still running before paint.
     queueMicrotask(() => {
       if (!cancelled) {
         setIsLoading(true);
@@ -97,9 +93,6 @@ export function useRosaryPlayer({
 
   const audioSrc = prayerKey ? getAudioUrl(prayerKey, locale, voiceGender) : "";
 
-  // When the step changes, pause and rewind without reloading the src so the
-  // same prayer audio can restart immediately (e.g. repeated Ave Marias).
-  // The audioSrc effect below handles the full reload when the prayer changes.
   useEffect(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -122,7 +115,6 @@ export function useRosaryPlayer({
     audio.pause();
     audio.src = audioSrc;
     audio.load();
-    // Re-apply playbackRate here because audio.load() resets it to 1 on some browsers.
     audio.playbackRate = playbackRateRef.current;
 
     queueMicrotask(() => {
@@ -138,8 +130,6 @@ export function useRosaryPlayer({
     }
   }, [playbackRate]);
 
-  // RAF loop drives currentTime while playing. The native "timeupdate" event
-  // fires at ~4 Hz — too coarse for smooth per-word highlighting.
   useEffect(() => {
     const tick = () => {
       if (audioRef.current) {
@@ -164,8 +154,6 @@ export function useRosaryPlayer({
     };
   }, [isPlaying]);
 
-  // activeWordIndex: strictly within a word's start–end window. Returns -1
-  // between words (silence gaps). Used for click-to-seek on individual words.
   const activeWordIndex = useMemo(
     () =>
       words.findIndex(
@@ -174,8 +162,6 @@ export function useRosaryPlayer({
     [currentTime, words]
   );
 
-  // lastStartedIndex: last word whose start time has been passed. Stays on the
-  // previous word during silence gaps, giving continuous highlight behaviour.
   const lastStartedIndex = useMemo(
     () => words.findLastIndex((w) => currentTime >= w.start),
     [currentTime, words]
@@ -216,8 +202,6 @@ export function useRosaryPlayer({
       setDuration(audio.duration);
     };
 
-    // timeupdate only syncs state while paused; the RAF loop handles it during
-    // playback so we avoid redundant setState calls when both would fire.
     const handleTimeUpdate = () => {
       if (audio.paused) {
         setCurrentTime(audio.currentTime);
@@ -251,4 +235,4 @@ export function useRosaryPlayer({
     togglePlayPause,
     seekToWord,
   };
-}
+};

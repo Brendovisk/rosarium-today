@@ -5,12 +5,12 @@ import { PrayerWord } from "@/components/molecules/PrayerWord";
 import { AVE_MARIAS_PER_DECADE } from "@/player/rosary-steps";
 import { cn } from "@/utils/classNames";
 
-interface WordData {
+type WordData = {
   word: string;
   start: number;
-}
+};
 
-interface PrayerContentProps {
+type PrayerContentProps = {
   words: readonly WordData[];
   isLoading: boolean;
   isMysteryAnnouncement: boolean;
@@ -28,7 +28,7 @@ interface PrayerContentProps {
   aveIndex: number;
   onSeekToWord: (start: number) => void;
   wordRef: (index: number) => (element: HTMLButtonElement | null) => void;
-}
+};
 
 export function PrayerContent({
   words,
@@ -61,6 +61,7 @@ export function PrayerContent({
         <span>
           {t("stepCounter", { current: prayerCurrent, total: prayerTotal })}
         </span>
+
         <span>{Math.round(progressPercent)}%</span>
       </div>
 
@@ -82,10 +83,14 @@ export function PrayerContent({
               )}
             >
               <BookOpen className="mx-auto mb-5 text-gold" size={28} />
+
               <div className="font-display text-[2rem] italic text-gold">
                 {activeDecadeName}
               </div>
-              <p className="mt-4 font-body text-muted">{t("contemplateText")}</p>
+
+              <p className="mt-4 font-body text-muted">
+                {t("contemplateText")}
+              </p>
             </div>
           ) : isLoading ? (
             <div className="flex justify-center py-16">
@@ -103,10 +108,15 @@ export function PrayerContent({
             <div className="font-display text-[clamp(1.75rem,4vw,2.125rem)] leading-[1.65] font-medium">
               {words.map((word, index) => {
                 const isActive = index === activeWordIndex;
+
                 const isPast =
                   index < lastStartedIndex ||
                   (index === lastStartedIndex && !isActive);
-                const state = isActive ? "active" : isPast ? "past" : "upcoming";
+                const state = isActive
+                  ? "active"
+                  : isPast
+                  ? "past"
+                  : "upcoming";
 
                 return (
                   <PrayerWord
@@ -129,6 +139,7 @@ export function PrayerContent({
               <div className="mb-3 font-ui text-[0.625rem] uppercase tracking-[0.18em] text-muted">
                 {t("aveCount")} {aveIndex + 1}/{AVE_MARIAS_PER_DECADE}
               </div>
+
               <div className="flex justify-center gap-2">
                 {Array.from({ length: AVE_MARIAS_PER_DECADE }, (_, index) => (
                   <span

@@ -23,17 +23,23 @@ type DonateModalProps = {
 
 export function DonateModal({ open, onClose }: DonateModalProps) {
   const t = useTranslations("donate");
+
   const [copied, setCopied] = useState(false);
-  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  const copyTimerRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined
+  );
 
   useEffect(() => () => clearTimeout(copyTimerRef.current), []);
 
-  function handleCopy() {
+  const handleCopy = () => {
     navigator.clipboard?.writeText(PIX_KEY);
     setCopied(true);
+
     clearTimeout(copyTimerRef.current);
+
     copyTimerRef.current = setTimeout(() => setCopied(false), 2000);
-  }
+  };
 
   if (!open) return null;
 
@@ -108,7 +114,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             <a
               href={`https://${KOFI_URL}`}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className={cn(
                 "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
               )}
@@ -117,6 +123,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 <div className="font-display text-[1.1875rem] text-bone">
                   Ko-fi
                 </div>
+
                 <div className="break-all font-ui text-[0.75rem] text-muted">
                   {KOFI_URL}
                 </div>
@@ -132,7 +139,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
             <a
               href={`https://${BMC_URL}`}
               target="_blank"
-              rel="noreferrer"
+              rel="noreferrer noopener"
               className={cn(
                 "flex flex-col gap-3 rounded-[0.875rem] border border-line bg-ink-3 p-[1rem_1.25rem] no-underline transition-colors hover:border-gold-dim sm:flex-row sm:items-center sm:justify-between"
               )}
@@ -141,6 +148,7 @@ export function DonateModal({ open, onClose }: DonateModalProps) {
                 <div className="font-display text-[1.1875rem] text-bone">
                   Buy Me a Coffee
                 </div>
+
                 <div className="break-all font-ui text-[0.75rem] text-muted">
                   {BMC_URL}
                 </div>

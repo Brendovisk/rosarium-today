@@ -1,18 +1,18 @@
 import { cn } from "@/utils/classNames";
 
-interface SettingToggleProps {
+type SettingsToggleProps = {
   enabled: boolean;
   onToggle: () => void;
   label: string;
   sub: string;
-}
+};
 
-export function SettingToggle({
+export function SettingsToggle({
   enabled,
   onToggle,
   label,
   sub,
-}: SettingToggleProps) {
+}: SettingsToggleProps) {
   return (
     <button
       onClick={onToggle}
@@ -27,6 +27,7 @@ export function SettingToggle({
         <div className="font-display text-[0.9375rem] text-bone leading-none">
           {label}
         </div>
+
         <div className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 mt-1">
           {sub}
         </div>

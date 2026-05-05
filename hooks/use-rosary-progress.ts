@@ -10,24 +10,22 @@ import {
   type RosaryStep,
 } from "@/player/rosary-steps";
 
-function readStoredStep(mysteryKey: MysteryKey) {
+const readStoredStep = (mysteryKey: MysteryKey): number => {
   const storedValue = window.localStorage.getItem(
     getProgressStorageKey(mysteryKey)
   );
+
   const parsedValue = storedValue ? Number(storedValue) : 0;
 
   if (!Number.isFinite(parsedValue)) return 0;
 
   return Math.max(0, Math.min(parsedValue, ROSARY_STEPS.length - 1));
-}
+};
 
-export function useRosaryProgress(mysteryKey: MysteryKey) {
+export const useRosaryProgress = (mysteryKey: MysteryKey) => {
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
-  // Guards the write effect: without this, every mount would overwrite stored
-  // progress with 0 before the read effect has had a chance to restore it.
   const [hasHydratedFromStorage, setHasHydratedFromStorage] = useState(false);
 
-  // Restore saved progress on mount and record this as the last prayed mystery.
   useEffect(() => {
     queueMicrotask(() => {
       setCurrentStepIndex(readStoredStep(mysteryKey));
@@ -36,7 +34,6 @@ export function useRosaryProgress(mysteryKey: MysteryKey) {
     });
   }, [mysteryKey]);
 
-  // Persist progress changes, but only after hydration to avoid the race above.
   useEffect(() => {
     if (!hasHydratedFromStorage) return;
 
@@ -80,4 +77,4 @@ export function useRosaryProgress(mysteryKey: MysteryKey) {
     resetProgress,
     progressPercent: ((currentStepIndex + 1) / ROSARY_STEPS.length) * 100,
   };
-}
+};

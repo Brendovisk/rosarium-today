@@ -13,14 +13,14 @@ import { useSettings } from "@/providers/SettingsProvider";
 
 import { MysteryCard } from "../MysteryCard";
 
-interface MysteryCarouselProps {
+type MysteryCarouselProps = {
   todaysMystery: MysteryKey;
   mysteryNames: Record<MysteryKey, string>;
   mysteryDays: Record<MysteryKey, string>;
   mysteryDecades: Record<MysteryKey, string[]>;
   todayBadge: string;
   kicker: string;
-}
+};
 
 export function MysteryCarousel({
   todaysMystery,
@@ -32,6 +32,7 @@ export function MysteryCarousel({
 }: MysteryCarouselProps) {
   const { settings } = useSettings();
   const { width } = useWindowSize();
+
   const shouldSnapFullCards = width == null || width <= 640;
 
   const [emblaRef, emblaApi] = useEmblaCarousel({
@@ -41,9 +42,9 @@ export function MysteryCarousel({
     dragFree: !shouldSnapFullCards,
   });
 
-  function clearProgress(key: MysteryKey) {
+  const clearProgress = (key: MysteryKey) => {
     localStorage.removeItem(getProgressStorageKey(key));
-  }
+  };
 
   const cards = MYSTERIES.map((key) => (
     <MysteryCard

@@ -9,12 +9,12 @@ import {
   TooltipTrigger,
 } from "@/components/atoms/Tooltip";
 
-interface BinauralControlProps {
+type BinauralControlProps = {
   enabled: boolean;
   volume: number;
   onToggle: () => void;
-  onVolumeChange: (v: number) => void;
-}
+  onVolumeChange: (volume: number) => void;
+};
 
 export function BinauralControl({
   enabled,
@@ -30,11 +30,14 @@ export function BinauralControl({
             variant={enabled ? "default" : "outline"}
             size="icon"
             onClick={onToggle}
-            aria-label={enabled ? "Disable binaural audio" : "Enable binaural audio"}
+            aria-label={
+              enabled ? "Disable binaural audio" : "Enable binaural audio"
+            }
           >
             <Waves size={16} />
           </Button>
         </TooltipTrigger>
+
         <TooltipContent>Binaural audio</TooltipContent>
       </Tooltip>
 

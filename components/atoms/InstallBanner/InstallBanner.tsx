@@ -6,10 +6,10 @@ import { useEffect, useState } from "react";
 
 import { Button } from "@/components/atoms/Button";
 
-interface BeforeInstallPromptEvent extends Event {
+type BeforeInstallPromptEvent = Event & {
   prompt(): Promise<void>;
   readonly userChoice: Promise<{ outcome: "accepted" | "dismissed" }>;
-}
+};
 
 const DISMISSED_KEY = "pwa-install-dismissed";
 

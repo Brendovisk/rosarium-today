@@ -17,12 +17,16 @@ export function ReflectionButton({
 }: ReflectionButtonProps) {
   const [hovered, setHovered] = useState(false);
 
-  function getIcon() {
+  const getIcon = () => {
     if (paused && hovered) return <Play size={18} fill="currentColor" />;
+
     if (!paused && hovered) return <Pause size={18} fill="currentColor" />;
-    if (paused) return <Pause size={18} fill="currentColor" className="opacity-50" />;
+
+    if (paused)
+      return <Pause size={18} fill="currentColor" className="opacity-50" />;
+
     return <BookOpen size={18} />;
-  }
+  };
 
   return (
     <button

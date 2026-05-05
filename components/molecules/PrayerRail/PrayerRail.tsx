@@ -60,7 +60,9 @@ export function PrayerRail({
     <aside
       className={cn(
         "relative hidden xl:flex flex-col h-[calc(100svh-6rem)] transition-[padding] duration-300",
-        artworkEnabled ? "backdrop-blur-md" : "border-t border-line xl:border-l xl:border-t-0"
+        artworkEnabled
+          ? "backdrop-blur-md"
+          : "border-t border-line xl:border-l xl:border-t-0"
       )}
     >
       <Tooltip>
@@ -76,6 +78,7 @@ export function PrayerRail({
             {collapsed ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
           </button>
         </TooltipTrigger>
+
         <TooltipContent side="left">
           {collapsed ? t("expandPanel") : t("collapsePanel")}
         </TooltipContent>
@@ -143,6 +146,7 @@ export function PrayerRail({
                 {decades.map((decadeName, index) => {
                   const isActive = index === decadeIndex;
                   const isComplete = decadeIndex > index;
+
                   const beadCount =
                     isActive && isAve
                       ? aveIndex + 1

@@ -11,11 +11,11 @@ export type PrayerKey =
   | "salve-regina"
   | "intercessio-mariae";
 
-export interface WordTimestamp {
+export type WordTimestamp = {
   readonly word: string;
   readonly start: number;
   readonly end: number;
-}
+};
 
 const LOCALE_TO_ASSET_DIR: Record<SupportedLocale, string> = {
   en: "en",
@@ -50,17 +50,20 @@ export function getTimestampUrl(
   return `/timestamps/${LOCALE_TO_ASSET_DIR[locale]}/${gender}/${PRAYER_FILE_STEM[prayerKey]}.json`;
 }
 
-export async function fetchTimestamps(
+export const fetchTimestamps = async (
   prayerKey: PrayerKey,
   locale: SupportedLocale,
   gender: VoiceGender
-): Promise<WordTimestamp[]> {
+): Promise<WordTimestamp[]> => {
   try {
     const response = await fetch(getTimestampUrl(prayerKey, locale, gender));
+
     if (!response.ok) return [];
+
     const data: unknown = await response.json();
+
     return Array.isArray(data) ? (data as WordTimestamp[]) : [];
   } catch {
     return [];
   }
-}
+};

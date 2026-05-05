@@ -78,7 +78,11 @@ export function SettingsProvider({
         void saveSettingsCookie(nextSettings).then(() => {
           if (localeChanged) {
             const canonical = getCanonicalPath(window.location.pathname);
-            const newPath = getLocalizedPath(canonical, nextSettings.uiLanguage);
+            const newPath = getLocalizedPath(
+              canonical,
+              nextSettings.uiLanguage
+            );
+
             router.push(newPath + window.location.search);
           } else if (prayerLangChanged) {
             router.refresh();

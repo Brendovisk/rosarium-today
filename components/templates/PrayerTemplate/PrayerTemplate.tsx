@@ -12,7 +12,7 @@ import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { getStepArtwork } from "@/config/rosary";
-import { PLAYBACK_RATES } from "@/config/settings";
+import { PLAYBACK_RATES, PlaybackRate } from "@/config/settings";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { recordCompletion } from "@/hooks/use-prayer-history";
@@ -23,9 +23,9 @@ import { REFLECTION_DURATION_MS } from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
-import { PrayerContent } from "./PrayerContent";
-import { PrayerControls } from "./PrayerControls";
-import { PrayerHeader } from "./PrayerHeader";
+import { PrayerContent } from "./src/components/PrayerContent";
+import { PrayerControls } from "./src/components/PrayerControls";
+import { PrayerHeader } from "./src/components/PrayerHeader";
 
 type PrayerTemplateProps = {
   mysteryKey: MysteryKey;
@@ -144,6 +144,7 @@ export function PrayerTemplate({
 
     queueMicrotask(() => {
       const play = () => void audio.play().catch(() => undefined);
+
       if (audio.readyState >= 3) {
         play();
       } else {
@@ -172,6 +173,7 @@ export function PrayerTemplate({
 
     hasAutoStartedRef.current = true;
     const play = () => void audio.play().catch(() => undefined);
+
     if (audio.readyState >= 3) {
       play();
     } else {
@@ -182,6 +184,7 @@ export function PrayerTemplate({
   const mysteryName = t(
     `mysteries.${mysteryKey}.name` as "mysteries.joyful.name"
   );
+
   const mysteryShortName = t(
     `mysteries.${mysteryKey}.shortName` as "mysteries.joyful.shortName"
   );
@@ -204,12 +207,14 @@ export function PrayerTemplate({
   const activeDecadeName =
     decadeIndex >= 0 ? decades[decadeIndex] : mysteryName;
   const isMysteryAnnouncement = currentStep.prayerKey === null;
+
   const prayerTotal = steps.filter(
     (s) => s.type !== "mystery-announcement"
   ).length;
   const prayerCurrent = steps
     .slice(0, isMysteryAnnouncement ? currentStepIndex : currentStepIndex + 1)
     .filter((s) => s.type !== "mystery-announcement").length;
+
   const isAve =
     currentStep.label === "aveMaria" && currentStep.aveIndex !== null;
   const aveIndex = currentStep.aveIndex ?? 0;
@@ -229,6 +234,7 @@ export function PrayerTemplate({
           step.type === "mystery-announcement" &&
           step.decadeIndex === targetDecadeIndex
       );
+
       if (stepIndex >= 0) {
         markResumeIfAudioPlaying();
         jumpTo(stepIndex);
@@ -237,9 +243,9 @@ export function PrayerTemplate({
     [steps, jumpTo, markResumeIfAudioPlaying]
   );
 
-  function toggleTheme() {
+  const toggleTheme = () => {
     patchSettings({ theme: settings.theme === "dark" ? "light" : "dark" });
-  }
+  };
 
   const toggleLeftMenu = useCallback(() => {
     patchSettings({ leftMenuCollapsed: !settings.leftMenuCollapsed });
@@ -283,37 +289,50 @@ export function PrayerTemplate({
   ]);
 
   useKeyboardShortcuts((e, mod) => {
-    if (mod && e.key === ".") {
-      e.preventDefault();
-      setShortcutsOpen(true);
-    } else if (mod && e.key === ",") {
-      e.preventDefault();
-      patchSettings({ rightMenuCollapsed: false });
-    } else if (mod && (e.key === "'" || e.code === "Quote")) {
-      e.preventDefault();
-      togglePrayerRail();
-    } else if (mod && e.key === "/") {
-      e.preventDefault();
-      toggleLeftMenu();
-    } else if (e.key === "Escape") {
-      setShortcutsOpen(false);
-    } else if (!mod && e.key === " " && !isSilent) {
-      e.preventDefault();
-      if (!isMysteryAnnouncement) togglePlayPause();
-    } else if (!mod && e.key === "ArrowRight") {
-      e.preventDefault();
-      handleNext();
-    } else if (!mod && e.key === "ArrowLeft") {
-      e.preventDefault();
-      goPrevWithResume();
-    } else if (!mod && (e.key === "a" || e.key === "A")) {
-      patchSettings({ autoPlay: !settings.autoPlay });
-    } else if (!mod && e.key === ">") {
-      e.preventDefault();
-      increasePlaybackRate();
-    } else if (!mod && e.key === "<") {
-      e.preventDefault();
-      decreasePlaybackRate();
+    switch (true) {
+      case mod && e.key === ".":
+        e.preventDefault();
+        setShortcutsOpen(true);
+        break;
+      case mod && e.key === ",":
+        e.preventDefault();
+        patchSettings({ rightMenuCollapsed: false });
+        break;
+      case mod && (e.key === "'" || e.code === "Quote"):
+        e.preventDefault();
+        togglePrayerRail();
+        break;
+      case mod && e.key === "/":
+        e.preventDefault();
+        toggleLeftMenu();
+        break;
+      case e.key === "Escape":
+        setShortcutsOpen(false);
+        break;
+      case !mod && e.key === " " && !isSilent:
+        e.preventDefault();
+        if (!isMysteryAnnouncement) togglePlayPause();
+        break;
+      case !mod && e.key === "ArrowRight":
+        e.preventDefault();
+        handleNext();
+        break;
+      case !mod && e.key === "ArrowLeft":
+        e.preventDefault();
+        goPrevWithResume();
+        break;
+      case !mod && (e.key === "a" || e.key === "A"):
+        e.preventDefault();
+        patchSettings({ autoPlay: !settings.autoPlay });
+        break;
+      case !mod && e.key === ">":
+        e.preventDefault();
+        increasePlaybackRate();
+        break;
+      case !mod && e.key === "<":
+        e.preventDefault();
+        decreasePlaybackRate();
+        break;
     }
   });
 
@@ -374,9 +393,11 @@ export function PrayerTemplate({
     (index: number) => (element: HTMLButtonElement | null) => {
       if (element) {
         wordRefsMap.current.set(index, element);
-      } else {
-        wordRefsMap.current.delete(index);
+
+        return;
       }
+
+      wordRefsMap.current.delete(index);
     },
     []
   );
@@ -473,7 +494,9 @@ export function PrayerTemplate({
               onNext={handleNext}
               onPlayPause={togglePlayPause}
               onToggleReflectionPause={() => setReflectionPaused((p) => !p)}
-              onRateChange={(playbackRate) => patchSettings({ playbackRate })}
+              onRateChange={(playbackRate: PlaybackRate) =>
+                patchSettings({ playbackRate })
+              }
             />
           </div>
 

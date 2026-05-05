@@ -5,10 +5,10 @@ import type { SupportedLocale } from "@/config/locales";
 import { LOCALE_OPTIONS } from "@/config/locales";
 import { cn } from "@/utils/classNames";
 
-interface LanguageSelectorProps {
+type LanguageSelectorProps = {
   value: SupportedLocale;
   onChange: (locale: SupportedLocale) => void;
-}
+};
 
 export function LanguageSelector({ value, onChange }: LanguageSelectorProps) {
   return (

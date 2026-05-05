@@ -18,7 +18,7 @@ import {
 } from "@/components/atoms/Tooltip";
 import { cn } from "@/utils/classNames";
 
-interface PrayerHeaderProps {
+type PrayerHeaderProps = {
   mysteryShortName: string;
   decadeIndex: number;
   activeDecadeName: string;
@@ -29,7 +29,7 @@ interface PrayerHeaderProps {
   onToggleBinaural: () => void;
   onToggleArtwork: () => void;
   onOpenSettings: () => void;
-}
+};
 
 export function PrayerHeader({
   mysteryShortName,
@@ -70,9 +70,13 @@ export function PrayerHeader({
         <div className="truncate font-display text-[1.125rem] font-medium text-bone">
           {mysteryShortName}
         </div>
+
         <div className="mt-1 truncate font-display text-sm italic text-muted">
           {decadeIndex >= 0
-            ? t("decadeSubtitle", { n: decadeIndex + 1, name: activeDecadeName })
+            ? t("decadeSubtitle", {
+                n: decadeIndex + 1,
+                name: activeDecadeName,
+              })
             : activeDecadeName}
         </div>
       </div>
@@ -90,6 +94,7 @@ export function PrayerHeader({
               <Heart size={18} />
             </Button>
           </TooltipTrigger>
+
           <TooltipContent>{t("donate")}</TooltipContent>
         </Tooltip>
 
@@ -106,6 +111,7 @@ export function PrayerHeader({
               <Moon className="dark:hidden" size={18} />
             </Button>
           </TooltipTrigger>
+
           <TooltipContent>{tControls("toggleTheme")}</TooltipContent>
         </Tooltip>
 
@@ -115,12 +121,15 @@ export function PrayerHeader({
               variant={binauralEnabled ? "default" : "outline"}
               size="icon"
               onClick={onToggleBinaural}
-              aria-label={tControls(binauralEnabled ? "disableBinaural" : "enableBinaural")}
+              aria-label={tControls(
+                binauralEnabled ? "disableBinaural" : "enableBinaural"
+              )}
               className={binauralEnabled ? "" : "text-muted"}
             >
               <Music2 size={18} />
             </Button>
           </TooltipTrigger>
+
           <TooltipContent>
             {tControls(binauralEnabled ? "disableBinaural" : "enableBinaural")}
           </TooltipContent>
@@ -132,12 +141,15 @@ export function PrayerHeader({
               variant={artworkEnabled ? "default" : "outline"}
               size="icon"
               onClick={onToggleArtwork}
-              aria-label={tControls(artworkEnabled ? "hideArtwork" : "showArtwork")}
+              aria-label={tControls(
+                artworkEnabled ? "hideArtwork" : "showArtwork"
+              )}
               className={artworkEnabled ? "" : "text-muted"}
             >
               <ImageIcon size={18} />
             </Button>
           </TooltipTrigger>
+
           <TooltipContent>
             {tControls(artworkEnabled ? "hideArtwork" : "showArtwork")}
           </TooltipContent>
@@ -155,6 +167,7 @@ export function PrayerHeader({
               <Settings size={18} />
             </Button>
           </TooltipTrigger>
+
           <TooltipContent>{tSettings("title")}</TooltipContent>
         </Tooltip>
       </div>

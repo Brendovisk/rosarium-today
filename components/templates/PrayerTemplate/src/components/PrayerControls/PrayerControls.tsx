@@ -12,7 +12,7 @@ import { SpeedControl } from "@/components/molecules/SpeedControl";
 import type { PlaybackRate } from "@/config/settings";
 import { cn } from "@/utils/classNames";
 
-interface PrayerControlsProps {
+type PrayerControlsProps = {
   isPlaying: boolean;
   isLoading: boolean;
   canGoPrev: boolean;
@@ -30,7 +30,7 @@ interface PrayerControlsProps {
   onPlayPause: () => void;
   onToggleReflectionPause: () => void;
   onRateChange: (rate: PlaybackRate) => void;
-}
+};
 
 export function PrayerControls({
   isPlaying,
@@ -72,6 +72,7 @@ export function PrayerControls({
                 <Repeat size={16} />
               </Button>
             </TooltipTrigger>
+
             <TooltipContent>{tControls("autoplay")}</TooltipContent>
           </Tooltip>
         )}
@@ -105,7 +106,9 @@ export function PrayerControls({
                 <Button
                   onClick={onPlayPause}
                   disabled={isLoading || isMysteryAnnouncement}
-                  aria-label={isPlaying ? tControls("pause") : tControls("play")}
+                  aria-label={
+                    isPlaying ? tControls("pause") : tControls("play")
+                  }
                   className="size-14"
                 >
                   {isPlaying ? (
@@ -115,6 +118,7 @@ export function PrayerControls({
                   )}
                 </Button>
               </TooltipTrigger>
+
               <TooltipContent>
                 {isPlaying ? tControls("pause") : tControls("play")}
               </TooltipContent>
@@ -123,10 +127,16 @@ export function PrayerControls({
 
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button variant="outline" size="icon" onClick={onNext} aria-label="Next">
+            <Button
+              variant="outline"
+              size="icon"
+              onClick={onNext}
+              aria-label="Next"
+            >
               <ChevronRight size={18} />
             </Button>
           </TooltipTrigger>
+
           <TooltipContent>{tControls("next")}</TooltipContent>
         </Tooltip>
 

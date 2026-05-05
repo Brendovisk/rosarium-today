@@ -18,15 +18,15 @@ import { useIsMac } from "@/hooks/use-is-mac";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
-import { LanguageSelector } from "./LanguageSelector";
-import { getThemeOptions } from "./settings-options";
-import { SettingToggle } from "./SettingToggle";
+import { SettingsToggle } from "./src/components/SettingsToggle";
+import { LanguageSelector } from "./src/components/SettingsToggle/LanguageSelector";
+import { getThemeOptions } from "./src/lib/settings-options";
 
-interface SettingsDrawerProps {
+type SettingsDrawerProps = {
   open: boolean;
   onClose: () => void;
   onShortcuts: () => void;
-}
+};
 
 const SECTION_LABEL =
   "font-ui text-[0.625rem] font-bold tracking-[0.2em] uppercase text-muted mb-3.5";
@@ -39,21 +39,22 @@ export function SettingsDrawer({
   const t = useTranslations("settings");
   const tShortcuts = useTranslations("shortcuts");
   const isMac = useIsMac();
+
   const mod = isMac ? "⌘" : "Ctrl";
 
   const { settings, patchSettings } = useSettings();
 
-  function handleThemeChange(theme: ThemePreference) {
+  const handleThemeChange = (theme: ThemePreference) => {
     patchSettings({ theme });
-  }
+  };
 
-  function handleAccentChange(accent: AccentColor) {
+  const handleAccentChange = (accent: AccentColor) => {
     patchSettings({ accent });
-  }
+  };
 
-  function handleVoiceGenderChange(voiceGender: VoiceGender) {
+  const handleVoiceGenderChange = (voiceGender: VoiceGender) => {
     patchSettings({ voiceGender });
-  }
+  };
 
   return (
     <>
@@ -66,6 +67,7 @@ export function SettingsDrawer({
             : "opacity-0 pointer-events-none"
         )}
       />
+
       <aside
         className={cn(
           "fixed top-0 right-0 bottom-0 w-full max-w-100 bg-ink-2 border-l border-line z-91",
@@ -139,6 +141,7 @@ export function SettingsDrawer({
 
         <section>
           <div className={SECTION_LABEL}>{t("accentColor")}</div>
+
           <div className="grid grid-cols-3 gap-2.5">
             {ACCENT_OPTIONS.map(({ value, swatch }) => {
               const active = settings.accent === value;
@@ -196,6 +199,7 @@ export function SettingsDrawer({
 
         <section>
           <div className={SECTION_LABEL}>{t("uiLanguage")}</div>
+
           <LanguageSelector
             value={settings.uiLanguage}
             onChange={(uiLanguage) => patchSettings({ uiLanguage })}
@@ -204,6 +208,7 @@ export function SettingsDrawer({
 
         <section>
           <div className={SECTION_LABEL}>{t("prayerLanguage")}</div>
+
           <LanguageSelector
             value={settings.prayerLanguage}
             onChange={(prayerLanguage) => patchSettings({ prayerLanguage })}
@@ -213,7 +218,7 @@ export function SettingsDrawer({
         <section>
           <div className={SECTION_LABEL}>{t("binauralAudio")}</div>
 
-          <SettingToggle
+          <SettingsToggle
             enabled={settings.binauralEnabled}
             onToggle={() =>
               patchSettings({ binauralEnabled: !settings.binauralEnabled })
@@ -251,7 +256,7 @@ export function SettingsDrawer({
         <section>
           <div className={SECTION_LABEL}>{t("artworkBackground")}</div>
 
-          <SettingToggle
+          <SettingsToggle
             enabled={settings.artworkEnabled}
             onToggle={() =>
               patchSettings({ artworkEnabled: !settings.artworkEnabled })
@@ -267,9 +272,12 @@ export function SettingsDrawer({
             className="flex items-center gap-2 font-ui text-xs text-muted-2 transition-colors hover:text-muted"
           >
             <Keyboard size={13} />
+
             {tShortcuts("link")}
+
             <span className="flex items-center gap-0.5">
               <Kbd>{mod}</Kbd>
+
               <Kbd>.</Kbd>
             </span>
           </button>

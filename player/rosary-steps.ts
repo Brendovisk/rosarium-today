@@ -7,13 +7,13 @@ export type RosaryStepType =
   | "decade"
   | "closing";
 
-export interface RosaryStep {
+export type RosaryStep = {
   readonly prayerKey: PrayerKey | null;
   readonly type: RosaryStepType;
   readonly label: string;
   readonly decadeIndex: number | null;
   readonly aveIndex: number | null;
-}
+};
 
 export const DECADES_PER_ROSARY = 5;
 export const AVE_MARIAS_PER_DECADE = 10;
@@ -50,8 +50,6 @@ function buildRosarySteps(): RosaryStep[] {
   }
 
   for (let decadeIndex = 0; decadeIndex < DECADES_PER_ROSARY; decadeIndex++) {
-    // prayerKey: null — mystery announcements show a silent reflection UI,
-    // not an audio prayer.
     steps.push({
       prayerKey: null,
       type: "mystery-announcement",
@@ -108,8 +106,6 @@ function buildRosarySteps(): RosaryStep[] {
   return steps;
 }
 
-// Mystery-agnostic: the same 79-step sequence is reused for all four mystery
-// types. Mystery names and decade titles come from i18n at render time.
 export const ROSARY_STEPS: readonly RosaryStep[] = buildRosarySteps();
 
 export function getProgressStorageKey(mysteryKey: MysteryKey) {

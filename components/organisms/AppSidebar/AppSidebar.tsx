@@ -22,12 +22,12 @@ import { getLocalizedPrayerPath, PRAYER_SEGMENT } from "@/config/routes";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
-interface AppSidebarProps {
+type AppSidebarProps = {
   collapsed: boolean;
   onToggle: () => void;
   todaysMystery: MysteryKey;
   artworkEnabled?: boolean;
-}
+};
 
 export function AppSidebar({
   collapsed,
@@ -36,6 +36,7 @@ export function AppSidebar({
   artworkEnabled = false,
 }: AppSidebarProps) {
   const t = useTranslations("nav");
+
   const pathname = usePathname();
   const { settings } = useSettings();
 

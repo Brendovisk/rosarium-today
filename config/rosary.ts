@@ -249,8 +249,12 @@ export function getStepArtwork(
   if (step.type === "opening" || step.type === "closing") {
     return INTRO_ARTWORKS[step.label] ?? null;
   }
+
   if (step.label === "gloriaPatri" || step.label === "oratio") return null;
+
   const artworks = MYSTERY_ARTWORKS[mysteryKey];
+
   if (!artworks.length) return null;
+
   return artworks[(step.decadeIndex ?? 0) % artworks.length] ?? null;
 }

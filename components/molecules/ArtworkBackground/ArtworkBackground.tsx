@@ -5,11 +5,11 @@ import { AnimatePresence, motion } from "framer-motion";
 import type { Artwork } from "@/config/rosary";
 import { cn } from "@/utils/classNames";
 
-interface ArtworkBackgroundProps {
+type ArtworkBackgroundProps = {
   artwork: Artwork | null;
   visible: boolean;
   isMysteryAnnouncement: boolean;
-}
+};
 
 export function ArtworkBackground({
   artwork,
@@ -45,6 +45,7 @@ export function ArtworkBackground({
               animate={{ scale: 1.07 }}
               transition={{ duration: 40, ease: "linear" }}
             />
+
             <div
               className={cn(
                 "absolute inset-0 duration-1000 bg-(--line)/70",
