@@ -436,7 +436,7 @@ export function PrayerTemplate({
   return (
     <div
       className={cn(
-        "relative z-2 grid min-h-screen grid-cols-1 transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)] lg:h-screen lg:overflow-hidden",
+        "relative z-2 grid h-svh grid-cols-1 overflow-hidden transition-[grid-template-columns] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
         settings.leftMenuCollapsed
           ? "lg:grid-cols-[4rem_1fr]"
           : "lg:grid-cols-[15rem_1fr]"
@@ -459,7 +459,7 @@ export function PrayerTemplate({
         />
       </div>
 
-      <div className="flex min-h-screen min-w-0 flex-col lg:h-screen lg:min-h-0">
+      <div className="flex h-svh min-w-0 flex-col lg:min-h-0">
         <PrayerHeader
           mysteryShortName={mysteryShortName}
           decadeIndex={decadeIndex}
