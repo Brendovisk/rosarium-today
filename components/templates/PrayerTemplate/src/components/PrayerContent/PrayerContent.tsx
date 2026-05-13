@@ -24,6 +24,7 @@ type PrayerContentProps = {
   prayerTotal: number;
   progressPercent: number;
   activeDecadeName: string;
+  activeDecadeDescription: string;
   isAve: boolean;
   aveIndex: number;
   onSeekToWord: (start: number) => void;
@@ -44,6 +45,7 @@ export function PrayerContent({
   prayerTotal,
   progressPercent,
   activeDecadeName,
+  activeDecadeDescription,
   isAve,
   aveIndex,
   onSeekToWord,
@@ -89,7 +91,7 @@ export function PrayerContent({
               </div>
 
               <p className="mt-4 font-body text-muted">
-                {t("contemplateText")}
+                {activeDecadeDescription}
               </p>
             </div>
           ) : isLoading ? (

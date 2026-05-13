@@ -25,6 +25,13 @@
         "Nativitas",
         "Praesentatio in Templo",
         "Inventio in Templo"
+      ],
+      "descriptions": [
+        "Angelus Gabriel Mariae nuntiat se Filium Dei per Spiritum Sanctum concepturam esse.",
+        "Maria Elisabeth consanguineam visitat; infans in utero eius ad Dei praesentiam exsultat.",
+        "Iesus in praesepe Bethlehemi nascitur; angeli gloriam canunt et pastores adoratum veniunt.",
+        "Maria et Ioseph Iesum in Templo offerunt; Simeon eum Lumen gentium proclamat.",
+        "Post triduum quaesitum, Maria et Ioseph Iesum duodecim annorum in Templo docentem inveniunt."
       ]
     },
     "sorrowful": {
@@ -36,6 +43,13 @@
         "Coronatio Spinis",
         "Baiulatio Crucis",
         "Crucifixio"
+      ],
+      "descriptions": [
+        "Iesus in horto Gethsemani in agone orat, sanguinem sudat, sed voluntati Patris se plene tradit.",
+        "Ad columnam ligatus, Iesus graviter flagellatur; omnia in patiente silentio sustinet.",
+        "Milites Iesum spinis coronant et regem irrident; ipse cuncta cum mansuetudine tolerat.",
+        "Debilitatus et cruentus, Iesus crucem suam per Hierosolymam ad Calvariam portat.",
+        "Iesus cruci affixus moritur, veniam tribuens etiam his qui eum condemnaverant."
       ]
     },
     "glorious": {
@@ -47,6 +61,13 @@
         "Descensus Spiritus Sancti",
         "Assumptio Mariae",
         "Coronatio Mariae"
+      ],
+      "descriptions": [
+        "Die tertia Iesus a mortuis resurrexit, peccatum mortemque in aeternum vincens.",
+        "Post quadraginta dies, Iesus corporaliter ad dexteram Patris in caelum ascendit.",
+        "Spiritus Sanctus in Pentecoste super Mariam et Apostolos descendit et Ecclesiam creavit.",
+        "In fine vitae terrestris, Maria corpore et anima in gloriam caeli assumitur.",
+        "Maria in Reginam Caeli et Terrae coronatur atque pro universa humanitate intercedit."
       ]
     },
     "luminous": {
@@ -58,6 +79,13 @@
         "Praedicatio Regni",
         "Transfiguratio",
         "Institutio Eucharistiae"
+      ],
+      "descriptions": [
+        "Iesus a Ioanne in Iordane baptizatur; Pater eum Filium suum dilectum declarat.",
+        "Rogante Maria, Iesus aquam in vinum vertit in Cana, primum signum suum dans.",
+        "Iesus Regnum Dei praedicat et omnes ad paenitentiam conversionemque vocat.",
+        "Coram Petro, Iacobo et Ioanne in monte Thabor, Iesus transfiguratur gloriam suam revelans.",
+        "In Coena Domini, Iesus Eucharistiam instituit, corpus et sanguinem suum in cibum aeternum dans."
       ]
     }
   }

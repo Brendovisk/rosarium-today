@@ -210,6 +210,16 @@ export function PrayerTemplate({
     [mysteryKey, t]
   );
 
+  const descriptions = useMemo(
+    () =>
+      [0, 1, 2, 3, 4].map((index) =>
+        t(
+          `mysteries.${mysteryKey}.descriptions.${index}` as "mysteries.joyful.descriptions.0"
+        )
+      ),
+    [mysteryKey, t]
+  );
+
   const prayerName = currentStep.prayerKey
     ? t(PRAYER_NAME_KEYS[currentStep.prayerKey] as "steps.aveMaria")
     : mysteryName;
@@ -217,6 +227,8 @@ export function PrayerTemplate({
   const artwork = getStepArtwork(mysteryKey, currentStep);
   const activeDecadeName =
     decadeIndex >= 0 ? decades[decadeIndex] : mysteryName;
+  const activeDecadeDescription =
+    decadeIndex >= 0 ? descriptions[decadeIndex] : "";
   const isMysteryAnnouncement = currentStep.prayerKey === null;
 
   const prayerTotal = steps.filter(
@@ -488,6 +500,7 @@ export function PrayerTemplate({
               prayerTotal={prayerTotal}
               progressPercent={progressPercent}
               activeDecadeName={activeDecadeName}
+              activeDecadeDescription={activeDecadeDescription}
               isAve={isAve}
               aveIndex={aveIndex}
               onSeekToWord={seekToWord}

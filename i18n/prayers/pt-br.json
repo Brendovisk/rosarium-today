@@ -25,6 +25,13 @@
         "Nascimento de Jesus",
         "Apresentação no Templo",
         "Encontro no Templo"
+      ],
+      "descriptions": [
+        "O Anjo Gabriel anuncia a Maria que ela conceberá o Filho de Deus pelo Espírito Santo.",
+        "Maria visita sua prima Isabel, cujo filho tressalta de alegria ao sentir a presença do Senhor.",
+        "Jesus nasce em Belém numa manjedoura; anjos cantam glória e pastores vêm adorá-lo.",
+        "Maria e José apresentam o menino Jesus no Templo; Simeão o proclama a Luz das nações.",
+        "Após três dias de busca, Maria e José encontram Jesus, com doze anos, ensinando no Templo."
       ]
     },
     "sorrowful": {
@@ -36,6 +43,13 @@
         "Coroação de Espinhos",
         "Carregamento da Cruz",
         "Crucificação"
+      ],
+      "descriptions": [
+        "Jesus ora no Getsêmani em angústia, suando sangue, mas se entrega plenamente à vontade do Pai.",
+        "Amarrado a uma coluna, Jesus é flagelado duramente; suporta cada golpe em silêncio paciente.",
+        "Os soldados coroam Jesus com espinhos e zombam dele como rei; ele suporta tudo com mansidão.",
+        "Enfraquecido e sangrando, Jesus carrega sua cruz pelas ruas de Jerusalém rumo ao Calvário.",
+        "Jesus é crucificado e morre, oferecendo perdão mesmo àqueles que o condenaram."
       ]
     },
     "glorious": {
@@ -47,6 +61,13 @@
         "Descida do Espírito Santo",
         "Assunção de Maria",
         "Coroação de Maria"
+      ],
+      "descriptions": [
+        "No terceiro dia, Jesus ressuscita dos mortos, vencendo o pecado e a morte para sempre.",
+        "Quarenta dias após a Páscoa, Jesus sobe corporalmente à direita do Pai no céu.",
+        "O Espírito Santo desce sobre Maria e os Apóstolos no Pentecostes, dando origem à Igreja.",
+        "No fim de sua vida terrena, Maria é elevada em corpo e alma à glória do céu.",
+        "Maria é coroada Rainha do Céu e da Terra, intercedendo continuamente por toda a humanidade."
       ]
     },
     "luminous": {
@@ -58,6 +79,13 @@
         "Pregação do Reino",
         "Transfiguração",
         "Instituição da Eucaristia"
+      ],
+      "descriptions": [
+        "Jesus é batizado por João no Jordão; o Pai declara que ele é seu Filho amado.",
+        "A pedido de Maria, Jesus transforma água em vinho em Caná, realizando seu primeiro milagre.",
+        "Jesus proclama o Reino de Deus e convida todos à conversão e à penitência.",
+        "Diante de Pedro, Tiago e João, Jesus se transfigura no Monte Tabor, revelando sua glória divina.",
+        "Na Última Ceia, Jesus institui a Eucaristia, dando seu corpo e sangue como alimento para a vida eterna."
       ]
     }
   }

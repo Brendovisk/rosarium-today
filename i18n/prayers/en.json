@@ -25,6 +25,13 @@
         "The Nativity",
         "The Presentation in the Temple",
         "The Finding in the Temple"
+      ],
+      "descriptions": [
+        "The Angel Gabriel announces to Mary that she will conceive the Son of God by the Holy Spirit.",
+        "Mary visits her cousin Elizabeth, whose unborn child leaps for joy at the presence of the Lord.",
+        "Jesus is born in a manger in Bethlehem; angels sing glory and shepherds come to adore him.",
+        "Mary and Joseph present the infant Jesus in the Temple; Simeon proclaims him the Light of the nations.",
+        "After three days of searching, Mary and Joseph find the twelve-year-old Jesus teaching in the Temple."
       ]
     },
     "sorrowful": {
@@ -36,6 +43,13 @@
         "The Crowning with Thorns",
         "The Carrying of the Cross",
         "The Crucifixion"
+      ],
+      "descriptions": [
+        "Jesus prays in Gethsemane in agony, sweating blood, yet surrenders fully to the Father's will.",
+        "Bound to a pillar, Jesus is brutally scourged; he endures every blow in patient silence.",
+        "Soldiers press a crown of thorns onto Jesus and mock him as king; he bears it with meekness.",
+        "Weakened and bleeding, Jesus carries the heavy cross through Jerusalem toward Calvary.",
+        "Jesus is nailed to the cross and dies, offering forgiveness even to those who crucified him."
       ]
     },
     "glorious": {
@@ -47,6 +61,13 @@
         "The Descent of the Holy Spirit",
         "The Assumption of Mary",
         "The Coronation of Mary"
+      ],
+      "descriptions": [
+        "On the third day, Jesus rises from the dead, victorious over sin and death forever.",
+        "Forty days after Easter, Jesus ascends bodily to the right hand of the Father in heaven.",
+        "The Holy Spirit descends on Mary and the Apostles at Pentecost, giving birth to the Church.",
+        "At the end of her earthly life, Mary is taken body and soul into the glory of heaven.",
+        "Mary is crowned Queen of Heaven and Earth, interceding for all of humanity."
       ]
     },
     "luminous": {
@@ -58,6 +79,13 @@
         "The Proclamation of the Kingdom",
         "The Transfiguration",
         "The Institution of the Eucharist"
+      ],
+      "descriptions": [
+        "Jesus is baptized by John in the Jordan; the Father declares him his beloved Son.",
+        "At Mary's request, Jesus turns water into wine at Cana, the first of his signs.",
+        "Jesus proclaims the Kingdom of God and calls everyone to repentance and conversion.",
+        "Before Peter, James, and John, Jesus is transfigured, revealing his divine glory on Mount Tabor.",
+        "At the Last Supper, Jesus institutes the Eucharist, giving his body and blood as food for eternal life."
       ]
     }
   }

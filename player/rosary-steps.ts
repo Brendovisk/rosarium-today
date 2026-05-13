@@ -91,6 +91,14 @@ function buildRosarySteps(): RosaryStep[] {
       decadeIndex,
       aveIndex: null,
     });
+
+    steps.push({
+      prayerKey: "intercessio-mariae",
+      type: "decade",
+      label: "intercessio",
+      decadeIndex,
+      aveIndex: null,
+    });
   }
 
   for (const entry of CLOSING_STEPS) {
