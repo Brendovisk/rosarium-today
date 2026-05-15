@@ -5,14 +5,14 @@ import { getTodaysMystery, isMysteryKey } from "@/config/rosary";
 
 type PrayerPageProps = {
   params: Promise<{ mystery: string }>;
-  searchParams: Promise<{ silent?: string }>;
+  searchParams: Promise<{ mode?: string }>;
 };
 
 export default async function PrayerPage({
   params,
   searchParams,
 }: PrayerPageProps) {
-  const [{ mystery }, { silent }] = await Promise.all([params, searchParams]);
+  const [{ mystery }, { mode }] = await Promise.all([params, searchParams]);
 
   if (!isMysteryKey(mystery)) {
     notFound();
@@ -23,7 +23,7 @@ export default async function PrayerPage({
       key={mystery}
       mysteryKey={mystery}
       todaysMystery={getTodaysMystery()}
-      isSilent={silent === "1"}
+      fullRosary={mode === "full"}
     />
   );
 }

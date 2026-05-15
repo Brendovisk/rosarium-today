@@ -44,6 +44,16 @@ export const MYSTERY_SLUGS: Record<
   },
 };
 
+export const FULL_ROSARY_SEGMENT: Record<SupportedLocale, string> = {
+  en: "full-rosary",
+  "pt-br": "rosario-completo",
+  la: "rosarium-plenum",
+};
+
+export function getLocalizedFullRosaryPath(locale: SupportedLocale): string {
+  return `/${PRAYER_SEGMENT[locale]}/${FULL_ROSARY_SEGMENT[locale]}`;
+}
+
 export function getLocalizedPrayerPath(
   key: MysteryKey,
   locale: SupportedLocale
@@ -65,6 +75,10 @@ export function getLocalizedPath(
     return `/${PRAYER_SEGMENT[locale]}/${MYSTERY_SLUGS[locale][key]}${rest}`;
   }
 
+  if (canonical === "/prayer/full-rosary") {
+    return getLocalizedFullRosaryPath(locale);
+  }
+
   if (canonical === "/privacy" || canonical.startsWith("/privacy/")) {
     return canonical.replace("/privacy", `/${PRIVACY_SEGMENT[locale]}`);
   }
@@ -81,6 +95,10 @@ export function getCanonicalPath(path: string): string {
       if (path === `/${PRAYER_SEGMENT[locale]}/${slug}`) {
         return `/prayer/${key}`;
       }
+    }
+
+    if (path === `/${PRAYER_SEGMENT[locale]}/${FULL_ROSARY_SEGMENT[locale]}`) {
+      return "/prayer/full-rosary";
     }
 
     if (path === `/${PRIVACY_SEGMENT[locale]}`) return "/privacy";

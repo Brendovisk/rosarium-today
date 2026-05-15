@@ -1,0 +1,1 @@
+export { FullRosaryTemplate } from "./FullRosaryTemplate";

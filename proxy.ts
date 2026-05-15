@@ -3,6 +3,7 @@ import { NextResponse } from "next/server";
 
 import { SUPPORTED_LOCALES } from "@/config/locales";
 import {
+  FULL_ROSARY_SEGMENT,
   getLocalizedPath,
   MYSTERY_SLUGS,
   PRAYER_SEGMENT,
@@ -33,10 +34,15 @@ for (const locale of SUPPORTED_LOCALES) {
   if (locale !== "en") {
     LOCALIZED_TO_CANONICAL.set(`/${PRIVACY_SEGMENT[locale]}`, "/privacy");
     LOCALIZED_TO_CANONICAL.set(`/${TERMS_SEGMENT[locale]}`, "/terms");
+    LOCALIZED_TO_CANONICAL.set(
+      `/${PRAYER_SEGMENT[locale]}/${FULL_ROSARY_SEGMENT[locale]}`,
+      "/prayer/full-rosary"
+    );
   }
 }
 CANONICAL_PATHS.add("/privacy");
 CANONICAL_PATHS.add("/terms");
+CANONICAL_PATHS.add("/prayer/full-rosary");
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;

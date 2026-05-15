@@ -36,6 +36,13 @@ export function isMysteryKey(value: string): value is MysteryKey {
   return MYSTERIES.includes(value as MysteryKey);
 }
 
+export const FULL_ROSARY_ORDER: readonly [
+  MysteryKey,
+  MysteryKey,
+  MysteryKey,
+  MysteryKey,
+] = ["joyful", "sorrowful", "luminous", "glorious"];
+
 export type ArtworkPosition = "center" | "top" | "bottom";
 
 export type Artwork = {

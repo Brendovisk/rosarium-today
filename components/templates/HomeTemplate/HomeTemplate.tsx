@@ -2,8 +2,8 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  BookOpen,
   Heart,
+  LayoutList,
   Moon,
   Music,
   Music2,
@@ -36,7 +36,11 @@ import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { getTodaysMystery, isMysteryKey, MYSTERIES } from "@/config/rosary";
-import { getLocalizedPath, getLocalizedPrayerPath } from "@/config/routes";
+import {
+  getLocalizedFullRosaryPath,
+  getLocalizedPath,
+  getLocalizedPrayerPath,
+} from "@/config/routes";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { usePrayerHistory } from "@/hooks/use-prayer-history";
@@ -304,13 +308,10 @@ export function HomeTemplate({
                 </Link>
 
                 <Link
-                  href={`${getLocalizedPrayerPath(
-                    todaysMystery,
-                    settings.uiLanguage
-                  )}?silent=1`}
+                  href={getLocalizedFullRosaryPath(settings.uiLanguage)}
                   className="inline-flex items-center justify-center gap-3 rounded-full border border-line-2 bg-transparent px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-bone transition-colors hover:border-gold hover:text-gold"
                 >
-                  <BookOpen size={18} /> {t("readSilent")}
+                  <LayoutList size={18} /> {t("beginFullRosary")}
                 </Link>
 
                 <div className="absolute -top-20 right-0 sm:relative sm:right-0 sm:top-auto w-[3.4375rem] h-[3.4375rem]">

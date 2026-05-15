@@ -18,7 +18,11 @@ import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
-import { getStepArtwork, getTodaysMystery } from "@/config/rosary";
+import {
+  FULL_ROSARY_ORDER,
+  getStepArtwork,
+  getTodaysMystery,
+} from "@/config/rosary";
 import { PLAYBACK_RATES, PlaybackRate } from "@/config/settings";
 import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
@@ -26,7 +30,16 @@ import { recordCompletion } from "@/hooks/use-prayer-history";
 import { useRosaryPlayer } from "@/hooks/use-rosary-player";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import type { PrayerKey } from "@/player/assets";
-import { REFLECTION_DURATION_MS } from "@/player/rosary-steps";
+import {
+  DECADES_PER_ROSARY,
+  ESTIMATED_ROSARY_DURATION_MINS,
+  FULL_ROSARY_PRAYER_STEP_OFFSETS,
+  FULL_ROSARY_PRAYER_STEPS,
+  REFLECTION_DURATION_MS,
+  ROSARY_STEPS_DECADES_ONLY,
+  ROSARY_STEPS_NO_CLOSING,
+  ROSARY_STEPS_NO_OPENING,
+} from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
@@ -37,7 +50,8 @@ import { PrayerHeader } from "./src/components/PrayerHeader";
 type PrayerTemplateProps = {
   mysteryKey: MysteryKey;
   todaysMystery: MysteryKey;
-  isSilent: boolean;
+  fullRosary: boolean;
+  onFullRosaryAdvance?: () => void;
 };
 
 const PRAYER_NAME_KEYS: Record<PrayerKey, string> = {
@@ -48,13 +62,14 @@ const PRAYER_NAME_KEYS: Record<PrayerKey, string> = {
   "gloria-patri": "steps.gloriaPatri",
   "oratio-fatima": "steps.oratio",
   "salve-regina": "steps.salveRegina",
-  "intercessio-mariae": "steps.intercessio",
+  "miraculous-medal": "steps.miraculousMedal",
 };
 
 export function PrayerTemplate({
   mysteryKey,
   todaysMystery: serverTodaysMystery,
-  isSilent,
+  fullRosary,
+  onFullRosaryAdvance,
 }: PrayerTemplateProps) {
   const [todaysMystery, setTodaysMystery] = useState(serverTodaysMystery);
 
@@ -64,6 +79,13 @@ export function PrayerTemplate({
   const router = useRouter();
 
   const { settings, patchSettings } = useSettings();
+
+  const isSilent = !settings.audioEnabled;
+
+  const fullRosaryIndex = fullRosary ? FULL_ROSARY_ORDER.indexOf(mysteryKey) : -1;
+  const isFullRosary = fullRosaryIndex >= 0;
+  const isIntermediateRosary = isFullRosary && fullRosaryIndex < 3;
+
   const [donateOpen, setDonateOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
   const [reflectionProgress, setReflectionProgress] = useState(0);
@@ -75,6 +97,14 @@ export function PrayerTemplate({
   const shouldAutoPlayRef = useRef(true);
   const hasAutoStartedRef = useRef(false);
   const resumeAfterStepNavRef = useRef(false);
+
+  const fullRosarySteps = isFullRosary
+    ? fullRosaryIndex === 0
+      ? ROSARY_STEPS_NO_CLOSING
+      : fullRosaryIndex === 3
+      ? ROSARY_STEPS_NO_OPENING
+      : ROSARY_STEPS_DECADES_ONLY
+    : undefined;
 
   const {
     currentStep,
@@ -88,7 +118,18 @@ export function PrayerTemplate({
     jumpTo,
     resetProgress,
     progressPercent,
-  } = useRosaryProgress(mysteryKey);
+  } = useRosaryProgress(
+    mysteryKey,
+    fullRosarySteps,
+    isFullRosary ? true : undefined,
+  );
+
+  const navigateToNextMysteryInFullRosary = useCallback(() => {
+    if (!isFullRosary || fullRosaryIndex < 0 || fullRosaryIndex >= 3) return;
+    recordCompletion(mysteryKey);
+    resetProgress();
+    onFullRosaryAdvance?.();
+  }, [isFullRosary, fullRosaryIndex, mysteryKey, resetProgress, onFullRosaryAdvance]);
 
   const handleEnded = useCallback(() => {
     if (!settings.autoPlay) return;
@@ -96,12 +137,23 @@ export function PrayerTemplate({
     if (canGoNext) {
       shouldAutoPlayRef.current = true;
       goNext();
+    } else if (isIntermediateRosary) {
+      navigateToNextMysteryInFullRosary();
     } else {
       recordCompletion(mysteryKey);
       resetProgress();
       router.push("/");
     }
-  }, [router, settings.autoPlay, canGoNext, goNext, resetProgress, mysteryKey]);
+  }, [
+    router,
+    settings.autoPlay,
+    canGoNext,
+    goNext,
+    resetProgress,
+    mysteryKey,
+    isIntermediateRosary,
+    navigateToNextMysteryInFullRosary,
+  ]);
 
   const {
     audioRef,
@@ -124,6 +176,11 @@ export function PrayerTemplate({
   });
 
   useBinauralAudio(settings.binauralEnabled, settings.binauralVolume);
+
+  useEffect(() => {
+    if (!isSilent) return;
+    audioRef.current?.pause();
+  }, [isSilent, audioRef]);
 
   const markResumeIfAudioPlaying = useCallback(() => {
     if (!isSilent && isPlaying && currentStep.prayerKey) {
@@ -196,9 +253,9 @@ export function PrayerTemplate({
     `mysteries.${mysteryKey}.name` as "mysteries.joyful.name"
   );
 
-  const mysteryShortName = t(
-    `mysteries.${mysteryKey}.shortName` as "mysteries.joyful.shortName"
-  );
+  const mysteryShortName = isFullRosary
+    ? t("fullRosaryTitle")
+    : t(`mysteries.${mysteryKey}.shortName` as "mysteries.joyful.shortName");
 
   const decades = useMemo(
     () =>
@@ -220,6 +277,20 @@ export function PrayerTemplate({
     [mysteryKey, t]
   );
 
+  // All 20 mysteries' decade names for full rosary rail display
+  const fullRosaryAllDecades = useMemo(() => {
+    if (!isFullRosary) return null;
+    const result: string[] = [];
+    for (const mk of FULL_ROSARY_ORDER) {
+      for (let i = 0; i < DECADES_PER_ROSARY; i++) {
+        result.push(
+          t(`mysteries.${mk}.decades.${i}` as "mysteries.joyful.decades.0")
+        );
+      }
+    }
+    return result;
+  }, [isFullRosary, t]);
+
   const prayerName = currentStep.prayerKey
     ? t(PRAYER_NAME_KEYS[currentStep.prayerKey] as "steps.aveMaria")
     : mysteryName;
@@ -238,6 +309,12 @@ export function PrayerTemplate({
     .slice(0, isMysteryAnnouncement ? currentStepIndex : currentStepIndex + 1)
     .filter((s) => s.type !== "mystery-announcement").length;
 
+  // Global step counters for full rosary mode
+  const displayPrayerCurrent = isFullRosary
+    ? (FULL_ROSARY_PRAYER_STEP_OFFSETS[fullRosaryIndex] ?? 0) + prayerCurrent
+    : prayerCurrent;
+  const displayPrayerTotal = isFullRosary ? FULL_ROSARY_PRAYER_STEPS : prayerTotal;
+
   const isAve =
     currentStep.label === "aveMaria" && currentStep.aveIndex !== null;
   const aveIndex = currentStep.aveIndex ?? 0;
@@ -246,16 +323,43 @@ export function PrayerTemplate({
 
   const remainingMins = useMemo(() => {
     const stepsLeft = steps.length - currentStepIndex - 1;
-    const seconds = stepsLeft * 45 + Math.max(duration - currentTime, 0);
-    return Math.max(0, Math.round(seconds / 60));
-  }, [currentStepIndex, currentTime, duration, steps.length]);
+    const secondsCurrent = stepsLeft * 45 + Math.max(duration - currentTime, 0);
+    const currentMins = Math.max(0, Math.round(secondsCurrent / 60));
+    const remainingRosaries = isFullRosary ? Math.max(0, 3 - fullRosaryIndex) : 0;
+    return currentMins + remainingRosaries * ESTIMATED_ROSARY_DURATION_MINS;
+  }, [currentStepIndex, currentTime, duration, steps.length, isFullRosary, fullRosaryIndex]);
+
+  const estimatedMins = isFullRosary
+    ? ESTIMATED_ROSARY_DURATION_MINS * 4
+    : ESTIMATED_ROSARY_DURATION_MINS;
+
+  // Global decade index for rail display (0-19 in full rosary, 0-4 otherwise)
+  const railDecadeIndex =
+    isFullRosary && decadeIndex >= 0
+      ? fullRosaryIndex * DECADES_PER_ROSARY + decadeIndex
+      : decadeIndex;
+
+  // Range of the current rosary within the 20-mystery list
+  const currentRosaryDecadeRange = isFullRosary
+    ? {
+        start: fullRosaryIndex * DECADES_PER_ROSARY,
+        end: fullRosaryIndex * DECADES_PER_ROSARY + DECADES_PER_ROSARY - 1,
+      }
+    : undefined;
 
   const jumpToDecade = useCallback(
-    (targetDecadeIndex: number) => {
+    (globalOrLocalDecadeIndex: number) => {
+      const localDecadeIndex = isFullRosary
+        ? globalOrLocalDecadeIndex - fullRosaryIndex * DECADES_PER_ROSARY
+        : globalOrLocalDecadeIndex;
+
+      if (localDecadeIndex < 0 || localDecadeIndex >= DECADES_PER_ROSARY)
+        return;
+
       const stepIndex = steps.findIndex(
         (step) =>
           step.type === "mystery-announcement" &&
-          step.decadeIndex === targetDecadeIndex
+          step.decadeIndex === localDecadeIndex
       );
 
       if (stepIndex >= 0) {
@@ -263,7 +367,7 @@ export function PrayerTemplate({
         jumpTo(stepIndex);
       }
     },
-    [steps, jumpTo, markResumeIfAudioPlaying]
+    [steps, jumpTo, markResumeIfAudioPlaying, isFullRosary, fullRosaryIndex]
   );
 
   const toggleTheme = () => {
@@ -297,6 +401,8 @@ export function PrayerTemplate({
     if (canGoNext) {
       markResumeIfAudioPlaying();
       goNext();
+    } else if (isIntermediateRosary) {
+      navigateToNextMysteryInFullRosary();
     } else {
       recordCompletion(mysteryKey);
       resetProgress();
@@ -309,6 +415,8 @@ export function PrayerTemplate({
     resetProgress,
     router,
     mysteryKey,
+    isIntermediateRosary,
+    navigateToNextMysteryInFullRosary,
   ]);
 
   useKeyboardShortcuts((e, mod) => {
@@ -396,6 +504,8 @@ export function PrayerTemplate({
       if (canGoNext) {
         shouldAutoPlayRef.current = true;
         goNext();
+      } else if (isIntermediateRosary) {
+        navigateToNextMysteryInFullRosary();
       } else {
         recordCompletion(mysteryKey);
         resetProgress();
@@ -418,6 +528,8 @@ export function PrayerTemplate({
     goNext,
     resetProgress,
     mysteryKey,
+    isIntermediateRosary,
+    navigateToNextMysteryInFullRosary,
   ]);
 
   const wordRef = useCallback(
@@ -466,6 +578,7 @@ export function PrayerTemplate({
           activeDecadeName={activeDecadeName}
           artworkEnabled={settings.artworkEnabled}
           binauralEnabled={settings.binauralEnabled}
+          audioEnabled={settings.audioEnabled}
           onDonate={() => setDonateOpen(true)}
           onToggleTheme={toggleTheme}
           onToggleBinaural={() =>
@@ -473,6 +586,9 @@ export function PrayerTemplate({
           }
           onToggleArtwork={() =>
             patchSettings({ artworkEnabled: !settings.artworkEnabled })
+          }
+          onToggleAudio={() =>
+            patchSettings({ audioEnabled: !settings.audioEnabled })
           }
           onOpenSettings={() => patchSettings({ rightMenuCollapsed: false })}
         />
@@ -491,13 +607,13 @@ export function PrayerTemplate({
               isLoading={isLoading}
               isMysteryAnnouncement={isMysteryAnnouncement}
               isSilent={isSilent}
-              activeWordIndex={activeWordIndex}
-              lastStartedIndex={lastStartedIndex}
+              activeWordIndex={isSilent ? -1 : activeWordIndex}
+              lastStartedIndex={isSilent ? -1 : lastStartedIndex}
               artworkEnabled={settings.artworkEnabled}
               theme={settings.theme}
               prayerName={prayerName}
-              prayerCurrent={prayerCurrent}
-              prayerTotal={prayerTotal}
+              prayerCurrent={displayPrayerCurrent}
+              prayerTotal={displayPrayerTotal}
               progressPercent={progressPercent}
               activeDecadeName={activeDecadeName}
               activeDecadeDescription={activeDecadeDescription}
@@ -534,11 +650,14 @@ export function PrayerTemplate({
 
           <PrayerRail
             mysteryKey={mysteryKey}
-            decadeIndex={decadeIndex}
-            decades={decades}
+            titleOverride={isFullRosary ? mysteryShortName : undefined}
+            decadeIndex={railDecadeIndex}
+            decades={fullRosaryAllDecades ?? decades}
+            currentRosaryDecadeRange={currentRosaryDecadeRange}
             isAve={isAve}
             aveIndex={aveIndex}
             remainingMins={remainingMins}
+            estimatedMins={estimatedMins}
             voiceGender={settings.voiceGender}
             collapsed={settings.prayerRailCollapsed}
             onToggle={togglePrayerRail}
