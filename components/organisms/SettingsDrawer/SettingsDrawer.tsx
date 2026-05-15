@@ -216,6 +216,19 @@ export function SettingsDrawer({
         </section>
 
         <section>
+          <div className={SECTION_LABEL}>{t("prayerAudio")}</div>
+
+          <SettingsToggle
+            enabled={settings.audioEnabled}
+            onToggle={() =>
+              patchSettings({ audioEnabled: !settings.audioEnabled })
+            }
+            label={t("prayerAudio")}
+            sub={t("prayerAudioSub")}
+          />
+        </section>
+
+        <section>
           <div className={SECTION_LABEL}>{t("binauralAudio")}</div>
 
           <SettingsToggle

@@ -25,6 +25,7 @@ export type AppSettings = {
   binauralEnabled: boolean;
   binauralVolume: number;
   artworkEnabled: boolean;
+  audioEnabled: boolean;
 };
 
 export const DEFAULT_SETTINGS: AppSettings = {
@@ -41,6 +42,7 @@ export const DEFAULT_SETTINGS: AppSettings = {
   binauralEnabled: true,
   binauralVolume: 0.3,
   artworkEnabled: false,
+  audioEnabled: true,
 };
 
 export function isThemePreference(value: unknown): value is ThemePreference {
@@ -111,6 +113,10 @@ export function normalizeSettings(settings: unknown): AppSettings {
       typeof partialSettings.artworkEnabled === "boolean"
         ? partialSettings.artworkEnabled
         : DEFAULT_SETTINGS.artworkEnabled,
+    audioEnabled:
+      typeof partialSettings.audioEnabled === "boolean"
+        ? partialSettings.audioEnabled
+        : DEFAULT_SETTINGS.audioEnabled,
   };
 }
 

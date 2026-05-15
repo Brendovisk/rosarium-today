@@ -6,6 +6,8 @@ import {
   Music2,
   Settings,
   Sun,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
@@ -24,10 +26,12 @@ type PrayerHeaderProps = {
   activeDecadeName: string;
   artworkEnabled: boolean;
   binauralEnabled: boolean;
+  audioEnabled: boolean;
   onDonate: () => void;
   onToggleTheme: () => void;
   onToggleBinaural: () => void;
   onToggleArtwork: () => void;
+  onToggleAudio: () => void;
   onOpenSettings: () => void;
 };
 
@@ -37,10 +41,12 @@ export function PrayerHeader({
   activeDecadeName,
   artworkEnabled,
   binauralEnabled,
+  audioEnabled,
   onDonate,
   onToggleTheme,
   onToggleBinaural,
   onToggleArtwork,
+  onToggleAudio,
   onOpenSettings,
 }: PrayerHeaderProps) {
   const t = useTranslations("prayer");
@@ -113,6 +119,24 @@ export function PrayerHeader({
           </TooltipTrigger>
 
           <TooltipContent>{tControls("toggleTheme")}</TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              variant={audioEnabled ? "default" : "outline"}
+              size="icon"
+              onClick={onToggleAudio}
+              aria-label={tControls(audioEnabled ? "disableAudio" : "enableAudio")}
+              className={audioEnabled ? "" : "text-muted"}
+            >
+              {audioEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
+            </Button>
+          </TooltipTrigger>
+
+          <TooltipContent>
+            {tControls(audioEnabled ? "disableAudio" : "enableAudio")}
+          </TooltipContent>
         </Tooltip>
 
         <Tooltip>
