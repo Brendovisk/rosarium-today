@@ -9,7 +9,7 @@ export type PrayerKey =
   | "gloria-patri"
   | "oratio-fatima"
   | "salve-regina"
-  | "intercessio-mariae";
+  | "miraculous-medal";
 
 export type WordTimestamp = {
   readonly word: string;
@@ -31,7 +31,7 @@ const PRAYER_FILE_STEM: Record<PrayerKey, string> = {
   "gloria-patri": "doxologia-minor",
   "oratio-fatima": "oratio-fatima",
   "salve-regina": "salve-regina",
-  "intercessio-mariae": "intercessio-mariae",
+  "miraculous-medal": "miraculous-medal",
 };
 
 export function getAudioUrl(

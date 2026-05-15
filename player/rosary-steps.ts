@@ -36,17 +36,19 @@ const CLOSING_STEPS: ReadonlyArray<Pick<RosaryStep, "prayerKey" | "label">> = [
   { prayerKey: "signum-crucis", label: "signumCrucis" },
 ];
 
-function buildRosarySteps(): RosaryStep[] {
+function buildRosarySteps(includeClosing = true, includeOpening = true): RosaryStep[] {
   const steps: RosaryStep[] = [];
 
-  for (const entry of OPENING_STEPS) {
-    steps.push({
-      prayerKey: entry.prayerKey,
-      type: "opening",
-      label: entry.label,
-      decadeIndex: null,
-      aveIndex: null,
-    });
+  if (includeOpening) {
+    for (const entry of OPENING_STEPS) {
+      steps.push({
+        prayerKey: entry.prayerKey,
+        type: "opening",
+        label: entry.label,
+        decadeIndex: null,
+        aveIndex: null,
+      });
+    }
   }
 
   for (let decadeIndex = 0; decadeIndex < DECADES_PER_ROSARY; decadeIndex++) {
@@ -93,28 +95,57 @@ function buildRosarySteps(): RosaryStep[] {
     });
 
     steps.push({
-      prayerKey: "intercessio-mariae",
+      prayerKey: "miraculous-medal",
       type: "decade",
-      label: "intercessio",
+      label: "miraculousMedal",
       decadeIndex,
       aveIndex: null,
     });
   }
 
-  for (const entry of CLOSING_STEPS) {
-    steps.push({
-      prayerKey: entry.prayerKey,
-      type: "closing",
-      label: entry.label,
-      decadeIndex: null,
-      aveIndex: null,
-    });
+  if (includeClosing) {
+    for (const entry of CLOSING_STEPS) {
+      steps.push({
+        prayerKey: entry.prayerKey,
+        type: "closing",
+        label: entry.label,
+        decadeIndex: null,
+        aveIndex: null,
+      });
+    }
   }
 
   return steps;
 }
 
-export const ROSARY_STEPS: readonly RosaryStep[] = buildRosarySteps();
+export const ROSARY_STEPS: readonly RosaryStep[] = buildRosarySteps(true, true);
+export const ROSARY_STEPS_NO_CLOSING: readonly RosaryStep[] = buildRosarySteps(false, true);
+export const ROSARY_STEPS_DECADES_ONLY: readonly RosaryStep[] = buildRosarySteps(false, false);
+export const ROSARY_STEPS_NO_OPENING: readonly RosaryStep[] = buildRosarySteps(true, false);
+
+function prayerStepCount(steps: readonly RosaryStep[]): number {
+  return steps.filter((s) => s.type !== "mystery-announcement").length;
+}
+
+// Prayer step counts by position in the full rosary (0=joyful…3=glorious)
+const FULL_ROSARY_PS_BY_POS = [
+  prayerStepCount(ROSARY_STEPS_NO_CLOSING),   // 0: has opening, no closing
+  prayerStepCount(ROSARY_STEPS_DECADES_ONLY), // 1: no opening, no closing
+  prayerStepCount(ROSARY_STEPS_DECADES_ONLY), // 2: no opening, no closing
+  prayerStepCount(ROSARY_STEPS_NO_OPENING),   // 3: no opening, has closing
+] as const;
+
+// Cumulative offsets so displayPrayerCurrent = offset[i] + prayerCurrent
+export const FULL_ROSARY_PRAYER_STEP_OFFSETS: readonly number[] =
+  FULL_ROSARY_PS_BY_POS.reduce((acc: number[], _count, i) => {
+    acc.push(i === 0 ? 0 : acc[i - 1] + FULL_ROSARY_PS_BY_POS[i - 1]);
+    return acc;
+  }, []);
+
+export const FULL_ROSARY_PRAYER_STEPS = FULL_ROSARY_PS_BY_POS.reduce(
+  (sum, n) => sum + n,
+  0
+);
 
 export function getProgressStorageKey(mysteryKey: MysteryKey) {
   return `rosarium:progress:${mysteryKey}`;

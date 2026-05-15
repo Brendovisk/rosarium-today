@@ -7,7 +7,7 @@
     "gloriaPatri": "Glória ao Pai",
     "oratio": "Oração de Fátima",
     "salveRegina": "Salve Rainha",
-    "intercessio": "Intercessão de Maria",
+    "miraculousMedal": "Oração da Medalha Milagrosa",
     "mysteryAnnouncement": "Mistério",
     "avePro": {
       "fide": "pela Fé",
@@ -28,10 +28,10 @@
       ],
       "descriptions": [
         "O Anjo Gabriel anuncia a Maria que ela conceberá o Filho de Deus pelo Espírito Santo.",
-        "Maria visita sua prima Isabel, cujo filho tressalta de alegria ao sentir a presença do Senhor.",
+        "Maria visita sua prima Isabel, cujo filho estremece de alegria diante da presença do Senhor.",
         "Jesus nasce em Belém numa manjedoura; anjos cantam glória e pastores vêm adorá-lo.",
         "Maria e José apresentam o menino Jesus no Templo; Simeão o proclama a Luz das nações.",
-        "Após três dias de busca, Maria e José encontram Jesus, com doze anos, ensinando no Templo."
+        "Após três dias, Jesus é encontrado no Templo entre os doutores, admirando a todos com sua sabedoria."
       ]
     },
     "sorrowful": {
@@ -64,7 +64,7 @@
       ],
       "descriptions": [
         "No terceiro dia, Jesus ressuscita dos mortos, vencendo o pecado e a morte para sempre.",
-        "Quarenta dias após a Páscoa, Jesus sobe corporalmente à direita do Pai no céu.",
+        "Quarenta dias após a Ressurreição, Jesus sobe ao céu e senta-se à direita do Pai",
         "O Espírito Santo desce sobre Maria e os Apóstolos no Pentecostes, dando origem à Igreja.",
         "No fim de sua vida terrena, Maria é elevada em corpo e alma à glória do céu.",
         "Maria é coroada Rainha do Céu e da Terra, intercedendo continuamente por toda a humanidade."
@@ -83,7 +83,7 @@
       "descriptions": [
         "Jesus é batizado por João no Jordão; o Pai declara que ele é seu Filho amado.",
         "A pedido de Maria, Jesus transforma água em vinho em Caná, realizando seu primeiro milagre.",
-        "Jesus proclama o Reino de Deus e convida todos à conversão e à penitência.",
+        "Jesus proclama o Reino de Deus e convida todos à conversão.",
         "Diante de Pedro, Tiago e João, Jesus se transfigura no Monte Tabor, revelando sua glória divina.",
         "Na Última Ceia, Jesus institui a Eucaristia, dando seu corpo e sangue como alimento para a vida eterna."
       ]
