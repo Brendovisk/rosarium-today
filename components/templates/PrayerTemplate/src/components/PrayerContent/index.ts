@@ -1,1 +1,0 @@
-export { PrayerContent } from "./PrayerContent";

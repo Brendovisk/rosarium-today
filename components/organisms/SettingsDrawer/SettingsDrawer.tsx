@@ -1,6 +1,6 @@
 "use client";
 
-import { Keyboard, X } from "lucide-react";
+import { Check, Keyboard, Moon, Sun, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { Button } from "@/components/atoms/Button";
@@ -12,15 +12,100 @@ import {
 } from "@/components/atoms/Tooltip";
 import type { AccentColor } from "@/config/accents";
 import { ACCENT_OPTIONS } from "@/config/accents";
+import type { SupportedLocale } from "@/config/locales";
+import { LOCALE_OPTIONS } from "@/config/locales";
 import type { ThemePreference, VoiceGender } from "@/config/settings";
 import { VOICE_GENDERS } from "@/config/settings";
 import { useIsMac } from "@/hooks/use-is-mac";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
-import { SettingsToggle } from "./src/components/SettingsToggle";
-import { LanguageSelector } from "./src/components/SettingsToggle/LanguageSelector";
-import { getThemeOptions } from "./src/lib/settings-options";
+function SettingsToggle({
+  enabled,
+  onToggle,
+  label,
+  sub,
+}: {
+  enabled: boolean;
+  onToggle: () => void;
+  label: string;
+  sub: string;
+}) {
+  return (
+    <button
+      onClick={onToggle}
+      className={cn(
+        "w-full flex items-center justify-between rounded-[0.875rem] border p-[1rem_1.125rem] transition-all",
+        enabled
+          ? "border-gold bg-gold-soft"
+          : "border-line bg-transparent hover:border-line-2"
+      )}
+    >
+      <div className="text-left">
+        <div className="font-display text-[0.9375rem] text-bone leading-none">
+          {label}
+        </div>
+        <div className="font-ui text-[0.625rem] tracking-[0.14em] uppercase text-muted-2 mt-1">
+          {sub}
+        </div>
+      </div>
+      <div
+        className={cn(
+          "w-10 h-6 rounded-full relative transition-colors shrink-0",
+          enabled ? "bg-gold" : "bg-line-2"
+        )}
+      >
+        <div
+          className={cn(
+            "absolute top-1 w-4 h-4 rounded-full bg-ink transition-transform",
+            enabled ? "translate-x-5" : "translate-x-1"
+          )}
+        />
+      </div>
+    </button>
+  );
+}
+
+function LanguageSelector({
+  value,
+  onChange,
+}: {
+  value: SupportedLocale;
+  onChange: (locale: SupportedLocale) => void;
+}) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      {LOCALE_OPTIONS.map(({ value: locale, label }) => {
+        const active = value === locale;
+        return (
+          <Button
+            key={locale}
+            variant="outline"
+            onClick={() => onChange(locale)}
+            className={cn(
+              "rounded-[0.625rem] flex justify-between font-display",
+              active
+                ? "border-gold bg-gold-soft"
+                : "border-line bg-transparent hover:border-line-2"
+            )}
+          >
+            <span>{label}</span>
+            {active && (
+              <span className="text-gold text-[1.125rem]">
+                <Check />
+              </span>
+            )}
+          </Button>
+        );
+      })}
+    </div>
+  );
+}
+
+const THEME_OPTIONS: { value: ThemePreference; Icon: typeof Moon }[] = [
+  { value: "dark", Icon: Moon },
+  { value: "light", Icon: Sun },
+];
 
 type SettingsDrawerProps = {
   open: boolean;
@@ -102,8 +187,10 @@ export function SettingsDrawer({
           <div className={SECTION_LABEL}>{t("theme")}</div>
 
           <div className="grid grid-cols-2 gap-2.5">
-            {getThemeOptions(t).map(({ value, label, sub, Icon }) => {
+            {THEME_OPTIONS.map(({ value, Icon }) => {
               const active = settings.theme === value;
+              const label = t(value as "dark" | "light");
+              const sub = t(value === "dark" ? "darkSub" : "lightSub");
 
               return (
                 <button

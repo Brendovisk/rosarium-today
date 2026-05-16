@@ -2,7 +2,7 @@ import { BookOpen } from "lucide-react";
 import { useTranslations } from "next-intl";
 
 import { PrayerWord } from "@/components/molecules/PrayerWord";
-import { AVE_MARIAS_PER_DECADE } from "@/player/rosary-steps";
+import { AVE_MARIAS_PER_DECADE } from "@/config/rosary";
 import { cn } from "@/utils/classNames";
 
 type WordData = {

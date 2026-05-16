@@ -1,1 +1,0 @@
-export { PrayerHeader } from "./PrayerHeader";
