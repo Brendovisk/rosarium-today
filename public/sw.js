@@ -1,6 +1,21 @@
-const CACHE_NAME = "rosarium-v2";
+const CACHE_NAME = "rosarium-v4";
 
-const PRECACHE = ["/", "/manifest.webmanifest"];
+const PRECACHE = [
+  "/",
+  "/manifest.webmanifest",
+  "/prayer/joyful",
+  "/prayer/sorrowful",
+  "/prayer/glorious",
+  "/prayer/luminous",
+  "/oracao/gozosos",
+  "/oracao/dolorosos",
+  "/oracao/gloriosos",
+  "/oracao/luminosos",
+  "/oratio/gaudiosa",
+  "/oratio/dolorosa",
+  "/oratio/gloriosa",
+  "/oratio/luminosa",
+];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(
@@ -42,10 +57,13 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Cache-first: audio and timestamp files are large stable assets
+  // Cache-first: stable media and image assets
   if (
     url.pathname.startsWith("/audios/") ||
-    url.pathname.startsWith("/timestamps/")
+    url.pathname.startsWith("/timestamps/") ||
+    url.pathname.startsWith("/artwork/") ||
+    url.pathname.startsWith("/background-sound/") ||
+    url.pathname.startsWith("/icons/")
   ) {
     event.respondWith(
       caches.open(CACHE_NAME).then(async (cache) => {
@@ -59,17 +77,24 @@ self.addEventListener("fetch", (event) => {
     return;
   }
 
-  // Network-first for page navigation; fall back to cached shell when offline
+  // Network-first for page navigation; cache on success so pages work offline
   if (request.mode === "navigate") {
     event.respondWith(
-      fetch(request).catch(async () => {
-        const cached = await caches.match("/");
-        return (
-          cached ??
-          new Response("<h1>Offline</h1>", {
-            headers: { "Content-Type": "text/html" },
-          })
-        );
+      caches.open(CACHE_NAME).then(async (cache) => {
+        try {
+          const response = await fetch(request);
+          if (response.status === 200) cache.put(request, response.clone());
+          return response;
+        } catch {
+          const cached =
+            (await cache.match(request)) ?? (await cache.match("/"));
+          return (
+            cached ??
+            new Response("<h1>Offline</h1>", {
+              headers: { "Content-Type": "text/html" },
+            })
+          );
+        }
       })
     );
   }
