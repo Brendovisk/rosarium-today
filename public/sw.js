@@ -1,4 +1,4 @@
-const CACHE_NAME = "rosarium-v1";
+const CACHE_NAME = "rosarium-v2";
 
 const PRECACHE = ["/", "/manifest.webmanifest"];
 
@@ -27,6 +27,20 @@ self.addEventListener("fetch", (event) => {
   const url = new URL(request.url);
 
   if (request.method !== "GET" || url.origin !== self.location.origin) return;
+
+  // Cache-first: Next.js static assets are content-hashed, safe to cache indefinitely
+  if (url.pathname.startsWith("/_next/static/")) {
+    event.respondWith(
+      caches.open(CACHE_NAME).then(async (cache) => {
+        const cached = await cache.match(request);
+        if (cached) return cached;
+        const response = await fetch(request);
+        if (response.status === 200) cache.put(request, response.clone());
+        return response;
+      })
+    );
+    return;
+  }
 
   // Cache-first: audio and timestamp files are large stable assets
   if (
