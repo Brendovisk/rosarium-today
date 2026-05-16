@@ -48,7 +48,7 @@ export function ArtworkBackground({
 
             <div
               className={cn(
-                "absolute inset-0 duration-1000 bg-(--line)/70",
+                "absolute inset-0 duration-300 bg-(--line)/70",
                 isMysteryAnnouncement && "bg-(--line)/40"
               )}
             />

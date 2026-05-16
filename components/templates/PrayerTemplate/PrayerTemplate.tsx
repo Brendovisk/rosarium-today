@@ -99,6 +99,7 @@ export function PrayerTemplate({
   const shouldAutoPlayRef = useRef(true);
   const hasAutoStartedRef = useRef(false);
   const resumeAfterStepNavRef = useRef(false);
+  const touchStartRef = useRef<{ x: number; y: number } | null>(null);
 
   const fullRosarySteps = isFullRosary
     ? fullRosaryIndex === 0
@@ -438,6 +439,25 @@ export function PrayerTemplate({
     navigateToNextMysteryInFullRosary,
   ]);
 
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    const t = e.touches[0];
+    touchStartRef.current = { x: t.clientX, y: t.clientY };
+  }, []);
+
+  const handleTouchEnd = useCallback(
+    (e: React.TouchEvent) => {
+      if (!touchStartRef.current) return;
+      const t = e.changedTouches[0];
+      const dx = t.clientX - touchStartRef.current.x;
+      const dy = t.clientY - touchStartRef.current.y;
+      touchStartRef.current = null;
+      if (Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy)) return;
+      if (dx < 0) handleNext();
+      else goPrevWithResume();
+    },
+    [handleNext, goPrevWithResume]
+  );
+
   useKeyboardShortcuts((e, mod) => {
     switch (true) {
       case mod && e.key === ".":
@@ -620,7 +640,11 @@ export function PrayerTemplate({
               : "xl:grid-cols-[minmax(0,1fr)_20rem]"
           )}
         >
-          <div className="grid grid-rows-[1fr_auto] h-[calc(100svh-4.5rem)] xl:h-[calc(100svh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col">
+          <div
+            className="grid grid-rows-[1fr_auto] h-[calc(100svh-4.5rem)] xl:h-[calc(100svh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col"
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+          >
             <PrayerContent
               words={words}
               isLoading={isLoading}
