@@ -57,10 +57,41 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: "/favicon-16x16.png", sizes: "16x16", type: "image/png" },
-      { url: "/favicon-32x32.png", sizes: "32x32", type: "image/png" },
+      {
+        url: "/icons/dark-favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icons/dark-favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icons/light-favicon-16x16.png",
+        sizes: "16x16",
+        type: "image/png",
+        media: "(prefers-color-scheme: light)",
+      },
+      {
+        url: "/icons/light-favicon-32x32.png",
+        sizes: "32x32",
+        type: "image/png",
+        media: "(prefers-color-scheme: light)",
+      },
     ],
-    apple: "/apple-touch-icon.png",
+    apple: [
+      {
+        url: "/icons/dark-apple-touch-icon.png",
+        media: "(prefers-color-scheme: dark)",
+      },
+      {
+        url: "/icons/light-apple-touch-icon.png",
+        media: "(prefers-color-scheme: light)",
+      },
+    ],
   },
 };
 
