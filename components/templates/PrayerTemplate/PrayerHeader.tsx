@@ -58,8 +58,8 @@ export function PrayerHeader({
       className={cn(
         "sticky top-0 z-10 grid shrink-0 grid-cols-[1fr_auto] items-center gap-4 px-4 lg:grid-cols-[1fr_auto_1fr] lg:pl-10 lg:pr-4 min-h-[4.5rem] lg:min-h-[5.125rem]",
         artworkEnabled
-          ? ""
-          : "border-b border-line bg-ink/75 backdrop-blur-[0.875rem]"
+          ? " backdrop-blur-[0.875rem]"
+          : "border-b border-line bg-ink/75"
       )}
     >
       <div className="min-w-0 justify-self-start">
