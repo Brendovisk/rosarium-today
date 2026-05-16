@@ -4,7 +4,7 @@ import {
   getProgressStorageKey,
   LAST_MYSTERY_KEY,
   ROSARY_STEPS,
-} from "@/player/rosary-steps";
+} from "@/config/rosary";
 
 describe("ROSARY_STEPS", () => {
   // 7 opening + 5 × (1 announcement + 1 paterNoster + 10 aveMaria + 1 gloria + 1 oratio) + 2 closing

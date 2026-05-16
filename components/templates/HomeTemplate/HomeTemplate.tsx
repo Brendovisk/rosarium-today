@@ -37,6 +37,10 @@ import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
 import { getTodaysMystery, isMysteryKey, MYSTERIES } from "@/config/rosary";
 import {
+  ESTIMATED_ROSARY_DURATION_MINS,
+  LAST_MYSTERY_KEY,
+} from "@/config/rosary";
+import {
   getLocalizedFullRosaryPath,
   getLocalizedPath,
   getLocalizedPrayerPath,
@@ -45,10 +49,6 @@ import { useBinauralAudio } from "@/hooks/use-binaural-audio";
 import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
 import { usePrayerHistory } from "@/hooks/use-prayer-history";
 import { useRosaryProgress } from "@/hooks/use-rosary-progress";
-import {
-  ESTIMATED_ROSARY_DURATION_MINS,
-  LAST_MYSTERY_KEY,
-} from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 import { getCurrentDate } from "@/utils/getCurrentDate";

@@ -10,13 +10,13 @@ import {
 } from "react";
 
 import type { SupportedLocale } from "@/config/locales";
-import type { PlaybackRate, VoiceGender } from "@/config/settings";
 import {
   fetchTimestamps,
   getAudioUrl,
   type PrayerKey,
   type WordTimestamp,
-} from "@/player/assets";
+} from "@/config/rosary";
+import type { PlaybackRate, VoiceGender } from "@/config/settings";
 
 type UseRosaryPlayerParams = {
   prayerKey: PrayerKey | null;

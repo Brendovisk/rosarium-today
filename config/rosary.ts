@@ -1,3 +1,8 @@
+import type { SupportedLocale } from "@/config/locales";
+import type { VoiceGender } from "@/config/settings";
+
+// ─── Mystery ──────────────────────────────────────────────────────────────────
+
 export type MysteryKey = "joyful" | "sorrowful" | "glorious" | "luminous";
 
 export const MYSTERIES: readonly MysteryKey[] = [
@@ -7,18 +12,7 @@ export const MYSTERIES: readonly MysteryKey[] = [
   "luminous",
 ];
 
-export const MYSTERY_GRADIENTS: Record<MysteryKey, string> = {
-  joyful:
-    "linear-gradient(135deg, rgba(198,161,91,0.22) 0%, rgba(146,64,14,0.12) 100%)",
-  luminous:
-    "linear-gradient(135deg, rgba(217,119,6,0.14) 0%, rgba(120,53,15,0.10) 100%)",
-  sorrowful:
-    "linear-gradient(135deg, rgba(122,46,47,0.25) 0%, rgba(75,62,50,0.16) 100%)",
-  glorious:
-    "linear-gradient(135deg, rgba(198,161,91,0.26) 0%, rgba(167,111,38,0.12) 100%)",
-};
-
-const MYSTERY_BY_DAY: Readonly<Record<number, MysteryKey>> = {
+const MYSTERY_BY_DAY: Record<number, MysteryKey> = {
   0: "glorious",
   1: "joyful",
   2: "sorrowful",
@@ -36,12 +30,14 @@ export function isMysteryKey(value: string): value is MysteryKey {
   return MYSTERIES.includes(value as MysteryKey);
 }
 
-export const FULL_ROSARY_ORDER: readonly [
-  MysteryKey,
-  MysteryKey,
-  MysteryKey,
-  MysteryKey,
-] = ["joyful", "sorrowful", "luminous", "glorious"];
+export const FULL_ROSARY_ORDER: readonly MysteryKey[] = [
+  "joyful",
+  "sorrowful",
+  "luminous",
+  "glorious",
+];
+
+// ─── Artwork ──────────────────────────────────────────────────────────────────
 
 export type ArtworkPosition = "center" | "top" | "bottom";
 
@@ -53,7 +49,7 @@ export type Artwork = {
   position: ArtworkPosition;
 };
 
-const INTRO_ARTWORKS: Readonly<Partial<Record<string, Artwork>>> = {
+const INTRO_ARTWORKS: Partial<Record<string, Artwork>> = {
   symbolumApostolorum: {
     src: "/artwork/introduction/apostles-creed/francesco_cairo_la_santisima_trinidad.jpg",
     width: 800,
@@ -256,12 +252,165 @@ export function getStepArtwork(
   if (step.type === "opening" || step.type === "closing") {
     return INTRO_ARTWORKS[step.label] ?? null;
   }
-
   if (step.label === "gloriaPatri" || step.label === "oratio") return null;
-
   const artworks = MYSTERY_ARTWORKS[mysteryKey];
-
   if (!artworks.length) return null;
-
   return artworks[(step.decadeIndex ?? 0) % artworks.length] ?? null;
 }
+
+// ─── Audio Assets ─────────────────────────────────────────────────────────────
+
+export type PrayerKey =
+  | "signum-crucis"
+  | "symbolum-apostolorum"
+  | "pater-noster"
+  | "ave-maria"
+  | "gloria-patri"
+  | "oratio-fatima"
+  | "salve-regina"
+  | "miraculous-medal";
+
+export type WordTimestamp = {
+  readonly word: string;
+  readonly start: number;
+  readonly end: number;
+};
+
+function localeDir(locale: SupportedLocale): string {
+  return locale === "la" ? "latin" : locale;
+}
+
+function prayerFileStem(key: PrayerKey): string {
+  return key === "gloria-patri" ? "doxologia-minor" : key;
+}
+
+export function getAudioUrl(
+  prayerKey: PrayerKey,
+  locale: SupportedLocale,
+  gender: VoiceGender
+) {
+  return `/audios/${localeDir(locale)}/${gender}/${prayerFileStem(prayerKey)}.mp3`;
+}
+
+export function getTimestampUrl(
+  prayerKey: PrayerKey,
+  locale: SupportedLocale,
+  gender: VoiceGender
+) {
+  return `/timestamps/${localeDir(locale)}/${gender}/${prayerFileStem(prayerKey)}.json`;
+}
+
+export async function fetchTimestamps(
+  prayerKey: PrayerKey,
+  locale: SupportedLocale,
+  gender: VoiceGender
+): Promise<WordTimestamp[]> {
+  try {
+    const res = await fetch(getTimestampUrl(prayerKey, locale, gender));
+    if (!res.ok) return [];
+    const data = await res.json();
+    return Array.isArray(data) ? (data as WordTimestamp[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+// ─── Rosary Steps ─────────────────────────────────────────────────────────────
+
+export type RosaryStepType =
+  | "opening"
+  | "mystery-announcement"
+  | "decade"
+  | "closing";
+
+export type RosaryStep = {
+  readonly prayerKey: PrayerKey | null;
+  readonly type: RosaryStepType;
+  readonly label: string;
+  readonly decadeIndex: number | null;
+  readonly aveIndex: number | null;
+};
+
+export const DECADES_PER_ROSARY = 5;
+export const AVE_MARIAS_PER_DECADE = 10;
+export const REFLECTION_DURATION_MS = 10_000;
+export const ESTIMATED_ROSARY_DURATION_MINS = 22;
+
+function mkStep(
+  prayerKey: PrayerKey | null,
+  type: RosaryStepType,
+  label: string,
+  decadeIndex: number | null = null,
+  aveIndex: number | null = null
+): RosaryStep {
+  return { prayerKey, type, label, decadeIndex, aveIndex };
+}
+
+const OPENING_STEPS: readonly RosaryStep[] = [
+  mkStep("signum-crucis",        "opening", "signumCrucis"),
+  mkStep("symbolum-apostolorum", "opening", "symbolumApostolorum"),
+  mkStep("pater-noster",         "opening", "paterNoster"),
+  mkStep("ave-maria",            "opening", "avePro.fide"),
+  mkStep("ave-maria",            "opening", "avePro.spe"),
+  mkStep("ave-maria",            "opening", "avePro.caritate"),
+  mkStep("gloria-patri",         "opening", "gloriaPatri"),
+];
+
+const CLOSING_STEPS: readonly RosaryStep[] = [
+  mkStep("salve-regina", "closing", "salveRegina"),
+  mkStep("signum-crucis", "closing", "signumCrucis"),
+];
+
+function buildDecade(i: number): readonly RosaryStep[] {
+  return [
+    mkStep(null,               "mystery-announcement", "mysteryAnnouncement", i),
+    mkStep("pater-noster",     "decade", "paterNoster",     i),
+    ...Array.from({ length: AVE_MARIAS_PER_DECADE }, (_, j) =>
+      mkStep("ave-maria", "decade", "aveMaria", i, j)
+    ),
+    mkStep("gloria-patri",     "decade", "gloriaPatri",     i),
+    mkStep("oratio-fatima",    "decade", "oratio",          i),
+    mkStep("miraculous-medal", "decade", "miraculousMedal", i),
+  ];
+}
+
+const DECADES: readonly RosaryStep[] = Array.from(
+  { length: DECADES_PER_ROSARY },
+  (_, i) => buildDecade(i)
+).flat();
+
+export const ROSARY_STEPS:              readonly RosaryStep[] = [...OPENING_STEPS, ...DECADES, ...CLOSING_STEPS];
+export const ROSARY_STEPS_NO_CLOSING:   readonly RosaryStep[] = [...OPENING_STEPS, ...DECADES];
+export const ROSARY_STEPS_DECADES_ONLY: readonly RosaryStep[] = DECADES;
+export const ROSARY_STEPS_NO_OPENING:   readonly RosaryStep[] = [...DECADES, ...CLOSING_STEPS];
+
+function prayerStepCount(steps: readonly RosaryStep[]): number {
+  return steps.filter((s) => s.type !== "mystery-announcement").length;
+}
+
+const MYSTERY_COUNTS = [
+  prayerStepCount(ROSARY_STEPS_NO_CLOSING),
+  prayerStepCount(ROSARY_STEPS_DECADES_ONLY),
+  prayerStepCount(ROSARY_STEPS_DECADES_ONLY),
+  prayerStepCount(ROSARY_STEPS_NO_OPENING),
+];
+
+export const FULL_ROSARY_PRAYER_STEPS = MYSTERY_COUNTS.reduce(
+  (sum, n) => sum + n,
+  0
+);
+
+export const FULL_ROSARY_PRAYER_STEP_OFFSETS: readonly number[] = (() => {
+  let total = 0;
+  return MYSTERY_COUNTS.map((count) => {
+    const offset = total;
+    total += count;
+    return offset;
+  });
+})();
+
+export function getProgressStorageKey(mysteryKey: MysteryKey) {
+  return `rosarium:progress:${mysteryKey}`;
+}
+
+export const LAST_MYSTERY_KEY = "rosarium:last-mystery";

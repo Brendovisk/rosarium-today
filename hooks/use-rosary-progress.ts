@@ -8,7 +8,7 @@ import {
   LAST_MYSTERY_KEY,
   ROSARY_STEPS,
   type RosaryStep,
-} from "@/player/rosary-steps";
+} from "@/config/rosary";
 
 const readStoredStep = (mysteryKey: MysteryKey, stepsLength: number): number => {
   const storedValue = window.localStorage.getItem(
@@ -40,7 +40,7 @@ export const useRosaryProgress = (
       setHasHydratedFromStorage(true);
       window.localStorage.setItem(LAST_MYSTERY_KEY, mysteryKey);
     });
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+   
   }, [mysteryKey, steps.length, skipProgress]);
 
   useEffect(() => {

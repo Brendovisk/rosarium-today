@@ -18,18 +18,12 @@ import { ShortcutsModal } from "@/components/molecules/ShortcutsModal";
 import { AppSidebar } from "@/components/organisms/AppSidebar";
 import { SettingsDrawer } from "@/components/organisms/SettingsDrawer";
 import type { MysteryKey } from "@/config/rosary";
+import type { PrayerKey } from "@/config/rosary";
 import {
   FULL_ROSARY_ORDER,
   getStepArtwork,
   getTodaysMystery,
 } from "@/config/rosary";
-import { PLAYBACK_RATES, PlaybackRate } from "@/config/settings";
-import { useBinauralAudio } from "@/hooks/use-binaural-audio";
-import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
-import { recordCompletion } from "@/hooks/use-prayer-history";
-import { useRosaryPlayer } from "@/hooks/use-rosary-player";
-import { useRosaryProgress } from "@/hooks/use-rosary-progress";
-import type { PrayerKey } from "@/player/assets";
 import {
   DECADES_PER_ROSARY,
   ESTIMATED_ROSARY_DURATION_MINS,
@@ -39,13 +33,19 @@ import {
   ROSARY_STEPS_DECADES_ONLY,
   ROSARY_STEPS_NO_CLOSING,
   ROSARY_STEPS_NO_OPENING,
-} from "@/player/rosary-steps";
+} from "@/config/rosary";
+import { PLAYBACK_RATES, PlaybackRate } from "@/config/settings";
+import { useBinauralAudio } from "@/hooks/use-binaural-audio";
+import { useKeyboardShortcuts } from "@/hooks/use-keyboard-shortcuts";
+import { recordCompletion } from "@/hooks/use-prayer-history";
+import { useRosaryPlayer } from "@/hooks/use-rosary-player";
+import { useRosaryProgress } from "@/hooks/use-rosary-progress";
 import { useSettings } from "@/providers/SettingsProvider";
 import { cn } from "@/utils/classNames";
 
-import { PrayerContent } from "./src/components/PrayerContent";
-import { PrayerControls } from "./src/components/PrayerControls";
-import { PrayerHeader } from "./src/components/PrayerHeader";
+import { PrayerContent } from "./PrayerContent";
+import { PrayerControls } from "./PrayerControls";
+import { PrayerHeader } from "./PrayerHeader";
 
 type PrayerTemplateProps = {
   mysteryKey: MysteryKey;
@@ -82,7 +82,9 @@ export function PrayerTemplate({
 
   const isSilent = !settings.audioEnabled;
 
-  const fullRosaryIndex = fullRosary ? FULL_ROSARY_ORDER.indexOf(mysteryKey) : -1;
+  const fullRosaryIndex = fullRosary
+    ? FULL_ROSARY_ORDER.indexOf(mysteryKey)
+    : -1;
   const isFullRosary = fullRosaryIndex >= 0;
   const isIntermediateRosary = isFullRosary && fullRosaryIndex < 3;
 
@@ -121,7 +123,7 @@ export function PrayerTemplate({
   } = useRosaryProgress(
     mysteryKey,
     fullRosarySteps,
-    isFullRosary ? true : undefined,
+    isFullRosary ? true : undefined
   );
 
   const navigateToNextMysteryInFullRosary = useCallback(() => {
@@ -129,7 +131,13 @@ export function PrayerTemplate({
     recordCompletion(mysteryKey);
     resetProgress();
     onFullRosaryAdvance?.();
-  }, [isFullRosary, fullRosaryIndex, mysteryKey, resetProgress, onFullRosaryAdvance]);
+  }, [
+    isFullRosary,
+    fullRosaryIndex,
+    mysteryKey,
+    resetProgress,
+    onFullRosaryAdvance,
+  ]);
 
   const handleEnded = useCallback(() => {
     if (!settings.autoPlay) return;
@@ -313,7 +321,9 @@ export function PrayerTemplate({
   const displayPrayerCurrent = isFullRosary
     ? (FULL_ROSARY_PRAYER_STEP_OFFSETS[fullRosaryIndex] ?? 0) + prayerCurrent
     : prayerCurrent;
-  const displayPrayerTotal = isFullRosary ? FULL_ROSARY_PRAYER_STEPS : prayerTotal;
+  const displayPrayerTotal = isFullRosary
+    ? FULL_ROSARY_PRAYER_STEPS
+    : prayerTotal;
 
   const isAve =
     currentStep.label === "aveMaria" && currentStep.aveIndex !== null;
@@ -325,9 +335,18 @@ export function PrayerTemplate({
     const stepsLeft = steps.length - currentStepIndex - 1;
     const secondsCurrent = stepsLeft * 45 + Math.max(duration - currentTime, 0);
     const currentMins = Math.max(0, Math.round(secondsCurrent / 60));
-    const remainingRosaries = isFullRosary ? Math.max(0, 3 - fullRosaryIndex) : 0;
+    const remainingRosaries = isFullRosary
+      ? Math.max(0, 3 - fullRosaryIndex)
+      : 0;
     return currentMins + remainingRosaries * ESTIMATED_ROSARY_DURATION_MINS;
-  }, [currentStepIndex, currentTime, duration, steps.length, isFullRosary, fullRosaryIndex]);
+  }, [
+    currentStepIndex,
+    currentTime,
+    duration,
+    steps.length,
+    isFullRosary,
+    fullRosaryIndex,
+  ]);
 
   const estimatedMins = isFullRosary
     ? ESTIMATED_ROSARY_DURATION_MINS * 4

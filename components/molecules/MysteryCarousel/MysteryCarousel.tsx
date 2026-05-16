@@ -7,8 +7,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/atoms/Button";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
+import { getProgressStorageKey } from "@/config/rosary";
 import { getLocalizedPrayerPath } from "@/config/routes";
-import { getProgressStorageKey } from "@/player/rosary-steps";
 import { useSettings } from "@/providers/SettingsProvider";
 
 import { MysteryCard } from "../MysteryCard";

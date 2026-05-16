@@ -11,11 +11,11 @@ import {
   TooltipTrigger,
 } from "@/components/atoms/Tooltip";
 import type { MysteryKey } from "@/config/rosary";
-import type { VoiceGender } from "@/config/settings";
 import {
   AVE_MARIAS_PER_DECADE,
   ESTIMATED_ROSARY_DURATION_MINS,
-} from "@/player/rosary-steps";
+} from "@/config/rosary";
+import type { VoiceGender } from "@/config/settings";
 import { cn } from "@/utils/classNames";
 
 type PrayerRailProps = {

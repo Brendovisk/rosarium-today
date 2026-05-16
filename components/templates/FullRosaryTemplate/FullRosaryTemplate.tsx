@@ -3,8 +3,8 @@
 import { useState } from "react";
 
 import { PrayerTemplate } from "@/components/templates/PrayerTemplate";
-import { FULL_ROSARY_ORDER } from "@/config/rosary";
 import type { MysteryKey } from "@/config/rosary";
+import { FULL_ROSARY_ORDER } from "@/config/rosary";
 
 type FullRosaryTemplateProps = {
   todaysMystery: MysteryKey;
