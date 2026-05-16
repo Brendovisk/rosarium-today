@@ -2,7 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import {
-  Heart,
+  HandHeart,
   LayoutList,
   Moon,
   Music,
@@ -196,7 +196,7 @@ export function HomeTemplate({
               onClick={() => setDonateOpen(true)}
               aria-label={t("donate")}
             >
-              <Heart />
+              <HandHeart />
 
               <span className="hidden sm:inline ml-2">{t("donate")}</span>
             </Button>

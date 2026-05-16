@@ -1,6 +1,6 @@
 import {
   ChevronLeft,
-  Heart,
+  HandHeart,
   Image as ImageIcon,
   Moon,
   Music2,
@@ -97,7 +97,7 @@ export function PrayerHeader({
               aria-label={t("donate")}
               className="text-muted"
             >
-              <Heart size={18} />
+              <HandHeart size={18} />
             </Button>
           </TooltipTrigger>
 
@@ -127,7 +127,9 @@ export function PrayerHeader({
               variant={audioEnabled ? "default" : "outline"}
               size="icon"
               onClick={onToggleAudio}
-              aria-label={tControls(audioEnabled ? "disableAudio" : "enableAudio")}
+              aria-label={tControls(
+                audioEnabled ? "disableAudio" : "enableAudio"
+              )}
               className={audioEnabled ? "" : "text-muted"}
             >
               {audioEnabled ? <Volume2 size={18} /> : <VolumeX size={18} />}
