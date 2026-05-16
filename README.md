@@ -1,34 +1,47 @@
-# Rosarium Today
+<div align="center">
 
-A free, open-source rosary prayer PWA — word-by-word guided audio, multiple languages, no account required.
+# ✝ Rosarium Today
 
-**Live:** [rosarium.today](https://rosarium.today)
+**Free, open-source rosary prayer PWA — word-by-word guided audio, three languages, no account required.**
+
+[![Live](https://img.shields.io/badge/live-rosarium.today-D4AF37?style=flat-square)](https://rosarium.today)
+![Next.js](https://img.shields.io/badge/Next.js-16-000000?style=flat-square&logo=next.js&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?style=flat-square&logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![next-intl](https://img.shields.io/badge/next--intl-4-EC4899?style=flat-square)
+![License](https://img.shields.io/badge/license-MIT-22C55E?style=flat-square)
+![PWA](https://img.shields.io/badge/PWA-ready-7C3AED?style=flat-square)
+
+🇬🇧 English · [🇧🇷 Português](./README.pt-br.md) · [🏛️ Latina](./README.la.md)
+
+</div>
 
 ---
 
 ## Features
 
-- Word-level highlighted audio playback (Latin, Portuguese, English)
-- Male and female voice options
-- Automatic mystery selection by day of the week
-- Progress saved locally — no account, no server
-- Dark/light themes with three accent palettes
-- Fully keyboard-navigable
-- Offline-capable PWA (installable on mobile and desktop)
+- 🎵 Word-level highlighted audio playback (Latin, Portuguese, English)
+- 🎙️ Male and female voice options
+- 📅 Automatic mystery selection by day of the week
+- 💾 Progress saved locally — no account, no server
+- 🎨 Dark/light themes with three accent palettes (gold, wine, moss)
+- ⌨️ Fully keyboard-navigable
+- 📱 Offline-capable PWA — installable on mobile and desktop
 
 ---
 
 ## Stack
 
-| Layer      | Tech                                   |
-| ---------- | -------------------------------------- |
-| Framework  | Next.js 15 (App Router)                |
-| Language   | TypeScript 5                           |
-| Styling    | Tailwind CSS v4 (CSS-first)            |
-| Components | shadcn/ui + Radix UI                   |
-| Animation  | Framer Motion                          |
-| i18n       | next-intl                              |
-| Audio      | Native `<audio>` + word-timestamp JSON |
+| Layer       | Tech                                   |
+| ----------- | -------------------------------------- |
+| Framework   | Next.js 16 (App Router)                |
+| Language    | TypeScript 5                           |
+| Styling     | Tailwind CSS v4 (CSS-first)            |
+| Components  | shadcn/ui + Radix UI                   |
+| Animation   | Framer Motion                          |
+| i18n        | next-intl 4                            |
+| Audio       | Native `<audio>` + word-timestamp JSON |
 
 ---
 
@@ -37,7 +50,7 @@ A free, open-source rosary prayer PWA — word-by-word guided audio, multiple la
 **Prerequisites:** Node.js 20+, npm 10+
 
 ```bash
-git clone https://github.com/your-org/rosarium-today.git
+git clone https://github.com/Brendovisk/rosarium-today.git
 cd rosarium-today
 npm install
 npm run dev
@@ -45,13 +58,14 @@ npm run dev
 
 App runs at [http://localhost:3000](http://localhost:3000).
 
-### Available Commands
+### Commands
 
 ```bash
 npm run dev        # Dev server with hot reload
 npm run build      # Production build
 npm run lint       # Run ESLint
 npm run lint:fix   # Auto-fix ESLint issues
+npm test           # Run test suite
 ```
 
 ---
@@ -61,61 +75,36 @@ npm run lint:fix   # Auto-fix ESLint issues
 ```
 rosarium-today/
 ├── app/                    # Next.js App Router (pages + server actions)
-│   ├── actions/            # Server actions (settings cookie)
-│   ├── prayer/[mystery]/   # Dynamic prayer route
-│   ├── layout.tsx          # Root layout — fonts, providers, SSR settings
-│   ├── page.tsx            # Home page
-│   └── globals.css         # Tailwind v4 theme tokens
 ├── components/             # Atomic Design component tree
 │   ├── atoms/              # Primitives (Button, BeadViz, Tooltip, Kbd)
 │   ├── molecules/          # Compositions (MysteryCard, PrayerRail, SpeedControl)
 │   ├── organisms/          # Feature sections (AppSidebar, SettingsDrawer)
 │   └── templates/          # Page layouts (HomeTemplate, PrayerTemplate)
 ├── config/                 # Constants and domain config
-│   ├── accents.ts          # Accent color palettes (gold, wine, moss)
-│   ├── locales.ts          # Supported locales
-│   ├── rosary.ts           # Mystery types, day-of-week mapping, gradients
-│   └── settings.ts         # AppSettings type, defaults, cookie serialization
 ├── hooks/                  # Custom React hooks
-│   ├── use-rosary-player.ts    # Audio playback + word-level timestamps
-│   └── use-rosary-progress.ts  # Step navigation + localStorage persistence
-├── i18n/                   # Translation files
-│   ├── prayers/            # Mystery names and prayer texts (en, pt-br, la)
-│   └── ui/                 # Interface strings (en, pt-br, la)
-├── player/                 # Domain logic
-│   ├── assets.ts           # Audio/timestamp URL helpers
-│   └── rosary-steps.ts     # 79-step rosary structure definition
-├── providers/              # React context
-│   └── SettingsProvider.tsx
-├── public/audios/          # Audio files (Latin, pt-br × male/female)
-├── public/timestamps/      # Word-level timing JSON files
-└── utils/                  # Shared utilities
+├── i18n/                   # Translation files (en, pt-br, la)
+├── providers/              # React context (SettingsProvider)
+└── public/                 # Audio files and word-timestamp JSON
 ```
-
-For a deep dive into architecture decisions, see [ARCHITECTURE.md](./ARCHITECTURE.md).
-
----
-
-## Contributing
-
-Pull requests are welcome. See [CONTRIBUTING.md](./CONTRIBUTING.md) for setup, conventions, and open issues.
-
-For significant changes, open an issue first to discuss the approach.
 
 ---
 
 ## Internationalization
 
-Three locales are supported: English (`en`), Brazilian Portuguese (`pt-br`), and Latin (`la`).
+Three locales supported: `en`, `pt-br`, `la`.
 
-To add a new locale:
+To add a locale:
 
-1. Add the locale key to `config/locales.ts`
+1. Add the key to `config/locales.ts`
 2. Create `i18n/ui/{locale}.json` and `i18n/prayers/{locale}.json`
 3. Add audio files to `public/audios/{locale}/`
 4. Add timestamp JSON to `public/timestamps/{locale}/`
 
-See [CONTRIBUTING.md](./CONTRIBUTING.md#adding-a-language) for the full guide.
+---
+
+## Contributing
+
+Pull requests are welcome. For significant changes, open an issue first to discuss the approach.
 
 ---
 
