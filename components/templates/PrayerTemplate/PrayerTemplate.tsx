@@ -21,6 +21,7 @@ import type { MysteryKey } from "@/config/rosary";
 import type { PrayerKey } from "@/config/rosary";
 import {
   FULL_ROSARY_ORDER,
+  getFullRosaryProgressStorageKey,
   getStepArtwork,
   getTodaysMystery,
 } from "@/config/rosary";
@@ -52,6 +53,7 @@ type PrayerTemplateProps = {
   todaysMystery: MysteryKey;
   fullRosary: boolean;
   onFullRosaryAdvance?: () => void;
+  onFullRosaryComplete?: () => void;
 };
 
 const PRAYER_NAME_KEYS: Record<PrayerKey, string> = {
@@ -70,6 +72,7 @@ export function PrayerTemplate({
   todaysMystery: serverTodaysMystery,
   fullRosary,
   onFullRosaryAdvance,
+  onFullRosaryComplete,
 }: PrayerTemplateProps) {
   const [todaysMystery, setTodaysMystery] = useState(serverTodaysMystery);
 
@@ -124,7 +127,8 @@ export function PrayerTemplate({
   } = useRosaryProgress(
     mysteryKey,
     fullRosarySteps,
-    isFullRosary ? true : undefined
+    undefined,
+    isFullRosary ? getFullRosaryProgressStorageKey(mysteryKey) : undefined
   );
 
   const navigateToNextMysteryInFullRosary = useCallback(() => {
@@ -149,6 +153,7 @@ export function PrayerTemplate({
     } else if (isIntermediateRosary) {
       navigateToNextMysteryInFullRosary();
     } else {
+      if (isFullRosary) onFullRosaryComplete?.();
       recordCompletion(mysteryKey);
       resetProgress();
       router.push("/");
@@ -161,6 +166,8 @@ export function PrayerTemplate({
     resetProgress,
     mysteryKey,
     isIntermediateRosary,
+    isFullRosary,
+    onFullRosaryComplete,
     navigateToNextMysteryInFullRosary,
   ]);
 
@@ -424,6 +431,7 @@ export function PrayerTemplate({
     } else if (isIntermediateRosary) {
       navigateToNextMysteryInFullRosary();
     } else {
+      if (isFullRosary) onFullRosaryComplete?.();
       recordCompletion(mysteryKey);
       resetProgress();
       router.push("/");
@@ -436,6 +444,8 @@ export function PrayerTemplate({
     router,
     mysteryKey,
     isIntermediateRosary,
+    isFullRosary,
+    onFullRosaryComplete,
     navigateToNextMysteryInFullRosary,
   ]);
 
@@ -546,6 +556,7 @@ export function PrayerTemplate({
       } else if (isIntermediateRosary) {
         navigateToNextMysteryInFullRosary();
       } else {
+        if (isFullRosary) onFullRosaryComplete?.();
         recordCompletion(mysteryKey);
         resetProgress();
         router.push("/");
@@ -568,6 +579,8 @@ export function PrayerTemplate({
     resetProgress,
     mysteryKey,
     isIntermediateRosary,
+    isFullRosary,
+    onFullRosaryComplete,
     navigateToNextMysteryInFullRosary,
   ]);
 

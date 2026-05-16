@@ -10,10 +10,8 @@ import {
   type RosaryStep,
 } from "@/config/rosary";
 
-const readStoredStep = (mysteryKey: MysteryKey, stepsLength: number): number => {
-  const storedValue = window.localStorage.getItem(
-    getProgressStorageKey(mysteryKey)
-  );
+const readStoredStep = (key: string, stepsLength: number): number => {
+  const storedValue = window.localStorage.getItem(key);
 
   const parsedValue = storedValue ? Number(storedValue) : 0;
 
@@ -26,8 +24,10 @@ export const useRosaryProgress = (
   mysteryKey: MysteryKey,
   customSteps?: readonly RosaryStep[],
   skipProgress?: boolean,
+  storageKey?: string,
 ) => {
   const steps = customSteps ?? ROSARY_STEPS;
+  const progressKey = storageKey ?? getProgressStorageKey(mysteryKey);
 
   const [currentStepIndex, setCurrentStepIndex] = useState(0);
   const [hasHydratedFromStorage, setHasHydratedFromStorage] = useState(false);
@@ -35,22 +35,19 @@ export const useRosaryProgress = (
   useEffect(() => {
     queueMicrotask(() => {
       setCurrentStepIndex(
-        skipProgress ? 0 : readStoredStep(mysteryKey, steps.length)
+        skipProgress ? 0 : readStoredStep(progressKey, steps.length)
       );
       setHasHydratedFromStorage(true);
       window.localStorage.setItem(LAST_MYSTERY_KEY, mysteryKey);
     });
-   
-  }, [mysteryKey, steps.length, skipProgress]);
+
+  }, [mysteryKey, progressKey, steps.length, skipProgress]);
 
   useEffect(() => {
     if (!hasHydratedFromStorage || skipProgress) return;
 
-    window.localStorage.setItem(
-      getProgressStorageKey(mysteryKey),
-      String(currentStepIndex)
-    );
-  }, [currentStepIndex, mysteryKey, hasHydratedFromStorage, skipProgress]);
+    window.localStorage.setItem(progressKey, String(currentStepIndex));
+  }, [currentStepIndex, progressKey, hasHydratedFromStorage, skipProgress]);
 
   const goNext = useCallback(() => {
     setCurrentStepIndex((current) =>
@@ -69,9 +66,9 @@ export const useRosaryProgress = (
   const resetProgress = useCallback(() => {
     setCurrentStepIndex(0);
     if (!skipProgress) {
-      window.localStorage.setItem(getProgressStorageKey(mysteryKey), "0");
+      window.localStorage.setItem(progressKey, "0");
     }
-  }, [mysteryKey, skipProgress]);
+  }, [progressKey, skipProgress]);
 
   const currentStep: RosaryStep = steps[currentStepIndex];
 

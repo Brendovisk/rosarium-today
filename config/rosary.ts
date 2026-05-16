@@ -413,4 +413,9 @@ export function getProgressStorageKey(mysteryKey: MysteryKey) {
   return `rosarium:progress:${mysteryKey}`;
 }
 
+export function getFullRosaryProgressStorageKey(mysteryKey: MysteryKey) {
+  return `rosarium:progress:full-rosary:${mysteryKey}`;
+}
+
 export const LAST_MYSTERY_KEY = "rosarium:last-mystery";
+export const FULL_ROSARY_INDEX_KEY = "rosarium:full-rosary-index";

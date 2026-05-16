@@ -9,11 +9,14 @@ import {
   Music2,
   Music3,
   Play,
+  RotateCcw,
   Settings,
   Sun,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { DropdownMenu } from "radix-ui";
 import {
   useCallback,
   useEffect,
@@ -38,6 +41,10 @@ import type { MysteryKey } from "@/config/rosary";
 import { getTodaysMystery, isMysteryKey, MYSTERIES } from "@/config/rosary";
 import {
   ESTIMATED_ROSARY_DURATION_MINS,
+  FULL_ROSARY_INDEX_KEY,
+  FULL_ROSARY_ORDER,
+  getFullRosaryProgressStorageKey,
+  getProgressStorageKey,
   LAST_MYSTERY_KEY,
 } from "@/config/rosary";
 import {
@@ -70,12 +77,33 @@ export function HomeTemplate({
   const tSettings = useTranslations("settings");
 
   const [lastMystery, setLastMystery] = useState<MysteryKey | null>(null);
+  const [hasFullRosaryProgress, setHasFullRosaryProgress] = useState(false);
 
   useEffect(() => {
     queueMicrotask(() => {
       const stored = localStorage.getItem(LAST_MYSTERY_KEY);
 
       if (stored && isMysteryKey(stored)) setLastMystery(stored);
+    });
+  }, []);
+
+  useEffect(() => {
+    queueMicrotask(() => {
+      const indexStr = localStorage.getItem(FULL_ROSARY_INDEX_KEY);
+      if (!indexStr) return;
+      const index = Number(indexStr);
+      if (!Number.isFinite(index)) return;
+      if (index > 0) {
+        setHasFullRosaryProgress(true);
+        return;
+      }
+      const progressStr = localStorage.getItem(
+        getFullRosaryProgressStorageKey(FULL_ROSARY_ORDER[0])
+      );
+      const progress = progressStr ? Number(progressStr) : 0;
+      if (Number.isFinite(progress) && progress > 0) {
+        setHasFullRosaryProgress(true);
+      }
     });
   }, []);
 
@@ -86,6 +114,21 @@ export function HomeTemplate({
 
   const { settings, patchSettings } = useSettings();
   useBinauralAudio(settings.binauralEnabled, settings.binauralVolume);
+
+  const router = useRouter();
+
+  const startDailyRosaryFresh = useCallback(() => {
+    localStorage.setItem(getProgressStorageKey(continueMystery), "0");
+    router.push(getLocalizedPrayerPath(continueMystery, settings.uiLanguage));
+  }, [continueMystery, router, settings.uiLanguage]);
+
+  const startFullRosaryFresh = useCallback(() => {
+    localStorage.removeItem(FULL_ROSARY_INDEX_KEY);
+    for (const m of FULL_ROSARY_ORDER) {
+      localStorage.removeItem(getFullRosaryProgressStorageKey(m));
+    }
+    router.push(getLocalizedFullRosaryPath(settings.uiLanguage));
+  }, [router, settings.uiLanguage]);
 
   const [donateOpen, setDonateOpen] = useState(false);
   const [shortcutsOpen, setShortcutsOpen] = useState(false);
@@ -296,23 +339,92 @@ export function HomeTemplate({
               </div>
 
               <div className="flex relative flex-col items-stretch justify-center gap-3 w-full xl:justify-start sm:flex-row flex-nowrap">
-                <Link
-                  href={getLocalizedPrayerPath(
-                    continueMystery,
-                    settings.uiLanguage
-                  )}
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
-                >
-                  <Play size={18} fill="currentColor" />{" "}
-                  {canGoPrev ? t("continue") : t("start")}
-                </Link>
+                {canGoPrev ? (
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)] data-[state=open]:translate-y-px">
+                      <Play size={18} fill="currentColor" /> {t("dailyRosary")}
+                    </DropdownMenu.Trigger>
+                    <DropdownMenu.Portal>
+                      <DropdownMenu.Content
+                        align="start"
+                        sideOffset={8}
+                        className="z-50 min-w-[11rem] overflow-hidden rounded-2xl border border-line-2 bg-popover p-1.5 shadow-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+                      >
+                        <DropdownMenu.Item
+                          onSelect={() =>
+                            router.push(
+                              getLocalizedPrayerPath(
+                                continueMystery,
+                                settings.uiLanguage
+                              )
+                            )
+                          }
+                          className="flex cursor-pointer select-none items-center gap-2.5 rounded-xl px-4 py-2.5 font-ui text-[0.875rem] font-medium text-bone outline-none transition-colors hover:bg-line-2 data-[highlighted]:bg-line-2"
+                        >
+                          <Play size={14} fill="currentColor" />{" "}
+                          {t("dropdownContinue")}
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item
+                          onSelect={startDailyRosaryFresh}
+                          className="flex cursor-pointer select-none items-center gap-2.5 rounded-xl px-4 py-2.5 font-ui text-[0.875rem] font-medium text-muted outline-none transition-colors hover:bg-line-2 hover:text-bone data-[highlighted]:bg-line-2 data-[highlighted]:text-bone"
+                        >
+                          <RotateCcw size={14} /> {t("dropdownStartOver")}
+                        </DropdownMenu.Item>
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Portal>
+                  </DropdownMenu.Root>
+                ) : (
+                  <Link
+                    href={getLocalizedPrayerPath(
+                      continueMystery,
+                      settings.uiLanguage
+                    )}
+                    className="inline-flex items-center justify-center gap-3 rounded-full border border-gold bg-gold px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-ink transition-[transform,box-shadow] hover:-translate-y-px hover:shadow-[0_0.875rem_2.5rem_-0.875rem_rgba(198,161,91,0.6)]"
+                  >
+                    <Play size={18} fill="currentColor" /> {t("dailyRosary")}
+                  </Link>
+                )}
 
-                <Link
-                  href={getLocalizedFullRosaryPath(settings.uiLanguage)}
-                  className="inline-flex items-center justify-center gap-3 rounded-full border border-line-2 bg-transparent px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-bone transition-colors hover:border-gold hover:text-gold"
-                >
-                  <LayoutList size={18} /> {t("beginFullRosary")}
-                </Link>
+                {hasFullRosaryProgress ? (
+                  <DropdownMenu.Root>
+                    <DropdownMenu.Trigger className="inline-flex items-center justify-center gap-3 rounded-full border border-line-2 bg-transparent px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-bone transition-colors hover:border-gold hover:text-gold data-[state=open]:border-gold data-[state=open]:text-gold">
+                      <LayoutList size={18} /> {t("beginFullRosary")}
+                    </DropdownMenu.Trigger>
+
+                    <DropdownMenu.Portal>
+                      <DropdownMenu.Content
+                        align="start"
+                        sideOffset={8}
+                        className="z-50 min-w-[11rem] gap-1 flex flex-col overflow-hidden rounded-2xl border border-line-2 bg-popover p-1.5 shadow-xl animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95"
+                      >
+                        <DropdownMenu.Item
+                          onSelect={() =>
+                            router.push(
+                              getLocalizedFullRosaryPath(settings.uiLanguage)
+                            )
+                          }
+                          className="flex cursor-pointer select-none items-center gap-2.5 rounded-xl px-4 py-2.5 font-ui text-[0.875rem] font-medium text-bone outline-none transition-colors hover:bg-line-2 data-[highlighted]:bg-line-2"
+                        >
+                          <Play size={14} fill="currentColor" />{" "}
+                          {t("dropdownContinue")}
+                        </DropdownMenu.Item>
+                        <DropdownMenu.Item
+                          onSelect={startFullRosaryFresh}
+                          className="flex cursor-pointer select-none items-center gap-2.5 rounded-xl px-4 py-2.5 font-ui text-[0.875rem] font-medium text-muted outline-none transition-colors hover:bg-line-2 hover:text-bone data-[highlighted]:bg-line-2 data-[highlighted]:text-bone"
+                        >
+                          <RotateCcw size={14} /> {t("dropdownStartOver")}
+                        </DropdownMenu.Item>
+                      </DropdownMenu.Content>
+                    </DropdownMenu.Portal>
+                  </DropdownMenu.Root>
+                ) : (
+                  <Link
+                    href={getLocalizedFullRosaryPath(settings.uiLanguage)}
+                    className="inline-flex items-center justify-center gap-3 rounded-full border border-line-2 bg-transparent px-7 py-4 font-ui text-[0.875rem] font-semibold tracking-[0.03em] text-bone transition-colors hover:border-gold hover:text-gold"
+                  >
+                    <LayoutList size={18} /> {t("beginFullRosary")}
+                  </Link>
+                )}
 
                 <div className="absolute -top-20 right-0 sm:relative sm:right-0 sm:top-auto w-[3.4375rem] h-[3.4375rem]">
                   <AnimatePresence>
