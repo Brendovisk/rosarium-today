@@ -3,7 +3,7 @@ import type { MetadataRoute } from "next";
 export default function manifest(): MetadataRoute.Manifest {
   return {
     name: "Rosarium Today",
-    short_name: "Rosarium",
+    short_name: "Rosarium Today",
     description:
       "A quiet place to pray the Holy Rosary — word-by-word audio, three languages, no ads.",
     start_url: "/",
