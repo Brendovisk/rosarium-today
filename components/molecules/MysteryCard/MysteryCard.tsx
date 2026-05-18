@@ -51,7 +51,7 @@ export function MysteryCard({
       href={href}
       onClick={onClick}
       className={cn(
-        "relative rounded-[1.375rem] p-[1.5rem_1.375rem_1.375rem] min-h-65 border border-line bg-ink-2",
+        "relative h-full rounded-[1.375rem] p-[1.5rem_1.375rem_1.375rem] min-h-65 border border-line bg-ink-2",
         "overflow-hidden flex flex-col justify-between",
         "transition-[transform,translate,border-color,box-shadow] duration-300 ease-[cubic-bezier(.2,.7,.2,1)]",
         "no-underline",

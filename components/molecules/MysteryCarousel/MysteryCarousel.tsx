@@ -1,10 +1,7 @@
 "use client";
 
-import { useWindowSize } from "@uidotdev/usehooks";
-import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useRef } from "react";
 
-import { Button } from "@/components/atoms/Button";
 import type { MysteryKey } from "@/config/rosary";
 import { MYSTERIES } from "@/config/rosary";
 import { getProgressStorageKey } from "@/config/rosary";
@@ -31,16 +28,7 @@ export function MysteryCarousel({
   kicker,
 }: MysteryCarouselProps) {
   const { settings } = useSettings();
-  const { width } = useWindowSize();
-
-  const shouldSnapFullCards = width == null || width <= 640;
-
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: "start",
-    containScroll: "trimSnaps",
-    loop: false,
-    dragFree: !shouldSnapFullCards,
-  });
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   const clearProgress = (key: MysteryKey) => {
     localStorage.removeItem(getProgressStorageKey(key));
@@ -61,44 +49,27 @@ export function MysteryCarousel({
     />
   ));
 
-  if (width != null && width >= 1280) {
-    return <div className="grid grid-cols-4 gap-4.5 2xl:gap-6">{cards}</div>;
-  }
-
   return (
-    <div className="relative before:pointer-events-none before:absolute before:-inset-y-4 before:-left-14 xl:before:-left-6 xl:after:-right-6 before:z-10 before:w-12 before:bg-linear-to-r before:from-background before:to-transparent after:pointer-events-none after:absolute after:-inset-y-4 after:-right-14 after:z-10 after:w-12 after:bg-linear-to-l after:from-background after:to-transparent sm:before:w-16 sm:after:w-16">
-      <div className="px-8" ref={emblaRef}>
-        <div className="flex gap-4.5 max-[640px]:gap-0">
-          {cards.map((card, i) => (
+    <>
+      <div className="hidden xl:grid grid-cols-4 gap-4.5 2xl:gap-6">
+        {cards}
+      </div>
+
+      <div className="xl:hidden relative before:pointer-events-none before:absolute before:-inset-y-4 before:-left-14 xl:before:-left-6 xl:after:-right-6 before:z-10 before:w-12 before:bg-linear-to-r before:from-background before:to-transparent after:pointer-events-none after:absolute after:-inset-y-4 after:-right-14 after:z-10 after:w-12 after:bg-linear-to-l after:from-background after:to-transparent sm:before:w-16 sm:after:w-16">
+        <div
+          ref={scrollRef}
+          className="flex gap-4.5 overflow-x-auto scroll-smooth snap-x snap-mandatory px-8  max-sm:gap-0 py-4"
+        >
+          {MYSTERIES.map((key, i) => (
             <div
-              key={MYSTERIES[i]}
-              className="min-w-0 flex-[0_0_17.5rem] md:flex-[0_0_calc(33.333%_-_12px)] max-[640px]:flex-[0_0_100%] max-[640px]:pr-4"
+              key={key}
+              className="shrink-0 snap-start w-70 md:w-[calc(33.333%-12px)] max-sm:w-full max-sm:pr-4"
             >
-              {card}
+              {cards[i]}
             </div>
           ))}
         </div>
       </div>
-
-      <div className="relative z-20 mt-4 flex justify-center gap-3">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => emblaApi?.scrollPrev()}
-          aria-label="Previous mystery"
-        >
-          <ChevronLeft size={16} />
-        </Button>
-
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() => emblaApi?.scrollNext()}
-          aria-label="Next mystery"
-        >
-          <ChevronRight size={16} />
-        </Button>
-      </div>
-    </div>
+    </>
   );
 }
