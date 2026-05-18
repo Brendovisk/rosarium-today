@@ -72,13 +72,6 @@ export const useRosaryPlayer = ({
 
     let cancelled = false;
 
-    queueMicrotask(() => {
-      if (!cancelled) {
-        setIsLoading(true);
-        setWords([]);
-      }
-    });
-
     void fetchTimestamps(prayerKey, locale, voiceGender).then((data) => {
       if (!cancelled) {
         setWords(data);

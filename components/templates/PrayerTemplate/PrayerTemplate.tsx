@@ -103,6 +103,8 @@ export function PrayerTemplate({
   const hasAutoStartedRef = useRef(false);
   const resumeAfterStepNavRef = useRef(false);
   const touchStartRef = useRef<{ x: number; y: number } | null>(null);
+  const contentAnimRef = useRef<HTMLDivElement>(null);
+  const touchContainerRef = useRef<HTMLDivElement>(null);
 
   const fullRosarySteps = isFullRosary
     ? fullRosaryIndex === 0
@@ -204,10 +206,21 @@ export function PrayerTemplate({
     }
   }, [isSilent, isPlaying, currentStep.prayerKey]);
 
+  const triggerSwipeAnim = useCallback((dir: "next" | "prev") => {
+    const el = contentAnimRef.current;
+    if (!el) return;
+    const cls = dir === "next" ? "animate-swipe-next" : "animate-swipe-prev";
+    el.classList.remove("animate-swipe-next", "animate-swipe-prev");
+    void el.offsetHeight;
+    el.classList.add(cls);
+  }, []);
+
   const goPrevWithResume = useCallback(() => {
+    navigator.vibrate?.(10);
+    triggerSwipeAnim("prev");
     markResumeIfAudioPlaying();
     goPrev();
-  }, [goPrev, markResumeIfAudioPlaying]);
+  }, [goPrev, markResumeIfAudioPlaying, triggerSwipeAnim]);
 
   useEffect(() => {
     if (!currentStep.prayerKey || isSilent) {
@@ -425,6 +438,8 @@ export function PrayerTemplate({
   }, [patchSettings, settings.playbackRate]);
 
   const handleNext = useCallback(() => {
+    navigator.vibrate?.(10);
+    triggerSwipeAnim("next");
     if (canGoNext) {
       markResumeIfAudioPlaying();
       goNext();
@@ -447,6 +462,7 @@ export function PrayerTemplate({
     isFullRosary,
     onFullRosaryComplete,
     navigateToNextMysteryInFullRosary,
+    triggerSwipeAnim,
   ]);
 
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -467,6 +483,20 @@ export function PrayerTemplate({
     },
     [handleNext, goPrevWithResume]
   );
+
+  useEffect(() => {
+    const el = touchContainerRef.current;
+    if (!el) return;
+    const onTouchMove = (e: TouchEvent) => {
+      if (!touchStartRef.current) return;
+      const t = e.touches[0];
+      const dx = t.clientX - touchStartRef.current.x;
+      const dy = t.clientY - touchStartRef.current.y;
+      if (Math.abs(dx) > Math.abs(dy)) e.preventDefault();
+    };
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    return () => el.removeEventListener("touchmove", onTouchMove);
+  }, []);
 
   useKeyboardShortcuts((e, mod) => {
     switch (true) {
@@ -654,13 +684,13 @@ export function PrayerTemplate({
           )}
         >
           <div
+            ref={touchContainerRef}
             className="grid grid-rows-[1fr_auto] h-[calc(100svh-4.5rem)] xl:h-[calc(100svh-4.3125rem)] xl:h-auto xl:flex min-h-0 xl:flex-col"
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
           >
             <PrayerContent
               words={words}
-              isLoading={isLoading}
               isMysteryAnnouncement={isMysteryAnnouncement}
               isSilent={isSilent}
               activeWordIndex={isSilent ? -1 : activeWordIndex}
@@ -675,6 +705,7 @@ export function PrayerTemplate({
               activeDecadeDescription={activeDecadeDescription}
               isAve={isAve}
               aveIndex={aveIndex}
+              animRef={contentAnimRef}
               onSeekToWord={seekToWord}
               wordRef={wordRef}
             />

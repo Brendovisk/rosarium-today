@@ -289,7 +289,9 @@ export function getAudioUrl(
   locale: SupportedLocale,
   gender: VoiceGender
 ) {
-  return `/audios/${localeDir(locale)}/${gender}/${prayerFileStem(prayerKey)}.mp3`;
+  return `/audios/${localeDir(locale)}/${gender}/${prayerFileStem(
+    prayerKey
+  )}.mp3`;
 }
 
 export function getTimestampUrl(
@@ -297,19 +299,29 @@ export function getTimestampUrl(
   locale: SupportedLocale,
   gender: VoiceGender
 ) {
-  return `/timestamps/${localeDir(locale)}/${gender}/${prayerFileStem(prayerKey)}.json`;
+  return `/timestamps/${localeDir(locale)}/${gender}/${prayerFileStem(
+    prayerKey
+  )}.json`;
 }
+
+const timestampCache = new Map<string, WordTimestamp[]>();
 
 export async function fetchTimestamps(
   prayerKey: PrayerKey,
   locale: SupportedLocale,
   gender: VoiceGender
 ): Promise<WordTimestamp[]> {
+  const key = `${prayerKey}:${locale}:${gender}`;
+
+  if (timestampCache.has(key)) return timestampCache.get(key)!;
+
   try {
     const res = await fetch(getTimestampUrl(prayerKey, locale, gender));
     if (!res.ok) return [];
     const data = await res.json();
-    return Array.isArray(data) ? (data as WordTimestamp[]) : [];
+    const result = Array.isArray(data) ? (data as WordTimestamp[]) : [];
+    timestampCache.set(key, result);
+    return result;
   } catch {
     return [];
   }
@@ -347,13 +359,13 @@ function mkStep(
 }
 
 const OPENING_STEPS: readonly RosaryStep[] = [
-  mkStep("signum-crucis",        "opening", "signumCrucis"),
+  mkStep("signum-crucis", "opening", "signumCrucis"),
   mkStep("symbolum-apostolorum", "opening", "symbolumApostolorum"),
-  mkStep("pater-noster",         "opening", "paterNoster"),
-  mkStep("ave-maria",            "opening", "avePro.fide"),
-  mkStep("ave-maria",            "opening", "avePro.spe"),
-  mkStep("ave-maria",            "opening", "avePro.caritate"),
-  mkStep("gloria-patri",         "opening", "gloriaPatri"),
+  mkStep("pater-noster", "opening", "paterNoster"),
+  mkStep("ave-maria", "opening", "avePro.fide"),
+  mkStep("ave-maria", "opening", "avePro.spe"),
+  mkStep("ave-maria", "opening", "avePro.caritate"),
+  mkStep("gloria-patri", "opening", "gloriaPatri"),
 ];
 
 const CLOSING_STEPS: readonly RosaryStep[] = [
@@ -363,13 +375,13 @@ const CLOSING_STEPS: readonly RosaryStep[] = [
 
 function buildDecade(i: number): readonly RosaryStep[] {
   return [
-    mkStep(null,               "mystery-announcement", "mysteryAnnouncement", i),
-    mkStep("pater-noster",     "decade", "paterNoster",     i),
+    mkStep(null, "mystery-announcement", "mysteryAnnouncement", i),
+    mkStep("pater-noster", "decade", "paterNoster", i),
     ...Array.from({ length: AVE_MARIAS_PER_DECADE }, (_, j) =>
       mkStep("ave-maria", "decade", "aveMaria", i, j)
     ),
-    mkStep("gloria-patri",     "decade", "gloriaPatri",     i),
-    mkStep("oratio-fatima",    "decade", "oratio",          i),
+    mkStep("gloria-patri", "decade", "gloriaPatri", i),
+    mkStep("oratio-fatima", "decade", "oratio", i),
     mkStep("miraculous-medal", "decade", "miraculousMedal", i),
   ];
 }
@@ -379,10 +391,20 @@ const DECADES: readonly RosaryStep[] = Array.from(
   (_, i) => buildDecade(i)
 ).flat();
 
-export const ROSARY_STEPS:              readonly RosaryStep[] = [...OPENING_STEPS, ...DECADES, ...CLOSING_STEPS];
-export const ROSARY_STEPS_NO_CLOSING:   readonly RosaryStep[] = [...OPENING_STEPS, ...DECADES];
+export const ROSARY_STEPS: readonly RosaryStep[] = [
+  ...OPENING_STEPS,
+  ...DECADES,
+  ...CLOSING_STEPS,
+];
+export const ROSARY_STEPS_NO_CLOSING: readonly RosaryStep[] = [
+  ...OPENING_STEPS,
+  ...DECADES,
+];
 export const ROSARY_STEPS_DECADES_ONLY: readonly RosaryStep[] = DECADES;
-export const ROSARY_STEPS_NO_OPENING:   readonly RosaryStep[] = [...DECADES, ...CLOSING_STEPS];
+export const ROSARY_STEPS_NO_OPENING: readonly RosaryStep[] = [
+  ...DECADES,
+  ...CLOSING_STEPS,
+];
 
 function prayerStepCount(steps: readonly RosaryStep[]): number {
   return steps.filter((s) => s.type !== "mystery-announcement").length;

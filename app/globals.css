@@ -215,3 +215,21 @@ html.light {
     z-index: 2;
   }
 }
+
+@keyframes swipe-next {
+  0%, 100% { transform: translateX(0) scale(1); opacity: 1; }
+  35% { transform: translateX(-14px) scale(0.985); opacity: 0.6; }
+}
+
+@keyframes swipe-prev {
+  0%, 100% { transform: translateX(0) scale(1); opacity: 1; }
+  35% { transform: translateX(14px) scale(0.985); opacity: 0.6; }
+}
+
+.animate-swipe-next {
+  animation: swipe-next 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.animate-swipe-prev {
+  animation: swipe-prev 380ms cubic-bezier(0.22, 1, 0.36, 1);
+}

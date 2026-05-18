@@ -1,5 +1,6 @@
 import { BookOpen } from "lucide-react";
 import { useTranslations } from "next-intl";
+import React from "react";
 
 import { PrayerWord } from "@/components/molecules/PrayerWord";
 import { AVE_MARIAS_PER_DECADE } from "@/config/rosary";
@@ -12,7 +13,6 @@ type WordData = {
 
 type PrayerContentProps = {
   words: readonly WordData[];
-  isLoading: boolean;
   isMysteryAnnouncement: boolean;
   isSilent: boolean;
   activeWordIndex: number;
@@ -27,13 +27,13 @@ type PrayerContentProps = {
   activeDecadeDescription: string;
   isAve: boolean;
   aveIndex: number;
+  animRef?: React.RefObject<HTMLDivElement | null>;
   onSeekToWord: (start: number) => void;
   wordRef: (index: number) => (element: HTMLButtonElement | null) => void;
 };
 
 export function PrayerContent({
   words,
-  isLoading,
   isMysteryAnnouncement,
   isSilent,
   activeWordIndex,
@@ -48,13 +48,14 @@ export function PrayerContent({
   activeDecadeDescription,
   isAve,
   aveIndex,
+  animRef,
   onSeekToWord,
   wordRef,
 }: PrayerContentProps) {
   const t = useTranslations("prayer");
 
   return (
-    <section className="relative flex  flex-1 flex-col overflow-hidden lg:min-h-0">
+    <section className="relative flex flex-1 flex-col overflow-hidden lg:min-h-0">
       {!artworkEnabled && (
         <div className="pointer-events-none absolute inset-x-0 top-0 z-10 h-16 bg-linear-to-b from-background to-transparent" />
       )}
@@ -68,7 +69,10 @@ export function PrayerContent({
       </div>
 
       <div className="flex-1 overflow-y-auto p-5 sm:py-10 sm:px-8 lg:px-12">
-        <div className="mx-auto flex min-h-full max-w-3xl flex-col justify-center text-center">
+        <div
+          ref={animRef}
+          className="mx-auto flex min-h-full max-w-3xl flex-col justify-center text-center"
+        >
           <div className="mb-8">
             <h1 className="m-0 font-ui text-sm font-bold uppercase tracking-[0.32em] text-gold">
               {prayerName}
@@ -94,23 +98,10 @@ export function PrayerContent({
                 {activeDecadeDescription}
               </p>
             </div>
-          ) : isLoading ? (
-            <div className="flex justify-center py-16">
-              <div className="flex gap-2">
-                {[0, 1, 2].map((index) => (
-                  <span
-                    key={index}
-                    className="size-1.5 animate-pulse rounded-full bg-gold"
-                    style={{ animationDelay: `${index * 160}ms` }}
-                  />
-                ))}
-              </div>
-            </div>
           ) : (
             <div className="font-display text-[clamp(1.75rem,4vw,2.125rem)] leading-[1.65] font-medium">
               {words.map((word, index) => {
                 const isActive = index === activeWordIndex;
-
                 const isPast =
                   index < lastStartedIndex ||
                   (index === lastStartedIndex && !isActive);
