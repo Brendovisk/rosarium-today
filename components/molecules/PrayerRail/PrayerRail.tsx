@@ -69,7 +69,7 @@ export function PrayerRail({
   return (
     <aside
       className={cn(
-        "relative hidden xl:flex flex-col h-[calc(100svh-6rem)] transition-[padding] duration-300",
+        "relative hidden xl:flex flex-col h-[calc(100svh-5.125rem)] transition-[padding] duration-300",
         artworkEnabled
           ? "backdrop-blur-md"
           : "border-t border-line xl:border-l xl:border-t-0"
@@ -117,7 +117,9 @@ export function PrayerRail({
                     key={decadeName}
                     size="icon"
                     onClick={() => onJumpToDecade(globalIndex)}
-                    variant={globalIndex === decadeIndex ? "default" : "outline"}
+                    variant={
+                      globalIndex === decadeIndex ? "default" : "outline"
+                    }
                     className="size-8 rounded-full border font-ui text-[0.6875rem] transition-colors"
                     aria-label={decadeName}
                   >
@@ -269,8 +271,7 @@ export function PrayerRail({
                 </div>
 
                 <div className="mt-3 font-display text-base text-bone">
-                  {estimatedMins} min · {t("remaining")}{" "}
-                  {remainingMins} min
+                  {estimatedMins} min · {t("remaining")} {remainingMins} min
                 </div>
               </motion.div>
 

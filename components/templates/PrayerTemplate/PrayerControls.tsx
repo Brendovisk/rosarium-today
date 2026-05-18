@@ -59,7 +59,7 @@ export function PrayerControls({
         artworkEnabled ? "" : "border-t border-line bg-ink/90 backdrop-blur-xl"
       )}
     >
-      <div className="mx-auto flex max-w-3xl items-center justify-center gap-3">
+      <div className="mx-auto flex max-w-3xl items-center justify-center gap-3 h-14">
         {!isSilent && (
           <Tooltip>
             <TooltipTrigger asChild>
